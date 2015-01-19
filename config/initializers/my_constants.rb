@@ -1,0 +1,1 @@
+RAILS_TEMP_PATH = "#{Rails.root}/tmp/"
