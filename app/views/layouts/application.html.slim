@@ -1,0 +1,61 @@
+doctype html
+html
+head
+  meta name='viewport' content='width=device-width, initial-scale=1.0'
+  meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1"
+  meta charset='utf-8'
+  title Test
+  = stylesheet_link_tag    'application', media: 'all'
+  = javascript_include_tag 'application'
+  = csrf_meta_tags
+body
+  #wrapper
+    nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"
+      .navbar-header
+        button type='button' class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand href='#'
+          | Intage Vietnam's Data Tools v1.0
+      ul.nav.navbar-top-links.navbar-right
+        li.dropdown
+          a.dropdown-toggle data-toggle="dropdown" href="#"
+            i.fa.fa-fw.fa-bell
+            | &nbsp;
+            i.fa.fa-caret-down
+          ul.dropdown-menu.dropdown-alerts
+            li
+              a href='#'
+                div
+                  span class="fa-stack fa-lg"
+                    i.fa.fa-stack-2x.fa-square
+                    i.fa.fa-stack-1x.fa-user.fa-inverse
+                  |  About
+            li
+              a href='#'
+                div
+                  i.fa.fa-2x.fa-question-circle.fa-spin
+                  |  Help
+      .navbar-default.sidebar role="navigation"
+        .sidebar-nav.navbar-collapse
+          ul.nav#side-menu
+            li.sidebar-search
+              .input-group.custom-search-form
+                input.form-control type='text' placeholder='Search...'
+                span.input-group-btn
+                  button.btn.btn-default type='button'
+                    i.fa.fa-search
+            li
+              a href='#'
+                i.fa.fa-bar-chart-o.fa-fw.fa-2x
+                | &nbsp;Dashboard
+    #page-wrapper
+      .row
+        .col-lg-12
+          h1.page-header
+            | Dashboard
+      .row
+        = yield
+

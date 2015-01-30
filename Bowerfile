@@ -1,0 +1,10 @@
+# A sample Bowerfile
+# Check out https://github.com/42dev/bower-rails#ruby-dsl-configuration for more options
+
+# asset 'bootstrap'
+
+asset 'angular'
+asset 'startbootstrap-sb-admin-2'
+asset 'intro.js'
+asset 'sweetalert'
+asset 'angular-intro.js'
