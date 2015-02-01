@@ -26,7 +26,7 @@ class IndexHelper
 
   def process_and_write_indexes_to_excel(sheet,indexes,blue_link)
     indexes.each do |index|
-      current_row = sheet.add_row([index.question, index.filter, index.index, index.sheet_name, index.error],widths: [:ignore])
+      current_row = sheet.add_row([index.question, index.filter, index.index, index.sheet_name, index.error],:widths=>[40, 40, 4,4,10])
       sheet.add_hyperlink location: index.link, ref: "A#{current_row.index+1}", target: :sheet
       sheet["A#{index.index}"].style = blue_link
     end

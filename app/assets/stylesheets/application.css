@@ -11,7 +11,8 @@
  * file per style scope.
  *
  *= require bootstrap/dist/css/bootstrap.min
- *= require startbootstrap-sb-admin-2/dist/css/sb-admin-2.css
+ *= require startbootstrap-sb-admin-2/dist/css/sb-admin-2
+ *= require sweetalert/lib/sweet-alert
  *= require_tree .
  *= require_self
  *=
@@ -25,3 +26,23 @@
 html, body {
   font-family: "Roboto",Helvetica,Arial,Verdana,sans-serif !important;
 }
+
+.sweet-alert p{
+  text-align: justify;
+}
+
+h1.page-header {
+  margin-bottom: 20px;
+  /*color: #ecf0f1;*/
+  font-size: 28px;
+  /*text-align: center;*/
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  -moz-text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  -webkit-text-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#main-panel a {
+  color: inherit;
+}
+

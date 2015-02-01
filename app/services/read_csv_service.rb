@@ -3,6 +3,24 @@ require 'string'
 
 class ReadCsvService < BaseService
 
+  def read_all_csv_files_in_folder(src_folder,options,indexes)
+    # Get All CSV file in Folder (and sub folder)
+    # folder = Dir.glob(dir_path + "*.CSV")
+    folder = Dir.glob(File.join(src_folder,"**","*.CSV"))
+    # Sort Folder
+    data = []
+    index_helper = IndexHelper.new
+    folder.sort_by! { |f| File.basename(f) }
+    folder.each do |csv_file|
+      d = read_csv(csv_file,options)
+      data << d if d
+      indexes << index_helper.build_index_object(d) if d
+    end
+    data
+  end
+
+  protected
+
   def read_csv(csv_file,options)
     # max_cols = 0
     data = RawData.new
@@ -13,7 +31,7 @@ class ReadCsvService < BaseService
     csv_file_name = File.basename(csv_file)
     data.sheet_name = csv_file_name[0] + csv_file_name[2..5].to_i.to_s
     helper_obj = HelperService.new
-    ap csv_file
+    # ap csv_file
     CSV.foreach(csv_file) do |row|
 
       line = $INPUT_LINE_NUMBER
@@ -94,16 +112,33 @@ class ReadCsvService < BaseService
                     end
                   end
                   # binding.pry
-                  data.val << value
+                  data.val << value if (options['clean_empty_table'] == false) || (options['clean_empty_table'] == true &&  check_empty_code(value['count']))
                 end
               end
             end
         end
       end #unless
     end #foreach CSV
-    # ap data
+    return false if options['clean_empty_table'] && check_empty_table(data.resp)
     data
   end
 
+  private
+
+  def check_empty_code(val_arr)
+    val_arr[1..-1].inject(:+) == 0
+  end
+
+  def check_empty_header(resp_arr,i)
+    resp_arr[i] == 0
+  end
+
+  def delete_header_column(data,col_to_delete)
+
+  end
+
+  def check_empty_table(resp_arr)
+    resp_arr[1..-1].map(&:to_i).inject(:+) == 0
+  end
 
 end

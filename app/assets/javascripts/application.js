@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require angular/angular
 //= require bootstrap/dist/js/bootstrap.min
+//= require sweetalert/lib/sweet-alert.min
+//= require metisMenu/dist/metisMenu.min
 //= require startbootstrap-sb-admin-2/dist/js/sb-admin-2.js
 //= require turbolinks
 //= require_tree .

@@ -179,7 +179,7 @@ class WriteExcelService < BaseService
     data_arr[1..-1].each do
       range = Axlsx::cell_r(index,row.index) + ":" + Axlsx::cell_r(index+1, row.index)
       sheet.merge_cells range
-      p range
+      # p range
       sheet[Axlsx::cell_r(index,row.index) + ":" + Axlsx::cell_r(index+1, row.index)].each { |c|
         c.style = style
       }

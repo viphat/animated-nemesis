@@ -2,6 +2,8 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "angular": "latest",
-    "startbootstrap-sb-admin-2": "latest"
+    "startbootstrap-sb-admin-2": "latest",
+    "intro.js": "latest",
+    "sweetalert": "latest"
   }
 }

@@ -2,7 +2,7 @@ require 'axlsx'
 # https://gist.github.com/randym/3980434
 # https://gist.github.com/randym/3179305
 
-class DataProcessingService < BaseService
+class DataToolsService < BaseService
   EXPORT_DATA_TYPE = [:count, :percent, :both ]
 
   def run
@@ -10,6 +10,7 @@ class DataProcessingService < BaseService
     @indexes = []
 
     helper_obj = HelperService.new
+    read_csv_obj = ReadCsvService.new
 
     encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
 
@@ -20,8 +21,11 @@ class DataProcessingService < BaseService
     options = Hash.new
     options = {
       'build_index' => true,
-      'codelist' => false,
       'all_in_one' => false,
+      'clean_empty_code' => false,
+      'clean_empty_table' => false,
+      'clean_empty_header' => false,
+      'output_file_name' => false,
       'num_of_digits' => 0, # Number of Digits after decimal
       'export_data_type' => :both,
       'orders' => {
@@ -31,17 +35,14 @@ class DataProcessingService < BaseService
         'wtd_resp' => 0,
         'resp' => 3,
         'header_and_data' => 4,
-        'totals' => 8,
+        'totals' => 5,
         'std_deviation' => 0,
-        'means' => 5,
-        'mode' => 6,
-        'medians' => 7
+        'means' => 6,
+        'mode' => 7,
+        'medians' => 8
       }
     }
-    data = read_all_csv_files_in_folder(src_folder,options)
-    # ap data
-
-    export_excel_file = "#{Rails.root}/public/uploads/" + helper_obj.generate_name() + '.xlsx'
+    data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes)
 
     wb = p.workbook
 
@@ -64,9 +65,16 @@ class DataProcessingService < BaseService
         end
       end
     end
-    ap @indexes
+    # ap @indexes
     blue_link = wb.styles.add_style :fg_color => '0000FF'
     index_helper.process_and_write_indexes_to_excel(index_sheet,@indexes, blue_link) if options['build_index']
+
+
+    if options['output_file_name']
+      export_excel_file = "#{Rails.root}/public/uploads/#{options['output_file_name']}.xlsx"
+    else
+      export_excel_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.xlsx"
+    end
 
     p.serialize export_excel_file
 
@@ -74,24 +82,9 @@ class DataProcessingService < BaseService
 
   end
 
-  protected
+  # protected
 
-  def read_all_csv_files_in_folder(src_folder,options)
-    # Get All CSV file in Folder (and sub folder)
-    # folder = Dir.glob(dir_path + "*.CSV")
-    folder = Dir.glob(File.join(src_folder,"**","*.CSV"))
-    # Sort Folder
-    data = []
-    read_csv_object = ReadCsvService.new
-    index_helper = IndexHelper.new
-    folder.sort_by! { |f| File.basename(f) }
-    folder.each do |csv_file|
-      d = read_csv_object.read_csv(csv_file,options)
-      data << d
-      @indexes << index_helper.build_index_object(d)
-    end
-    data
-  end
+
 
 
 end
