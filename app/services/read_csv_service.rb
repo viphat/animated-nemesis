@@ -1,23 +1,17 @@
 require 'csv'
-
-class String
-  def is_number?
-    true if Float(self) rescue false
-  end
-end
+require 'string'
 
 class ReadCsvService < BaseService
 
   def read_csv(csv_file,options)
     # max_cols = 0
-    data = Hash.new
+    data = RawData.new
     header_flag = false
     header_label_flag = 0
     header_label = ""
-    value = []
-    data['val'] = []
+    value = {}
     csv_file_name = File.basename(csv_file)
-    data['sheet_name'] = csv_file_name[0] + csv_file_name[2..5].to_i.to_s
+    data.sheet_name = csv_file_name[0] + csv_file_name[2..5].to_i.to_s
     helper_obj = HelperService.new
 
     CSV.foreach(csv_file) do |row|
@@ -28,36 +22,36 @@ class ReadCsvService < BaseService
         # ap first_cell
         case
           when first_cell.include?('wtd. resp.') then
-            data['wtd_resp'] = row
+            data.wtd_resp = row
           when first_cell.include?('resp.') then
-            data['resp'] = row
+            data.resp = row
           when first_cell.include?('base') then
-            data['base'] = first_cell.upcase
+            data.base = first_cell.upcase
           when first_cell.include?('table') then
-            data['table_name'] = first_cell.capitalize
+            data.table_name = first_cell.capitalize
+          when !first_cell.blank? && data.table_name != nil && data.table_name.include?(first_cell)
+            data.question = first_cell.capitalize
           when first_cell.include?('filters')
-            data['filters'] = first_cell.capitalize
+            data.filters = first_cell.capitalize
           when first_cell === 'means' then
-            data['means'] = row
+            data.means = row
           when first_cell === 'medians' then
-            data['medians'] = row
+            data.medians = row
           when first_cell === 'mode' then
-            data['mode'] = row
+            data.mode = row
           when first_cell === 'std. deviation' then
-            data['std_deviation'] = row
+            data.std_deviation = row
           when first_cell === 'totals' then
-            data['totals_count'] = row
-          when !first_cell.blank? && data['table_name'] != nil && data['table_name'].include?(first_cell)
-            data['question'] = first_cell.capitalize
+            data.totals_count = row
           else
             if !header_flag
               if header_label.present? && header_label_flag + 1 != line
                 # Header
                 header_flag = true
                 header_label = header_label.split.join(" ")
-                data['header_label'] = header_label
-                data['header'] = row
-                data['header'][0] = header_label
+                data.header_label = header_label
+                data.header= row
+                data.header[0] = header_label
               else
                 # Header Label (Truong hop bi xuong dong khi Header qua ngan nhung Label Header qua dai nua)
                 header_label += " " + row.second
@@ -67,14 +61,13 @@ class ReadCsvService < BaseService
               # Data
               unless first_cell.blank?
                 # Count
-                unless data['totals_count'].present?
+                unless data.totals_count.present?
                   value = {}
                   value['count'] = row
                 end
               else
-
                 # %
-                if data['totals_count'].present?
+                if data.totals_count.present?
                   row.map! do |x|
                     if x.blank?
                       x = "0"
@@ -82,10 +75,9 @@ class ReadCsvService < BaseService
                       x.is_number? ? x.to_f.round(options['num_of_digits']) : x
                     end
                   end
-                  data['totals_percent'] = row
-                  data['totals_percent'][0] = data['totals_count'][0]
+                  data.totals_percent = row
+                  data.totals_percent[0] = data.totals_count[0]
                 else
-
                   value['percent'] = row
                   # binding.pry
                   # Fill with 0
@@ -98,7 +90,8 @@ class ReadCsvService < BaseService
                       x.is_number? ? x.to_f.round(options['num_of_digits']) : x
                     end
                   end
-                  data['val'] << value
+                  # binding.pry
+                  data.val << value
                 end
               end
             end

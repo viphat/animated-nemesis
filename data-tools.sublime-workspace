@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"bl",
+				"blue_link"
+			],
+			[
+				"ind",
+				"indexes"
+			],
+			[
+				"index",
+				"indexes"
+			],
+			[
+				"inde",
+				"index_helper"
+			],
+			[
+				"shee",
+				"sheet_name"
+			],
+			[
+				"Index",
+				"IndexHelper"
+			],
+			[
+				"is",
+				"is_number?"
+			],
+			[
+				"per",
+				"percent_arr"
+			],
+			[
+				"merge",
+				"merge_arr"
+			],
+			[
 				"he",
 				"helper_obj"
 			],
@@ -478,42 +514,6 @@
 			[
 				"te",
 				"templateUrl"
-			],
-			[
-				"scree",
-				"screenshots"
-			],
-			[
-				"set_",
-				"set_approve"
-			],
-			[
-				"sub",
-				"submitted"
-			],
-			[
-				"bug",
-				"bug_reports"
-			],
-			[
-				"bug_re",
-				"bug_reports"
-			],
-			[
-				"dismi",
-				"dismissed"
-			],
-			[
-				"give",
-				"give_reward_success"
-			],
-			[
-				"alre",
-				"already_given_reward_befores"
-			],
-			[
-				"increase_",
-				"increase_reward_amt!"
 			]
 		]
 	},
@@ -523,31 +523,7 @@
 			"file": "app/services/data_processing_service.rb",
 			"settings":
 			{
-				"buffer_size": 2022,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/services/helper_service.rb",
-			"settings":
-			{
-				"buffer_size": 867,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/services/write_excel_service.rb",
-			"settings":
-			{
-				"buffer_size": 4077,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/stylesheets/application.css",
-			"settings":
-			{
-				"buffer_size": 1376,
+				"buffer_size": 2706,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,7 +531,31 @@
 			"file": "app/services/read_csv_service.rb",
 			"settings":
 			{
-				"buffer_size": 3258,
+				"buffer_size": 3699,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/services/write_excel_service.rb",
+			"settings":
+			{
+				"buffer_size": 7863,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/services/index_helper.rb",
+			"settings":
+			{
+				"buffer_size": 949,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/services/index.rb",
+			"settings":
+			{
+				"buffer_size": 425,
 				"line_ending": "Unix"
 			}
 		}
@@ -644,20 +644,29 @@
 	],
 	"file_history":
 	[
+		"/home/viphat/Dropbox/Rails/data-tools/doc/index.html",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/index.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/string.rb",
+		"/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/pages/index.html",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/data_processing_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/helper_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/write_excel_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
+		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
+		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Lithuanian.lang",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/flot/PLUGINS.md",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/application.js",
 		"/home/viphat/Dropbox/Rails/data-tools/doc/ApplicationHelper.html",
 		"/home/viphat/Dropbox/Rails/data-tools/doc/ApplicationController.html",
 		"/home/viphat/Dropbox/Rails/yerabook/config/application.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/raphael/dev/amdDev.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/sorting/datetime-moment.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/less/sb-admin-2.less",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/base_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard/index.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/dashboard_controller.rb",
-		"/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/pages/index.html",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/config/routes.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/config/routes.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/app/assets/stylesheets/application.css",
@@ -685,7 +694,6 @@
 		"/home/viphat/Dropbox/Rails/data-tools/Gemfile.lock",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/U2F0IEphbiAxNyAyMzoyMDo0NSAyMDE1/C-0001.CSV",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/U2F0IEphbiAxNyAyMzoyMDo0NSAyMDE1/A-0073.CSV",
-		"/home/viphat/Dropbox/Rails/data-tools/doc/index.html",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/intro.js/themes/introjs-nassim.css",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/config/initializers/init.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/doc/frames.html",
@@ -763,15 +771,7 @@
 		"/home/viphat/Dropbox/Rails/ubrand-ror/app/views/courses/growing.html.slim",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/javascripts/main_admin.coffee",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/.idea/runConfigurations/spec__ubrand_ror.xml",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/tmp/cache/ED6/D70/settings%3Acourse_bonus_increase_rate",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/models/course_review.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/views/answers/_form.html.slim",
-		"/home/viphat/Downloads/FlaticonDownload/flaticon.css",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/routes.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/controllers/users_controller.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/requirejs.yml",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/db/migrate/20140929092437_add_take_a_tour_step_to_user.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/tmp/requirejs/dst/restangular/karma.underscore.conf.js"
+		"/home/viphat/Dropbox/Rails/ubrand-ror/tmp/cache/ED6/D70/settings%3Acourse_bonus_increase_rate"
 	],
 	"find":
 	{
@@ -822,6 +822,19 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"add_blank",
+			"percent",
+			"merge_cells",
+			"add_row(",
+			"add_row",
+			"merge_cells",
+			"row",
+			"add_row",
+			"bold_border",
+			"red_bold",
+			"!=",
+			"both",
+			"fill_blanks",
 			"delete_folder_after_process",
 			"generate_name",
 			"extract_zip_file",
@@ -936,20 +949,7 @@
 			"list-group",
 			"list-wrapper",
 			"menu-icon",
-			"protected",
-			"private",
-			"render",
-			"====",
-			"textangular",
-			"textAngular",
-			"list-group",
-			"textAn",
-			"textAngular",
-			"textAn",
-			"textAngular",
-			"text",
-			"delay",
-			"content_developer_id"
+			"protected"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -979,7 +979,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -988,58 +988,56 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2022,
+						"buffer_size": 2706,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								910,
-								910
+								954,
+								954
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"open_with_edit": true,
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/services/helper_service.rb",
+					"file": "app/services/read_csv_service.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 867,
+						"buffer_size": 3699,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								100,
-								100
+								3550,
+								3550
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"open_with_edit": true,
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1048,15 +1046,44 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4077,
+						"buffer_size": 7863,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								501,
-								501
+								788,
+								788
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/services/index_helper.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 949,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								631,
+								631
 							]
 						],
 						"settings":
@@ -1073,61 +1100,32 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/assets/stylesheets/application.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1376,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1376,
-								1376
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
 					"buffer": 4,
-					"file": "app/services/read_csv_service.rb",
+					"file": "app/services/index.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3258,
+						"buffer_size": 425,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								570,
-								570
+								400,
+								400
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"open_with_edit": true,
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 48.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1140,7 +1138,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -1171,7 +1169,7 @@
 		"rows":
 		[
 			0.0,
-			0.914174862615,
+			0.925705794948,
 			1.0
 		]
 	},
@@ -1191,7 +1189,7 @@
 	"project": "data-tools.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 48.0
 	},
 	"save_all_on_build": false,
 	"select_file":
@@ -1199,6 +1197,14 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"index.rb",
+				"data-tools/app/services/index.rb"
+			],
+			[
+				"aplicationslim",
+				"data-tools/app/views/layouts/application.html.slim"
+			],
 			[
 				"application",
 				"data-tools/app/assets/stylesheets/application.css"
@@ -1702,14 +1708,6 @@
 			[
 				"modelalias",
 				"app/models/alias_author.rb"
-			],
-			[
-				"course_frm",
-				"app/views/admin/courses/_form.html.slim"
-			],
-			[
-				"aliasauthorindex",
-				"app/views/admin/alias_authors/index.html.slim"
 			]
 		],
 		"width": 0.0
