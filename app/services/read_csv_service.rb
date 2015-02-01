@@ -13,8 +13,9 @@ class ReadCsvService < BaseService
     csv_file_name = File.basename(csv_file)
     data.sheet_name = csv_file_name[0] + csv_file_name[2..5].to_i.to_s
     helper_obj = HelperService.new
-
+    ap csv_file
     CSV.foreach(csv_file) do |row|
+
       line = $INPUT_LINE_NUMBER
       # max_cols = row.length if row.length > max_cols
       unless row.all? { |x| x.blank? }
@@ -29,7 +30,7 @@ class ReadCsvService < BaseService
             data.base = first_cell.upcase
           when first_cell.include?('table') then
             data.table_name = first_cell.capitalize
-          when !first_cell.blank? && data.table_name != nil && data.table_name.include?(first_cell)
+          when data.question.nil? && !first_cell.blank? && data.table_name != nil && data.table_name.include?(first_cell)
             data.question = first_cell.capitalize
           when first_cell.include?('filters')
             data.filters = first_cell.capitalize
@@ -44,7 +45,8 @@ class ReadCsvService < BaseService
           when first_cell === 'totals' then
             data.totals_count = row
           else
-            if !header_flag
+            if header_flag == false
+              # binding.pry
               if header_label.present? && header_label_flag + 1 != line
                 # Header
                 header_flag = true
@@ -54,14 +56,15 @@ class ReadCsvService < BaseService
                 data.header[0] = header_label
               else
                 # Header Label (Truong hop bi xuong dong khi Header qua ngan nhung Label Header qua dai nua)
-                header_label += " " + row.second
+                header_label += " " + row.join(" ").split.join(" ")
                 header_label_flag = line
               end
             else
               # Data
+
               unless first_cell.blank?
                 # Count
-                unless data.totals_count.present?
+                if data.totals_count.nil?
                   value = {}
                   value['count'] = row
                 end
@@ -78,8 +81,8 @@ class ReadCsvService < BaseService
                   data.totals_percent = row
                   data.totals_percent[0] = data.totals_count[0]
                 else
+
                   value['percent'] = row
-                  # binding.pry
                   # Fill with 0
                   value['percent'][0] = value['count'][0]
                   value['percent'].map! do |x|

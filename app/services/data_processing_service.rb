@@ -11,7 +11,7 @@ class DataProcessingService < BaseService
 
     helper_obj = HelperService.new
 
-    encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/HAZEL.zip")
+    encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
 
     src_folder = RAILS_TEMP_PATH + encode + "/"
 
