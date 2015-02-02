@@ -81,8 +81,6 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.4)
     execjs (2.2.2)
-    font-awesome-rails (4.3.0.0)
-      railties (>= 3.2, < 5.0)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -216,7 +214,6 @@ DEPENDENCIES
   bower-rails
   carrierwave
   coffee-rails (~> 4.0.0)
-  font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
   js-routes

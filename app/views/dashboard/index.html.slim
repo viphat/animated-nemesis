@@ -9,7 +9,7 @@
         i.fa.fa-times
       = value.html_safe
       / a.alert-link href='#'
-  form.form-horizontal accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}"
+  form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}"
     .panel.panel-yellow#main-panel
       .panel-heading
         | &nbsp;
@@ -20,12 +20,6 @@
               i.fa.fa-archive
               | &nbsp; Data File (.zip): &nbsp;
             input type='file' name='data_file' required='required'
-          .form-group.has-warning.input-group
-            span.input-group-addon
-              i.fa.fa-file-excel-o
-              strong
-                | &nbsp; Output File Name
-            input.form-control type='text' placeholder='File Name' name='output_file_name'
           .form-group.has-warning
             label.control-label
               | Export Data
@@ -33,12 +27,17 @@
               option selected='selected' value='percent' Percentage Only
               option value='count' Count Only
               option value='both' Both Count & Percentage
-
           .form-group.has-warning.input-group
             span.input-group-addon
+              i.fa.fa-file-excel-o
               strong
-                i.fa.fa-bed
-                | &nbsp; Number of Digits
+                | &nbsp; Output File Name
+            input.form-control type='text' placeholder='File Name' name='output_file_name'
+          .form-group.has-warning.input-group
+            span.input-group-addon
+              i.fa.fa-bed
+              strong
+                | &nbsp;&nbsp; Number of Digits
             input.form-control type='number' name='num_of_digits' min='0' max='3' required='required' value=0
         .panel.panel-info
           .panel-heading
@@ -46,7 +45,7 @@
               i.fa.fa-list-ol
               | &nbsp;
               a data-toggle='collapse' data-parent='#main-panel' href='#data_order' aria-expanded='true'
-                | Order
+                | Order (Draggable)
           .panel-collapse.collapse.in#data_order aria-expanded='true'
             .panel-body
               | &nbsp;
