@@ -1,5 +1,3 @@
 class CodeList
-  attr_accessor :question,
-                # :
-
+  attr_accessor :question
 end
