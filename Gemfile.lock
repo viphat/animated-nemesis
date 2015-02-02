@@ -229,6 +229,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   slim
   spring
+  sprockets-rails
   sqlite3
   thin
   turbolinks
