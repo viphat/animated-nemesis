@@ -89,8 +89,6 @@ class DataToolsService < BaseService
       }
     }
 
-
-
     options['build_index'] = true if params['build_index'].present?
     options['all_in_one'] = true if params['all_in_one'].present?
     options['clean_empty_code'] = true if params['clean_empty_code'].present?
