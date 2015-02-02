@@ -4,12 +4,32 @@
 		"selected_items":
 		[
 			[
-				"in",
-				"include?"
+				"o",
+				"original_filename"
+			],
+			[
+				"out",
+				"output_file_name"
+			],
+			[
+				"new",
+				"new_name"
 			],
 			[
 				"hea",
-				"header"
+				"header_and_data"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"bck",
+				"background-color"
+			],
+			[
+				"in",
+				"include?"
 			],
 			[
 				"total",
@@ -214,10 +234,6 @@
 			[
 				"font",
 				"font-weight"
-			],
-			[
-				"text",
-				"text-decoration"
 			],
 			[
 				"delete",
@@ -498,72 +514,114 @@
 			[
 				"padd",
 				"padding-top"
-			],
-			[
-				"at_least_one",
-				"at_least_one_unit"
-			],
-			[
-				"my",
-				"my_courses_ids"
-			],
-			[
-				"rewar",
-				"reward_percent_description"
-			],
-			[
-				"max",
-				"max_friends_description"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "app/views/dashboard/index.html.slim",
+			"settings":
+			{
+				"buffer_size": 3955,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "app/views/layouts/application.html.slim",
 			"settings":
 			{
-				"buffer_size": 2018,
+				"buffer_size": 2294,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/services/read_csv_service.rb",
+			"file": "app/controllers/dashboard_controller.rb",
 			"settings":
 			{
-				"buffer_size": 3696,
+				"buffer_size": 457,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/javascripts/application.js",
+			"file": "app/controllers/application_controller.rb",
 			"settings":
 			{
-				"buffer_size": 896,
+				"buffer_size": 249,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/pages/index.html",
+			"file": "app/services/data_tools_service.rb",
 			"settings":
 			{
-				"buffer_size": 52566,
+				"buffer_size": 2485,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "vendor/assets/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js",
+			"contents": "Searching 721 files for \"read_all_csv_files_in_folder\"\n\n0 matches across 0 files\n\n\nSearching 1886 files for \"read_all_csv_files_in_folder\"\n\n/home/viphat/Dropbox/Rails/data-tools/app/services/data_tools_service.rb:\n   43        }\n   44      }\n   45:     data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes)\n   46  \n   47      wb = p.workbook\n\n/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb:\n    4  class ReadCsvService < BaseService\n    5  \n    6:   def read_all_csv_files_in_folder(src_folder,options,indexes)\n    7      # Get All CSV file in Folder (and sub folder)\n    8      # folder = Dir.glob(dir_path + \"*.CSV\")\n\n2 matches across 2 files\n",
 			"settings":
 			{
-				"buffer_size": 1181,
+				"buffer_size": 693,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "app/assets/javascripts/controllers/dashboard_controller.coffee.erb",
+			"settings":
+			{
+				"buffer_size": 1971,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/stylesheets/application.css",
+			"file": "app/models/data_tools.rb",
 			"settings":
 			{
-				"buffer_size": 1539,
+				"buffer_size": 41,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/data_file.rb",
+			"settings":
+			{
+				"buffer_size": 453,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/routes.rb",
+			"settings":
+			{
+				"buffer_size": 134,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/javascripts/controllers/main_controller.coffee.erb",
+			"settings":
+			{
+				"buffer_size": 582,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/javascripts/main.js",
+			"settings":
+			{
+				"buffer_size": 72,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
+			"settings":
+			{
+				"buffer_size": 6221,
 				"line_ending": "Unix"
 			}
 		},
@@ -571,23 +629,7 @@
 			"file": "Bowerfile",
 			"settings":
 			{
-				"buffer_size": 242,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/assets/javascripts/dashboard.js.erb",
-			"settings":
-			{
-				"buffer_size": 243,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "vendor/assets/bower_components/sweetalert/lib/sweet-alert.css",
-			"settings":
-			{
-				"buffer_size": 8702,
+				"buffer_size": 260,
 				"line_ending": "Unix"
 			}
 		}
@@ -668,31 +710,89 @@
 		"/home/viphat/Dropbox/Rails/data-tools/app",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts",
+		"/home/viphat/Dropbox/Rails/data-tools/app/controllers",
+		"/home/viphat/Dropbox/Rails/data-tools/app/models",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components",
-		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/metisMenu",
-		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/metisMenu/dist",
-		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/sweetalert",
-		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/sweetalert/lib"
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/lodash"
 	],
 	"file_history":
 	[
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/assets.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/config/database.yml",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/sorting/date-eu.js",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/jquery/src/deferred.js",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/examples/initialisation/default.xml",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/features/lengthLinks/dataTables.lengthLinks.css",
+		"/home/viphat/Dropbox/Rails/data-tools/app/helpers/application_helper.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/Rakefile",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnFakeRowspan.js",
+		"/home/viphat/Dropbox/Rails/yerabook/config/routes.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/rubyzip.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/data-tools.sublime-project",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/css/dataTables.responsive.css",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables/media/css/jquery.dataTables_themeroller.css",
+		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/dashboard_controller.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/write_excel_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/intro.js/example/hello-world/withoutBullets.html",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Urdu.lang",
+		"/home/viphat/Dropbox/Rails/data-tools/public/uploads/TW9uIEZlYiAgMiAwMDoyNTo1OCAyMDE1.xlsx",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/jquery-ui/ui/effect-transfer.js",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/application.js",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers/main_controller.coffee.erb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/data_tools_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/dashboard.js.erb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/main.js",
+		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/application.js",
+		"/home/viphat/Dropbox/Rails/data-tools/doc/ApplicationHelper.html",
+		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
+		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular_application.js",
+		"/home/viphat/Dropbox/Rails/data-tools/bower.json",
+		"/home/viphat/Dropbox/Rails/data-tools/Bowerfile",
+		"/home/viphat/Dropbox/Rails/yerabook/vendor/assets/bower_components/angular-sanitize/angular-sanitize.js",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/index.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnGetColumnIndex.js",
+		"/home/viphat/Dropbox/Rails/data-tools/doc/index.html",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/index_helper.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/.yardoc/proxy_types",
+		"/home/viphat/Dropbox/wordpress/wp-emo-ello/trunk/readme.txt",
+		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard/index.html.slim",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/code_list.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/dashboard.css.scss",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/dist/css/bootstrap.css",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnFindCellRowIndexes.js",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap-social/bootstrap-social.css",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/less/bootstrap.less",
+		"/home/viphat/Dropbox/Rails/data-tools/config/boot.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/dist/css/bootstrap-theme.css",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/less/sb-admin-2.less",
+		"/home/viphat/Dropbox/Rails/data-tools/bin/spring",
+		"/home/viphat/Dropbox/Rails/yerabook/db/migrate/20141120072243_add_rating_to_book.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/README.rdoc",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/less/responsive-embed.less",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/intro.js/themes/introjs-nassim.css",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/.gitignore",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/examples/child-rows/whole-row-control.xml",
+		"/home/viphat/Dropbox/Rails/yerabook/app/controllers/welcome_controller.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/intro.js/example/hello-world/withProgress.html",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/base_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/sweetalert/lib/sweet-alert.css",
+		"/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/pages/index.html",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/grunt/sauce_browsers.yml",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/bower.json",
-		"/home/viphat/Dropbox/Rails/data-tools/bin/spring",
 		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/backtrace_silencers.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/pids/server.pid",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/index.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/data_processing_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/raw_data.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/index_helper.rb",
 		"/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/index.html",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/U3VuIEZlYiAgMSAxOTo1NTo0OSAyMDE1/BILLIO2/A-0056.CSV",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/U3VuIEZlYiAgMSAxOToyMjowOSAyMDE1/BILLIO2/A-0001.CSV",
@@ -702,46 +802,26 @@
 		"/home/viphat/Dropbox/Rails/data-tools/public/uploads/HAZEL/C-0002.CSV",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/U3VuIEZlYiAgMSAxOToyMjowOSAyMDE1/BILLIO2/A-0003.CSV",
 		"/home/viphat/Dropbox/Rails/data-tools/tmp/U3VuIEZlYiAgMSAxOToyMjowOSAyMDE1/BILLIO2/A-0004.CSV",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/write_excel_service.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/doc/index.html",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/string.rb",
-		"/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/pages/index.html",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/helper_service.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
-		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Lithuanian.lang",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/flot/PLUGINS.md",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/application.js",
-		"/home/viphat/Dropbox/Rails/data-tools/doc/ApplicationHelper.html",
 		"/home/viphat/Dropbox/Rails/data-tools/doc/ApplicationController.html",
 		"/home/viphat/Dropbox/Rails/yerabook/config/application.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/raphael/dev/amdDev.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/sorting/datetime-moment.js",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/base_service.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard/index.html.slim",
-		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/dashboard_controller.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/config/routes.rb",
-		"/home/viphat/Dropbox/Rails/yerabook/config/routes.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/app/assets/stylesheets/application.css",
 		"/home/viphat/Dropbox/Rails/yerabook/yerabook.sublime-project",
-		"/home/viphat/Dropbox/Rails/yerabook/app/controllers/welcome_controller.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/app/views/welcome/index.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/wrap_parameters.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/config/initializers/non_digest_assets.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/config/database.yml",
-		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/rubyzip.rb",
-		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/application.js",
 		"/home/viphat/Dropbox/Rails/yerabook/app/views/layouts/application.html.slim",
-		"/home/viphat/Dropbox/Rails/data-tools/Bowerfile",
 		"/home/viphat/Dropbox/Rails/data-tools/Gemfile",
 		"/home/viphat/Dropbox/Rails/yerabook/app/helpers/application_helper.rb",
-		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular_application.js",
 		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.erb",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/Bowerfile",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/Gemfile",
-		"/home/viphat/Dropbox/Rails/data-tools/bower.json",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/bootstrap/grunt/bs-raw-files-generator.js",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/db/migrate/20141218102609_change_some_fields_from_integer_to_float_on_users.rb",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/bootstrap/grunt/bs-commonjs-generator.js",
@@ -768,59 +848,19 @@
 		"/home/viphat/Downloads/data-tools/AUGUS/A-0060.CSV",
 		"/home/viphat/Downloads/data-tools/AUGUS/A-0059.CSV",
 		"/home/viphat/Downloads/data-tools/AUGUS/A-0079.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0086.CSV",
-		"/home/viphat/Downloads/data-tools/BILLIO2/B-0005.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0058.CSV",
-		"/home/viphat/Downloads/data-tools/C-0001.CSV",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/video.js/docs/api/vjs.MenuButton.md",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/bootstrap/less/responsive-utilities.less",
-		"/home/viphat/Dropbox/Rails/data-tools/Rakefile",
-		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/inflections.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/my_constants.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/constants.rb",
-		"/home/viphat/Desktop/bootflat.github.io-master/README.markdown",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/common.scss",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/views/courses/_course.html.slim",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/views/shared/_header.html.slim",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/locales/en.yml",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/models/course.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/default.scss",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/flaticon.css",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/public/assets/fonts.css",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/deploy.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/database.yml",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/models/lesson.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/tmp/requirejs/dst/modernizr.js",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/.idea/modules.xml",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/ngModelOptions.min.js",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/models/master_datum.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/lib/tasks/clear_lesson_format.rake",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/lib/tasks/update_course_duration.rake",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/lib/tasks/update_exam_cost.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/locales/admin/en.lessons.yml",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/admin/admin.css.scss",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/content_css.css",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/initializers/assets.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/views/admin/lessons/_form.html.slim",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/controllers/lessons_controller.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/controllers/courses_controller.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/javascripts/admin/courses.coffee.erb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/javascripts/admin/lessons.coffee.erb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/spec/models/answer_spec.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/models/ability.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/app/controllers/admin/courses_controller.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/lib/tasks/add_course_id_to_exams.rake",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/config/initializers/paperclip.rb"
+		"/home/viphat/Downloads/data-tools/AUGUS/A-0086.CSV"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
 		"height": 140.0,
 		"where_history":
 		[
+			"/home/viphat/Dropbox/Rails/data-tools",
+			"/home/viphat/Dropbox/Rails/yerabook",
 			"/home/viphat/Dropbox/Rails/ubrand-ror, -/home/viphat/Dropbox/Rails/ubrand-ror/tmp/*, -/home/viphat/Dropbox/Rails/ubrand-ror/vendor/*, -/home/viphat/Dropbox/Rails/ubrand-ror/public/*, -/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/javascripts/i18n/*, -/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/summernote/*",
 			"/home/viphat/Dropbox/Rails/ubrand-ror",
 			"/home/viphat/Dropbox/Rails/ubrand-ror, -/home/viphat/Dropbox/Rails/ubrand-ror/tmp/*, -/home/viphat/Dropbox/Rails/ubrand-ror/vendor/*, -/home/viphat/Dropbox/Rails/ubrand-ror/public/*, -/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/javascripts/i18n/*, -/home/viphat/Dropbox/Rails/ubrand-ror/app/assets/stylesheets/summernote/*",
@@ -861,6 +901,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"read_all_csv_files_in_folder",
+			"myBookshelf",
+			"bookCtrl",
+			"3",
+			"p ",
+			"ap",
+			"export_excel_file",
+			"panel-info",
+			".panel-info",
+			"panel-info",
+			"widths",
 			"text-align",
 			"data.val",
 			"data",
@@ -977,18 +1028,7 @@
 			"title",
 			"author",
 			"ellipsis",
-			".ellipsis",
-			"students",
-			"main_content",
-			"show",
-			"users",
-			"wp_post",
-			"$scope.options",
-			"underline",
-			"italic",
-			"random",
-			"get_friends",
-			"friend"
+			".ellipsis"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1018,24 +1058,53 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/layouts/application.html.slim",
+					"file": "app/views/dashboard/index.html.slim",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2018,
+						"buffer_size": 3955,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1045,
-								1045
+								1084,
+								1084
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 484.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/layouts/application.html.slim",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2294,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17,
+								17
 							]
 						],
 						"settings":
@@ -1043,33 +1112,27 @@
 							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 594.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 4,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 4,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 1,
-					"file": "app/services/read_csv_service.rb",
+					"buffer": 2,
+					"file": "app/controllers/dashboard_controller.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3696,
+						"buffer_size": 457,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3091,
-								3091
+								181,
+								181
 							]
 						],
 						"settings":
@@ -1078,90 +1141,33 @@
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1548.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/assets/javascripts/application.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 896,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								793,
-								793
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 131.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/viphat/Downloads/startbootstrap-sb-admin-2-1.0.5/pages/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 52566,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13113,
-								13113
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 4933.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "vendor/assets/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js",
+					"buffer": 3,
+					"file": "app/controllers/application_controller.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1181,
+						"buffer_size": 249,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								249,
+								249
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1171,53 +1177,111 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/assets/stylesheets/application.css",
+					"buffer": 4,
+					"file": "app/services/data_tools_service.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1539,
+						"buffer_size": 2485,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1512,
-								1512
+								1172,
+								1172
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 453.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "Bowerfile",
+					"buffer": 5,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 242,
+						"buffer_size": 693,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										273,
+										301
+									],
+									[
+										502,
+										530
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								525,
+								525
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 190.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"file": "app/assets/javascripts/controllers/dashboard_controller.coffee.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1971,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								216,
-								216
+								1410,
+								1410
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"open_with_edit": true,
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1228,19 +1292,136 @@
 				},
 				{
 					"buffer": 7,
-					"file": "app/assets/javascripts/dashboard.js.erb",
+					"file": "app/models/data_tools.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 243,
+						"buffer_size": 41,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								141,
-								141
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"open_with_edit": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/models/data_file.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 453,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								258,
+								258
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"open_with_edit": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 14.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "config/routes.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								128,
+								128
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/assets/javascripts/controllers/main_controller.coffee.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 582,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								500,
+								500
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/assets/javascripts/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 72,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								68,
+								68
 							]
 						],
 						"settings":
@@ -1256,31 +1437,59 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "vendor/assets/bower_components/sweetalert/lib/sweet-alert.css",
+					"buffer": 12,
+					"file": "/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8702,
+						"buffer_size": 6221,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								850,
-								850
+								212,
+								212
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "Bowerfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								245,
+								245
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
 					"type": "text"
 				}
 			]
@@ -1288,7 +1497,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -1319,7 +1528,7 @@
 		"rows":
 		[
 			0.0,
-			0.583346398194,
+			0.547200804952,
 			1.0
 		]
 	},
@@ -1339,7 +1548,7 @@
 	"project": "data-tools.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 50.0
 	},
 	"save_all_on_build": false,
 	"select_file":
@@ -1347,6 +1556,94 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"applicationcontr",
+				"app/controllers/application_controller.rb"
+			],
+			[
+				"applicationhtm",
+				"app/views/layouts/application.html.slim"
+			],
+			[
+				"route.",
+				"config/routes.rb"
+			],
+			[
+				"route",
+				"yerabook/config/routes.rb"
+			],
+			[
+				"datatool",
+				"data-tools/app/services/data_tools_service.rb"
+			],
+			[
+				"datatools",
+				"data-tools/data-tools.sublime-project"
+			],
+			[
+				"write",
+				"data-tools/app/services/write_excel_service.rb"
+			],
+			[
+				"application.js",
+				"data-tools/app/assets/javascripts/application.js"
+			],
+			[
+				"viewsapplication",
+				"data-tools/app/views/layouts/application.html.slim"
+			],
+			[
+				"applicationhtml",
+				"data-tools/doc/ApplicationHelper.html"
+			],
+			[
+				"bowerfile",
+				"data-tools/Bowerfile"
+			],
+			[
+				"dashindex",
+				"data-tools/app/views/dashboard/index.html.slim"
+			],
+			[
+				"index.html",
+				"data-tools/doc/index.html"
+			],
+			[
+				"indexhel",
+				"data-tools/app/services/index_helper.rb"
+			],
+			[
+				"bootstrapcss",
+				"data-tools/vendor/assets/bower_components/bootstrap/dist/css/bootstrap.css"
+			],
+			[
+				"dashboardcss",
+				"data-tools/app/assets/stylesheets/dashboard.css.scss"
+			],
+			[
+				"sb-admin",
+				"data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css"
+			],
+			[
+				"appl",
+				"data-tools/app/assets/stylesheets/application.css"
+			],
+			[
+				"read_cs",
+				"data-tools/app/services/read_csv_service.rb"
+			],
+			[
+				"writ",
+				"data-tools/app/services/write_excel_service.rb"
+			],
+			[
+				"indexhelper",
+				"data-tools/app/services/index_helper.rb"
+			],
+			[
+				"datapro",
+				"data-tools/app/services/data_processing_service.rb"
+			],
 			[
 				"sbadminjs",
 				"data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js"
@@ -1376,16 +1673,8 @@
 				"data-tools/config/routes.rb"
 			],
 			[
-				"route",
-				"yerabook/config/routes.rb"
-			],
-			[
 				"yeraapplicationhtml",
 				"yerabook/app/views/layouts/application.html.slim"
-			],
-			[
-				"bowerfile",
-				"ubrand-ror/Bowerfile"
 			],
 			[
 				"bower",
@@ -1778,86 +2067,6 @@
 			[
 				"encouse",
 				"config/locales/home/en.course.yml"
-			],
-			[
-				"en.yml",
-				"config/locales/en.yml"
-			],
-			[
-				"coursecon",
-				"app/controllers/courses_controller.rb"
-			],
-			[
-				"usercontro",
-				"app/controllers/users_controller.rb"
-			],
-			[
-				"examcoffee",
-				"app/assets/javascripts/admin/exams.coffee.erb"
-			],
-			[
-				"defaul",
-				"app/assets/stylesheets/default.scss"
-			],
-			[
-				"admincourseindex",
-				"app/views/admin/courses/index.html.slim"
-			],
-			[
-				"coursehel",
-				"app/helpers/admin/courses_helper.rb"
-			],
-			[
-				"admincourseco",
-				"app/controllers/admin/courses_controller.rb"
-			],
-			[
-				"modelscore",
-				"app/models/score.rb"
-			],
-			[
-				"coursecontro",
-				"app/controllers/courses_controller.rb"
-			],
-			[
-				"friendcon",
-				"app/controllers/friendships_controller.rb"
-			],
-			[
-				"aliasauthorcon",
-				"app/controllers/admin/alias_authors_controller.rb"
-			],
-			[
-				"coursescoursehtm",
-				"app/views/courses/_course.html.slim"
-			],
-			[
-				"coursepage",
-				"app/views/courses/_courses_page.html.slim"
-			],
-			[
-				"coursecofee",
-				"app/assets/javascripts/admin/courses.coffee.erb"
-			],
-			[
-				"admincs",
-				"app/assets/stylesheets/admin/admin.css.scss"
-			],
-			[
-				"admincoursehe",
-				"app/helpers/admin/courses_helper.rb"
-			],
-			[
-				"adminvicourses",
-				"config/locales/admin/vi.courses.yml"
-			],
-			[
-				"vicourse",
-				"config/locales/home/vi.course.yml"
-			],
-			[
-				"usercontr",
-				"app/controllers/users_controller.rb"
 			]
 		],
 		"width": 0.0

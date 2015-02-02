@@ -1,0 +1,58 @@
+app.controller "DashboardController", [ '$scope', ($scope) ->
+  $scope.sorted_order = 'question,filters,base,wtd_resp,resp,header_and_data,totals,std_deviation,means,mode,medians'
+  $scope.items = [
+    {name: 'Question', value: 'question', is_dismissable: false}
+    {name: 'Filters', value: 'filters', is_dismissable: false}
+    {name: 'Base', value: 'base', is_dismissable: true}
+    {name: 'WTD RESP', value: 'wtd_resp', is_dismissable: true}
+    {name: 'RESP', value: 'resp', is_dismissable: true}
+    {name: 'Header & Data', value: 'header_and_data', is_dismissable: false}
+    {name: 'Totals', value: 'totals', is_dismissable: true}
+    {name: 'Std.Deviation', value: 'std_deviation', is_dismissable: true}
+    {name: 'Means', value: 'means', is_dismissable: false}
+    {name: 'Mode', value: 'mode', is_dismissable: true}
+    {name: 'Medians', value: 'medians', is_dismissable: true}
+  ]
+
+  $scope.dismiss = (item) ->
+    if item.value == 'wtd_resp'
+      i =  _.find($scope.items, (o) ->
+        o.value == 'resp'
+      )
+      unless i?
+        sweetAlert('Lỗi','Bắt buộc phải có 1 trong 2 dòng RESP hoặc WTD RESP','warning')
+        return
+
+    if item.value == 'resp'
+      i =  _.find($scope.items, (o) ->
+        o.value == 'wtd_resp'
+      )
+      unless i?
+        sweetAlert('Lỗi','Bắt buộc phải có 1 trong 2 dòng RESP hoặc WTD RESP','warning')
+        return
+
+    _.remove($scope.items, (n) ->
+      n == item
+    )
+    sorted_order = []
+    _.map($scope.items, (n)->
+      sorted_order.push(n.value)
+    )
+    $scope.sorted_order = sorted_order.join(',')
+
+  $scope.sortableOptions =
+    update: (e,ui) ->
+      # sorted_order = []
+      # _.map($scope.items, (n)->
+      #   sorted_order.push(n.value)
+      # )
+      # console.log sorted_order.join(',')
+      return
+    stop: (e,ui) ->
+      sorted_order = []
+      _.map($scope.items, (n)->
+        sorted_order.push(n.value)
+      )
+      $scope.sorted_order = sorted_order.join(',')
+      return
+]

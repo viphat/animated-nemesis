@@ -4,6 +4,8 @@
     "angular": "latest",
     "startbootstrap-sb-admin-2": "latest",
     "intro.js": "latest",
-    "sweetalert": "latest"
+    "sweetalert": "latest",
+    "angular-ui-sortable": "latest",
+    "lodash": "latest"
   }
 }

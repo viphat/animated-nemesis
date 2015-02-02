@@ -9,7 +9,7 @@ head
   = javascript_include_tag 'application'
   = csrf_meta_tags
 body
-  #wrapper
+  #wrapper ng-app='mainApp' ng-controller='MainController'
     nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"
       .navbar-header
         button type='button' class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
@@ -27,7 +27,7 @@ body
             i.fa.fa-caret-down
           ul.dropdown-menu.dropdown-alerts
             li
-              a href='#' onclick='about()'
+              a href='#' ng-click='about()'
                 div
                   span class="fa-stack fa-lg"
                     i.fa.fa-stack-2x.fa-square
@@ -51,7 +51,7 @@ body
             li
               a href='#'
                 i.fa.fa-bar-chart-o.fa-fw.fa-2x
-                | &nbsp;Data Tools
+                | &nbsp; Data Tools
             li
               a href='#'
                 i.fa.fa-columns.fa-fw.fa-2x

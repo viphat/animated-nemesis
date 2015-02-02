@@ -1,0 +1,15 @@
+app.config ['$httpProvider', ($httpProvider) ->
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  $httpProvider.defaults.headers.common.Accept = 'application/json'
+]
+
+app.controller "MainController", [ '$scope', ($scope) ->
+  $scope.about = () ->
+    sweetAlert
+      title: 'About'
+      text: 'Công cụ xử lý và tổng hợp Data CSV - Output của SurveyCraft thành File Excel (Intage Vietnam\'s Data Tools)<br/><br/><em>Xây dựng bởi Dương Vì Phát</em>'
+      type: 'info'
+      showCancelButton: false
+      html: true
+    return
+]

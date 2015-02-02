@@ -93,7 +93,7 @@ class ReadCsvService < BaseService
                     if x.blank?
                       x = "0"
                     else
-                      x.is_number? ? x.to_f.round(options['num_of_digits']) : x
+                      x.is_number? ? x.to_f.round(options['num_of_digits'].to_i) : x
                     end
                   end
                   data.totals_percent = row
@@ -107,12 +107,10 @@ class ReadCsvService < BaseService
                     if x.blank?
                       x = "0"
                     else
-                      # x.is_a? Numeric ? x.round(options['num_of_digits']) : x
-                      x.is_number? ? x.to_f.round(options['num_of_digits']) : x
+                      x.is_number? ? x.to_f.round(options['num_of_digits'].to_i) : x
                     end
                   end
-                  # binding.pry
-                  data.val << value if (options['clean_empty_table'] == false) || (options['clean_empty_table'] == true &&  check_empty_code(value['count']))
+                  data.val << value if (options['clean_empty_table'] == false) || (options['clean_empty_table'] == true &&  !check_empty_code(value['count']))
                 end
               end
             end

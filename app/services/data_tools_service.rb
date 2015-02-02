@@ -5,43 +5,22 @@ require 'axlsx'
 class DataToolsService < BaseService
   EXPORT_DATA_TYPE = [:count, :percent, :both ]
 
-  def run
+  def run(file,options)
 
     @indexes = []
 
     helper_obj = HelperService.new
     read_csv_obj = ReadCsvService.new
 
+    # encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
     encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
 
     src_folder = RAILS_TEMP_PATH + encode + "/"
 
     p = Axlsx::Package.new
     p.use_shared_strings = true
-    options = Hash.new
-    options = {
-      'build_index' => true,
-      'all_in_one' => false,
-      'clean_empty_code' => false,
-      'clean_empty_table' => false,
-      'clean_empty_header' => false,
-      'output_file_name' => false,
-      'num_of_digits' => 0, # Number of Digits after decimal
-      'export_data_type' => :both,
-      'orders' => {
-        'question' => 1,
-        'filters' => 2,
-        'base' => 0,
-        'wtd_resp' => 0,
-        'resp' => 3,
-        'header_and_data' => 4,
-        'totals' => 5,
-        'std_deviation' => 0,
-        'means' => 6,
-        'mode' => 7,
-        'medians' => 8
-      }
-    }
+
+
     data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes)
 
     wb = p.workbook
@@ -80,9 +59,68 @@ class DataToolsService < BaseService
 
     helper_obj.delete_folder_after_process(src_folder)
 
+    export_excel_file
   end
 
   # protected
+
+  def build_options(params)
+    options = {
+      'build_index' => true,
+      'all_in_one' => false,
+      'clean_empty_code' => false,
+      'clean_empty_table' => false,
+      'clean_empty_header' => false,
+      'output_file_name' => false,
+      'num_of_digits' => 0, # Number of Digits after decimal
+      'export_data_type' => :both,
+      'orders' => {
+        'question' => 1,
+        'filters' => 2,
+        'base' => 0,
+        'wtd_resp' => 0,
+        'resp' => 3,
+        'header_and_data' => 4,
+        'totals' => 5,
+        'std_deviation' => 0,
+        'means' => 6,
+        'mode' => 7,
+        'medians' => 8
+      }
+    }
+
+
+
+    options['build_index'] = true if params['build_index'].present?
+    options['all_in_one'] = true if params['all_in_one'].present?
+    options['clean_empty_code'] = true if params['clean_empty_code'].present?
+    options['clean_empty_table'] = true if params['clean_empty_table'].present?
+    options['clean_empty_header'] = true if params['clean_empty_header'].present?
+    options['num_of_digits'] = params['num_of_digits']
+
+    options['export_data_type'] = :percent if params['export_data_type'] = 'percent'
+    options['export_data_type'] = :count if params['export_data_type'] = 'count'
+    options['export_data_type'] = :both if params['export_data_type'] = 'both'
+
+    if params['output_file_name'].present? &&  params['output_file_name'] != ''
+      options['output_file_name'] = File.basename(params['output_file_name'])
+    end
+
+    build_orders(params,options)
+
+    options
+  end
+
+  private
+
+  def build_orders(params,options)
+    orders = params['orders']
+    index = 1
+    orders.split(",").each do |o|
+      options[o] = index
+      index += 1
+    end
+  end
 
 
 

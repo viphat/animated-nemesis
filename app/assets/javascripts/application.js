@@ -12,10 +12,16 @@
 //
 //= require jquery/dist/jquery.min
 //= require jquery_ujs
+//= require jquery-ui/ui/minified/core.min
+//= require jquery-ui/ui/minified/widget.min
+//= require jquery-ui/ui/minified/mouse.min
+//= require jquery-ui/ui/minified/sortable.min
+//= require lodash/lodash.min
 //= require angular/angular
 //= require bootstrap/dist/js/bootstrap.min
 //= require sweetalert/lib/sweet-alert.min
 //= require metisMenu/dist/metisMenu.min
 //= require startbootstrap-sb-admin-2/dist/js/sb-admin-2.js
-//= require turbolinks
+//= require angular-ui-sortable/sortable
+//= require main
 //= require_tree .
