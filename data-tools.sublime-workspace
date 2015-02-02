@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"!",
+				"!important"
+			],
+			[
+				"num",
+				"num_of_digits"
+			],
+			[
+				"data_",
+				"data_tools"
+			],
+			[
+				"Bui",
+				"BuildOptions"
+			],
+			[
+				"Build",
+				"BuildOption"
+			],
+			[
 				"o",
 				"original_filename"
 			],
@@ -494,26 +514,6 @@
 			[
 				"quiz",
 				"quizzes"
-			],
-			[
-				"exam",
-				"exam_obj"
-			],
-			[
-				"read",
-				"reading_watching_take_exam_notice"
-			],
-			[
-				"html",
-				"html5_javascript_support"
-			],
-			[
-				"!",
-				"!important"
-			],
-			[
-				"padd",
-				"padding-top"
 			]
 		]
 	},
@@ -523,7 +523,39 @@
 			"file": "app/views/dashboard/index.html.slim",
 			"settings":
 			{
-				"buffer_size": 3955,
+				"buffer_size": 3970,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/dashboard_controller.rb",
+			"settings":
+			{
+				"buffer_size": 854,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/services/code_list.rb",
+			"settings":
+			{
+				"buffer_size": 44,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/stylesheets/application.css",
+			"settings":
+			{
+				"buffer_size": 1815,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/environments/production.rb",
+			"settings":
+			{
+				"buffer_size": 3309,
 				"line_ending": "Unix"
 			}
 		},
@@ -536,37 +568,19 @@
 			}
 		},
 		{
-			"file": "app/controllers/dashboard_controller.rb",
+			"file": "Gemfile",
 			"settings":
 			{
-				"buffer_size": 457,
+				"buffer_size": 1384,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/controllers/application_controller.rb",
+			"file": "app/services/read_csv_service.rb",
 			"settings":
 			{
-				"buffer_size": 249,
+				"buffer_size": 4588,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/services/data_tools_service.rb",
-			"settings":
-			{
-				"buffer_size": 2485,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 721 files for \"read_all_csv_files_in_folder\"\n\n0 matches across 0 files\n\n\nSearching 1886 files for \"read_all_csv_files_in_folder\"\n\n/home/viphat/Dropbox/Rails/data-tools/app/services/data_tools_service.rb:\n   43        }\n   44      }\n   45:     data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes)\n   46  \n   47      wb = p.workbook\n\n/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb:\n    4  class ReadCsvService < BaseService\n    5  \n    6:   def read_all_csv_files_in_folder(src_folder,options,indexes)\n    7      # Get All CSV file in Folder (and sub folder)\n    8      # folder = Dir.glob(dir_path + \"*.CSV\")\n\n2 matches across 2 files\n",
-			"settings":
-			{
-				"buffer_size": 693,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
 			}
 		},
 		{
@@ -578,18 +592,18 @@
 			}
 		},
 		{
-			"file": "app/models/data_tools.rb",
+			"file": "app/models/data_file.rb",
 			"settings":
 			{
-				"buffer_size": 41,
+				"buffer_size": 526,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/models/data_file.rb",
+			"file": "app/services/helper_service.rb",
 			"settings":
 			{
-				"buffer_size": 453,
+				"buffer_size": 867,
 				"line_ending": "Unix"
 			}
 		},
@@ -602,34 +616,18 @@
 			}
 		},
 		{
-			"file": "app/assets/javascripts/controllers/main_controller.coffee.erb",
+			"file": "app/services/data_tools_service.rb",
 			"settings":
 			{
-				"buffer_size": 582,
+				"buffer_size": 3693,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/assets/javascripts/main.js",
+			"file": "config/initializers/assets.rb",
 			"settings":
 			{
-				"buffer_size": 72,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
-			"settings":
-			{
-				"buffer_size": 6221,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Bowerfile",
-			"settings":
-			{
-				"buffer_size": 260,
+				"buffer_size": 377,
 				"line_ending": "Unix"
 			}
 		}
@@ -709,11 +707,10 @@
 		"/home/viphat/Dropbox/Rails/data-tools",
 		"/home/viphat/Dropbox/Rails/data-tools/app",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/views",
 		"/home/viphat/Dropbox/Rails/data-tools/app/controllers",
 		"/home/viphat/Dropbox/Rails/data-tools/app/models",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components",
@@ -721,9 +718,21 @@
 	],
 	"file_history":
 	[
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
+		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Catalan.lang",
 		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/assets.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/config.ru",
+		"/home/viphat/Dropbox/Rails/data-tools/app/models/data_tools.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/README.rdoc",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/less/responsive-embed.less",
 		"/home/viphat/Dropbox/Rails/data-tools/config/database.yml",
+		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/application_controller.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/Bowerfile",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/main.js",
+		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers/main_controller.coffee.erb",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/sorting/date-eu.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/jquery/src/deferred.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/examples/initialisation/default.xml",
@@ -739,23 +748,17 @@
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables/media/css/jquery.dataTables_themeroller.css",
 		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/dashboard_controller.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/write_excel_service.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/intro.js/example/hello-world/withoutBullets.html",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Urdu.lang",
 		"/home/viphat/Dropbox/Rails/data-tools/public/uploads/TW9uIEZlYiAgMiAwMDoyNTo1OCAyMDE1.xlsx",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/jquery-ui/ui/effect-transfer.js",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/application.js",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers/main_controller.coffee.erb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/data_tools_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/dashboard.js.erb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/main.js",
 		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/application.js",
 		"/home/viphat/Dropbox/Rails/data-tools/doc/ApplicationHelper.html",
-		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
 		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular_application.js",
 		"/home/viphat/Dropbox/Rails/data-tools/bower.json",
-		"/home/viphat/Dropbox/Rails/data-tools/Bowerfile",
 		"/home/viphat/Dropbox/Rails/yerabook/vendor/assets/bower_components/angular-sanitize/angular-sanitize.js",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/index.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnGetColumnIndex.js",
@@ -777,8 +780,6 @@
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/startbootstrap-sb-admin-2/less/sb-admin-2.less",
 		"/home/viphat/Dropbox/Rails/data-tools/bin/spring",
 		"/home/viphat/Dropbox/Rails/yerabook/db/migrate/20141120072243_add_rating_to_book.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/README.rdoc",
-		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/less/responsive-embed.less",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/intro.js/themes/introjs-nassim.css",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/.gitignore",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/examples/child-rows/whole-row-control.xml",
@@ -844,15 +845,11 @@
 		"/home/viphat/Downloads/data-tools/AUGUS/A-0065.CSV",
 		"/home/viphat/Downloads/data-tools/AUGUS/A-0066.CSV",
 		"/home/viphat/Downloads/data-tools/AUGUS/A-0072.CSV",
-		"/home/viphat/Downloads/data-tools/ULUWATU/A-0004.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0060.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0059.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0079.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0086.CSV"
+		"/home/viphat/Downloads/data-tools/ULUWATU/A-0004.CSV"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
@@ -901,6 +898,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"relative_url_root",
+			"options['num_of_digits']",
 			"read_all_csv_files_in_folder",
 			"myBookshelf",
 			"bookCtrl",
@@ -1026,9 +1025,7 @@
 			"\"courses.exams\"",
 			"def title",
 			"title",
-			"author",
-			"ellipsis",
-			".ellipsis"
+			"author"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1058,7 +1055,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -1067,15 +1064,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3955,
+						"buffer_size": 3970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1084,
-								1084
+								325,
+								325
 							]
 						],
 						"settings":
@@ -1084,14 +1081,130 @@
 							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 484.0,
+						"translation.y": 196.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "app/controllers/dashboard_controller.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								490,
+								490
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 78.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/services/code_list.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 44,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44,
+								44
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/assets/stylesheets/application.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1815,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1470,
+								1470
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 725.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "config/environments/production.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								444,
+								444
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "app/views/layouts/application.html.slim",
 					"semi_transient": false,
 					"settings":
@@ -1103,8 +1216,8 @@
 						"selection":
 						[
 							[
-								17,
-								17
+								515,
+								515
 							]
 						],
 						"settings":
@@ -1112,27 +1225,27 @@
 							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 12.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "app/controllers/dashboard_controller.rb",
+					"buffer": 6,
+					"file": "Gemfile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 457,
+						"buffer_size": 1384,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								181,
-								181
+								629,
+								629
 							]
 						],
 						"settings":
@@ -1141,128 +1254,50 @@
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 322.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/controllers/application_controller.rb",
+					"buffer": 7,
+					"file": "app/services/read_csv_service.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 249,
+						"buffer_size": 4588,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								249,
-								249
+								3930,
+								3930
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
+							"history_list_is_closing": true,
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2608.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/services/data_tools_service.rb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2485,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1172,
-								1172
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 693,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										273,
-										301
-									],
-									[
-										502,
-										530
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								525,
-								525
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 190.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
+					"stack_index": 15,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 6,
 			"sheets":
 			[
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"file": "app/assets/javascripts/controllers/dashboard_controller.coffee.erb",
 					"semi_transient": false,
 					"settings":
@@ -1274,8 +1309,8 @@
 						"selection":
 						[
 							[
-								1410,
-								1410
+								179,
+								179
 							]
 						],
 						"settings":
@@ -1287,30 +1322,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "app/models/data_tools.rb",
+					"buffer": 9,
+					"file": "app/models/data_file.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 41,
+						"buffer_size": 526,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15,
-								15
+								237,
+								237
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"open_with_edit": true,
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -1321,37 +1355,35 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "app/models/data_file.rb",
+					"buffer": 10,
+					"file": "app/services/helper_service.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 453,
+						"buffer_size": 867,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								258,
-								258
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"open_with_edit": true,
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 14.0,
+						"translation.y": 345.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 11,
 					"file": "config/routes.rb",
 					"semi_transient": false,
 					"settings":
@@ -1376,120 +1408,123 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "app/assets/javascripts/controllers/main_controller.coffee.erb",
+					"buffer": 12,
+					"file": "app/services/data_tools_service.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 582,
+						"buffer_size": 3693,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								500,
-								500
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "app/assets/javascripts/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 72,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								68,
-								68
+								2609,
+								2609
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2070.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6221,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								212,
-								212
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 13,
-					"file": "Bowerfile",
+					"file": "config/initializers/assets.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 260,
+						"buffer_size": 377,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								245,
-								245
+								184,
+								184
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "config/environments/production.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1008,
+								1008
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 483.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Gemfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1384,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								143,
+								143
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 575.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1497,7 +1532,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 31.0
 	},
 	"input":
 	{
@@ -1548,7 +1583,7 @@
 	"project": "data-tools.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 58.0
 	},
 	"save_all_on_build": false,
 	"select_file":
@@ -1556,6 +1591,42 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"pro",
+				"config/environments/production.rb"
+			],
+			[
+				"asset",
+				"config/initializers/assets.rb"
+			],
+			[
+				"applicaslim",
+				"app/views/layouts/application.html.slim"
+			],
+			[
+				"applica",
+				"app/assets/stylesheets/application.css"
+			],
+			[
+				"codelist",
+				"app/services/code_list.rb"
+			],
+			[
+				"read",
+				"app/services/read_csv_service.rb"
+			],
+			[
+				"data_fi",
+				"app/models/data_file.rb"
+			],
+			[
+				"helper",
+				"app/services/helper_service.rb"
+			],
 			[
 				"applicationcontr",
 				"app/controllers/application_controller.rb"
@@ -1703,10 +1774,6 @@
 			[
 				"gemfile.lo",
 				"data-tools/Gemfile.lock"
-			],
-			[
-				"gem",
-				"data-tools/Gemfile"
 			],
 			[
 				"baseserrb",
@@ -2035,38 +2102,6 @@
 			[
 				"studencoffe",
 				"app/assets/javascripts/courses/students/students.coffee.erb"
-			],
-			[
-				"data",
-				"config/database.yml"
-			],
-			[
-				"requ",
-				"config/requirejs.yml"
-			],
-			[
-				"adminuserindex",
-				"app/views/admin/users/index.html.slim"
-			],
-			[
-				"adminusercon",
-				"app/controllers/admin/users_controller.rb"
-			],
-			[
-				"adminusercoffee",
-				"app/assets/javascripts/admin/users.coffee.erb"
-			],
-			[
-				"routejserb",
-				"app/assets/javascripts/routes.js.erb"
-			],
-			[
-				"modeluser",
-				"app/models/user.rb"
-			],
-			[
-				"encouse",
-				"config/locales/home/en.course.yml"
 			]
 		],
 		"width": 0.0
@@ -2078,7 +2113,7 @@
 		[
 			[
 				"",
-				"~/Ubrand.sublime-project"
+				"~/Dropbox/Rails/yerabook/yerabook.sublime-project"
 			],
 			[
 				"yera",
