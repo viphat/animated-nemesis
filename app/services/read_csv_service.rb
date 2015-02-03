@@ -12,6 +12,7 @@ class ReadCsvService < BaseService
     index_helper = IndexHelper.new
     folder.sort_by! { |f| File.basename(f) }
     folder.each do |csv_file|
+      ap csv_file
       d = read_csv(csv_file,options)
       data << d if d
       indexes << index_helper.build_index_object(d) if d
@@ -23,6 +24,9 @@ class ReadCsvService < BaseService
 
   def read_csv(csv_file,options)
     # max_cols = 0
+    csv_text = File.read(csv_file).encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    csv = CSV.parse(csv_text, headers: false)
+
     data = RawData.new
     header_flag = false
     header_label_flag = 0
@@ -32,7 +36,8 @@ class ReadCsvService < BaseService
     data.sheet_name = csv_file_name[0] + csv_file_name[2..5].to_i.to_s
     helper_obj = HelperService.new
     # ap csv_file
-    CSV.foreach(csv_file) do |row|
+    # CSV.foreach(csv_file) do |row|
+    csv.each do |row|
 
       line = $INPUT_LINE_NUMBER
       # max_cols = row.length if row.length > max_cols

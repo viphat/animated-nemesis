@@ -4,6 +4,7 @@ class WriteExcelService < BaseService
 
   def export_data_to_excel(wb,data,options={},sheet)
     # Setup Styles
+    ap data.sheet_name
     predefined_styles = set_predefined_styles(wb)
     sorted_order = options['orders'].sort_by{ |k,v| v }
 
