@@ -528,10 +528,42 @@
 			}
 		},
 		{
+			"file": "app/views/layouts/application.html.slim",
+			"settings":
+			{
+				"buffer_size": 2462,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "config/environments/production.rb",
 			"settings":
 			{
-				"buffer_size": 3310,
+				"buffer_size": 3373,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/services/data_tools_service.rb",
+			"settings":
+			{
+				"buffer_size": 3700,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/javascripts/controllers/dashboard_controller.coffee.erb",
+			"settings":
+			{
+				"buffer_size": 2249,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/javascripts/controllers/main_controller.coffee.erb",
+			"settings":
+			{
+				"buffer_size": 582,
 				"line_ending": "Unix"
 			}
 		}
@@ -623,19 +655,26 @@
 	],
 	"file_history":
 	[
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard/index.html.slim",
+		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/main.js",
 		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/dashboard_controller.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/models/data_file.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/sorting/date-eu.js",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/jquery-ui/ui/i18n/datepicker-el.js",
+		"/home/viphat/Dropbox/Rails/data-tools/data-tools.sublime-project",
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnProcessingIndicator.js",
+		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/wrap_parameters.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
+		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/assets.rb",
+		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard/index.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/code_list.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/config/environments/production.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/views/layouts/application.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/Gemfile",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers/dashboard_controller.coffee.erb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/models/data_file.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/helper_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/config/routes.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/data_tools_service.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/assets.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/application.js",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets/application.css",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Catalan.lang",
@@ -646,20 +685,16 @@
 		"/home/viphat/Dropbox/Rails/data-tools/config/database.yml",
 		"/home/viphat/Dropbox/Rails/data-tools/app/controllers/application_controller.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/Bowerfile",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/main.js",
 		"/home/viphat/Dropbox/Rails/yerabook/app/assets/javascripts/angular/books.js.coffee.erb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/controllers/main_controller.coffee.erb",
-		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/sorting/date-eu.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/jquery/src/deferred.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/examples/initialisation/default.xml",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/features/lengthLinks/dataTables.lengthLinks.css",
 		"/home/viphat/Dropbox/Rails/data-tools/app/helpers/application_helper.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/Rakefile",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnFakeRowspan.js",
 		"/home/viphat/Dropbox/Rails/yerabook/config/routes.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/rubyzip.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/data-tools.sublime-project",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-responsive/css/dataTables.responsive.css",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables/media/css/jquery.dataTables_themeroller.css",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/write_excel_service.rb",
@@ -724,7 +759,6 @@
 		"/home/viphat/Dropbox/Rails/yerabook/app/assets/stylesheets/application.css",
 		"/home/viphat/Dropbox/Rails/yerabook/yerabook.sublime-project",
 		"/home/viphat/Dropbox/Rails/yerabook/app/views/welcome/index.html.slim",
-		"/home/viphat/Dropbox/Rails/data-tools/config/initializers/wrap_parameters.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/config/initializers/non_digest_assets.rb",
 		"/home/viphat/Dropbox/Rails/yerabook/app/views/layouts/application.html.slim",
 		"/home/viphat/Dropbox/Rails/yerabook/app/helpers/application_helper.rb",
@@ -748,9 +782,7 @@
 		"/home/viphat/Dropbox/Rails/ubrand-ror/tmp/requirejs/dst/jquery/src/var/indexOf.js",
 		"/home/viphat/Dropbox/Rails/data-tools/config/environment.rb",
 		"/home/viphat/Dropbox/ruby/projects/ftadb/helpers/import_excel.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/tmp/U2F0IEphbiAxNyAyMzoyMDo0NSAyMDE1/C-0002.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0073.CSV",
-		"/home/viphat/Downloads/data-tools/AUGUS/A-0065.CSV"
+		"/home/viphat/Dropbox/Rails/data-tools/tmp/U2F0IEphbiAxNyAyMzoyMDo0NSAyMDE1/C-0002.CSV"
 	],
 	"find":
 	{
@@ -960,7 +992,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -976,8 +1008,8 @@
 						"selection":
 						[
 							[
-								1470,
-								1470
+								324,
+								324
 							]
 						],
 						"settings":
@@ -986,33 +1018,62 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 138.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 1,
-					"file": "config/environments/production.rb",
+					"file": "app/views/layouts/application.html.slim",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3310,
+						"buffer_size": 2462,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1015,
-								1033
+								480,
+								480
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "config/environments/production.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1472,
+								1472
 							]
 						],
 						"settings":
@@ -1021,10 +1082,95 @@
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 428.0,
+						"translation.y": 773.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/services/data_tools_service.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3700,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2422,
+								2422
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1852.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/assets/javascripts/controllers/dashboard_controller.coffee.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1611,
+								1611
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 782.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/assets/javascripts/controllers/main_controller.coffee.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 582,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								300,
+								300
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 79.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1063,7 +1209,7 @@
 		"rows":
 		[
 			0.0,
-			0.547200804952,
+			0.418629376381,
 			1.0
 		]
 	},
@@ -1091,6 +1237,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"maincoffee",
+				"app/assets/javascripts/controllers/main_controller.coffee.erb"
+			],
+			[
+				"dashboardcoffee",
+				"app/assets/javascripts/controllers/dashboard_controller.coffee.erb"
+			],
+			[
+				"applicatioslim",
+				"app/views/layouts/application.html.slim"
+			],
 			[
 				"gem",
 				"Gemfile"
@@ -1368,10 +1526,6 @@
 				"app/services/post_images_service.rb"
 			],
 			[
-				"maincoffee",
-				"app/assets/javascripts/main.coffee.erb"
-			],
-			[
 				"common",
 				"app/assets/stylesheets/common.scss"
 			],
@@ -1594,14 +1748,6 @@
 			[
 				"sidebarnot",
 				"app/views/courses/_sidebar_not_join.html.slim"
-			],
-			[
-				"sidebar_j",
-				"app/views/courses/_sidebar_join.html.slim"
-			],
-			[
-				"studencoffe",
-				"app/assets/javascripts/courses/students/students.coffee.erb"
 			]
 		],
 		"width": 0.0
@@ -1613,7 +1759,7 @@
 		[
 			[
 				"",
-				"~/Dropbox/Rails/yerabook/yerabook.sublime-project"
+				"~/Ubrand.sublime-project"
 			],
 			[
 				"yera",

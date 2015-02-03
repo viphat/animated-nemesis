@@ -20,15 +20,30 @@ app.controller "DashboardController", [ '$scope', ($scope) ->
         o.value == 'resp'
       )
       unless i?
-        sweetAlert('Lỗi','Bắt buộc phải có 1 trong 2 dòng RESP hoặc WTD RESP','warning')
+        sweetAlert
+          title: 'Lỗi'
+          text: 'Bắt buộc phải có 1 trong 2 dòng RESP hoặc WTD RESP'
+          type: 'warning'
+          showCancelButton: false
+          closeOnConfirm: false
+          html: true
+          timer: 3000
         return
+
 
     if item.value == 'resp'
       i =  _.find($scope.items, (o) ->
         o.value == 'wtd_resp'
       )
       unless i?
-        sweetAlert('Lỗi','Bắt buộc phải có 1 trong 2 dòng RESP hoặc WTD RESP','warning')
+        sweetAlert
+          title: 'Lỗi'
+          text: 'Bắt buộc phải có 1 trong 2 dòng RESP hoặc WTD RESP'
+          type: 'warning'
+          showCancelButton: false
+          closeOnConfirm: false
+          html: true
+          timer: 3000
         return
 
     _.remove($scope.items, (n) ->

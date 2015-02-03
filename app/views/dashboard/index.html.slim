@@ -55,7 +55,7 @@
                     ul.list ui-sortable="sortableOptions" ng-model='items'
                       li.item ng-repeat='item in items'
                         | {{ item.name }}
-                        button.close ng-click='dismiss(item)' ng-if='item.is_dismissable'
+                        button.close ng-click='dismiss(item)' ng-if='item.is_dismissable' onclick='event.preventDefault();'
                           i.fa.fa-times
                     input type='hidden' value='{{sorted_order}}' name='orders'
         .panel.panel-info

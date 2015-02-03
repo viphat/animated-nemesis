@@ -13,7 +13,7 @@ class DataToolsService < BaseService
     read_csv_obj = ReadCsvService.new
 
     # encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
-    encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
+    encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
 
     src_folder = RAILS_TEMP_PATH + encode + "/"
 
