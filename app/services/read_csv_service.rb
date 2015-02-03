@@ -20,13 +20,11 @@ class ReadCsvService < BaseService
     data
   end
 
-  protected
-
   def read_csv(csv_file,options)
     # max_cols = 0
     csv_text = File.read(csv_file).encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     csv = CSV.parse(csv_text, headers: false)
-
+    ap csv
     data = RawData.new
     header_flag = false
     header_label_flag = 0
@@ -37,9 +35,11 @@ class ReadCsvService < BaseService
     helper_obj = HelperService.new
     # ap csv_file
     # CSV.foreach(csv_file) do |row|
-    csv.each do |row|
-
-      line = $INPUT_LINE_NUMBER
+    csv.each_with_index do |row,line|
+      if row.all? { |x| x == "" }
+        next
+      end
+      # line = $INPUT_LINE_NUMBER
       # max_cols = row.length if row.length > max_cols
       unless row.all? { |x| x.blank? }
         first_cell = helper_obj.trim_and_downcase_a_string(row[0])
@@ -67,6 +67,10 @@ class ReadCsvService < BaseService
             data.std_deviation = row
           when first_cell === 'totals' then
             data.totals_count = row
+            if check_empty_code(data.totals_count)
+              data.totals_percent = row
+              data.totals_percent[0] = data.totals_count[0]
+            end
           else
             if header_flag == false
               # binding.pry
@@ -90,6 +94,11 @@ class ReadCsvService < BaseService
                 if data.totals_count.nil?
                   value = {}
                   value['count'] = row
+                  if check_empty_code(value['count'])
+                    value['percent'] = row
+                    value['percent'][0] = value['count'][0]
+                    data.val << value if (options['clean_empty_code'] == false)
+                  end
                 end
               else
                 # %
@@ -104,7 +113,6 @@ class ReadCsvService < BaseService
                   data.totals_percent = row
                   data.totals_percent[0] = data.totals_count[0]
                 else
-
                   value['percent'] = row
                   # Fill with 0
                   value['percent'][0] = value['count'][0]
@@ -115,7 +123,7 @@ class ReadCsvService < BaseService
                       x.is_number? ? x.to_f.round(options['num_of_digits'].to_i) : x
                     end
                   end
-                  data.val << value if (options['clean_empty_table'] == false) || (options['clean_empty_table'] == true &&  !check_empty_code(value['count']))
+                  data.val << value if (options['clean_empty_code'] == false) || (options['clean_empty_code'] == true &&  !check_empty_code(value['count']))
                 end
               end
             end
@@ -126,10 +134,8 @@ class ReadCsvService < BaseService
     data
   end
 
-  private
-
   def check_empty_code(val_arr)
-    val_arr[1..-1].inject(:+) == 0
+    val_arr[1..-1].map(&:to_i).inject(:+) == 0
   end
 
   def check_empty_header(resp_arr,i)

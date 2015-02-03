@@ -131,7 +131,7 @@ class WriteExcelService < BaseService
     total_arr = data.totals_count if options['export_data_type'] == :count
     total_arr = data.totals_percent if options['export_data_type'] == :percent
     total_arr = merge_arr(data.totals_count,data.totals_percent) if options['export_data_type'] == :both
-
+    # binding.pry
     s = predefined_styles['bold']
 
     if options['export_data_type'] == :both
