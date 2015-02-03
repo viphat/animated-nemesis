@@ -96,9 +96,9 @@ class DataToolsService < BaseService
     options['clean_empty_header'] = true if params['clean_empty_header'].present?
     options['num_of_digits'] = params['num_of_digits']
 
-    options['export_data_type'] = :percent if params['export_data_type'] = 'percent'
-    options['export_data_type'] = :count if params['export_data_type'] = 'count'
-    options['export_data_type'] = :both if params['export_data_type'] = 'both'
+    options['export_data_type'] = :percent if params['export_data_type'] == 'percent'
+    options['export_data_type'] = :count if params['export_data_type'] == 'count'
+    options['export_data_type'] = :both if params['export_data_type'] == 'both'
 
     if params['output_file_name'].present? &&  params['output_file_name'] != ''
       options['output_file_name'] = File.basename(params['output_file_name'])
