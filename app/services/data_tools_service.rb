@@ -75,17 +75,17 @@ class DataToolsService < BaseService
       'num_of_digits' => 0, # Number of Digits after decimal
       'export_data_type' => :both,
       'orders' => {
-        'question' => 1,
-        'filters' => 2,
+        'question' => 0,
+        'filters' => 0,
         'base' => 0,
         'wtd_resp' => 0,
-        'resp' => 3,
-        'header_and_data' => 4,
-        'totals' => 5,
+        'resp' => 0,
+        'header_and_data' => 0,
+        'totals' => 0,
         'std_deviation' => 0,
-        'means' => 6,
-        'mode' => 7,
-        'medians' => 8
+        'means' => 0,
+        'mode' => 0,
+        'medians' => 0
       }
     }
 
@@ -115,12 +115,9 @@ class DataToolsService < BaseService
     orders = params['orders']
     index = 1
     orders.split(",").each do |o|
-      options[o] = index
+      options['orders'][o] = index
       index += 1
     end
   end
-
-
-
 
 end
