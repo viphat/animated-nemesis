@@ -168,8 +168,11 @@ class WriteExcelService < BaseService
   def merge_arr(count_arr,percent_arr)
     both_arr = [count_arr[0]]
     count_arr[1..-1].each.with_index(1) do |v,i|
-      both_arr << count_arr[i]
-      both_arr << percent_arr[i]
+      both_arr << count_arr[i] unless count_arr.nil?
+      both_arr << percent_arr[i] unless percent_arr.nil?
+      if percent_arr.nil?
+        both_arr << 0
+      end
     end
     both_arr
   end
