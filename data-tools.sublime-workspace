@@ -528,27 +528,35 @@
 			}
 		},
 		{
+			"file": "app/views/dashboard/index.html.slim",
+			"settings":
+			{
+				"buffer_size": 4044,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/deploy.rb",
+			"settings":
+			{
+				"buffer_size": 3576,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "require 'mina/bundler'\nrequire 'mina/rails'\nrequire 'mina/git'\nrequire 'mina/rvm'\n# require 'mina/unicorn'\n# require 'mina/whenever'\n# require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)\n# require 'mina/rvm'    # for rvm support. (http://rvm.io)\n\n# Basic settings:\n#   domain       - The hostname to SSH to.\n#   deploy_to    - Path to deploy into.\n#   repository   - Git repo to clone from. (needed by mina/git)\n#   branch       - Branch name to deploy. (needed by mina/git)\n\nset :domain, 's1.ubrand.vn' #\nset :deploy_to, '/home/ubc/deploy'\nset :repository, 'git@gitlab.com:thiensubs/ubc_ubrand.git'\nset :branch, 's1'\nset :rails_env, 'production'\nset :user, 'ubc'\nset :forward_agent, true\nset :port, '22'\n# set :domain, 'DROPLET-IPADDRESS'\n# set :deploy_to, '/home/deployer/APPNAME'\n# set :repository, 'git@github.com:YOU/APPNAME.git'\n# set :branch, 'master'\n# For system-wide RVM install.\n#   set :rvm_path, '/usr/local/rvm/bin/rvm'\n\n# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.\n# They will be linked in the 'deploy:link_shared_paths' step.\nset :shared_paths, ['config/database.yml', 'log']\n# set :unicorn_pid, \"#{deploy_to}/#{current_path}/tmp/pids/ubrand.pid\"\n# Optional settings:\n#   set :user, 'foobar'    # Username in the server to SSH to.\n#   set :port, '30000'     # SSH port number.\n#   set :forward_agent, true     # SSH forward_agent.\n\n# This task is the environment that is loaded for most commands, such as\n# `mina deploy` or `mina rake`.\ntask :environment do\n  # If you're using rbenv, use this to load the rbenv environment.\n  # Be sure to commit your .rbenv-version to your repository.\n  # invoke :'rbenv:load'\n\n  # For those using RVM, use this to load an RVM version@gemset.\n  # invoke :'rvm:use[ruby-1.9.3-p125@default]'\n  queue %{\n          echo \"-----> Loading environment\"\n          #{echo_cmd %[source  ~/.bashrc]}\n        }\n  queue 'source ~/.bash_profile'\n  invoke :'rvm:use[ruby-2.2.0@ubrand]'\nend\n\n# Put any custom mkdir's in here for when `mina setup` is ran.\n# For Rails apps, we'll make some of the shared paths that are shared between\n# all releases.\ntask :setup => :environment do\n  queue! %[mkdir -p \"#{deploy_to}/#{shared_path}/log\"]\n  queue! %[chmod g+rx,u+rwx \"#{deploy_to}/#{shared_path}/log\"]\n\n  queue! %[mkdir -p \"#{deploy_to}/#{shared_path}/config\"]\n  queue! %[chmod g+rx,u+rwx \"#{deploy_to}/#{shared_path}/config\"]\n\n  queue! %[mkdir -p \"#{deploy_to}/#{shared_path}/tmp/sockets\"]\n  queue! %[chmod g+rx,u+rwx \"#{deploy_to}/#{shared_path}/tmp/sockets\"]\n\n  queue! %[mkdir -p \"#{deploy_to}/#{shared_path}/tmp/pids\"]\n  queue! %[chmod g+rx,u+rwx \"#{deploy_to}/#{shared_path}/tmp/pids\"]\n\n  queue! %[touch \"#{deploy_to}/#{shared_path}/config/database.yml\"]\n  queue  %[echo \"-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'.\"]\nend\n\ndesc \"Deploys the current version to the server.\"\ntask :deploy => :environment do\n  deploy do\n    # queue! %{\n    #   test -s \"#{unicorn_pid}\" && kill -QUIT `cat \"#{unicorn_pid}\"` && echo \"Stop Ok\" && exit 0\n    #   echo >&2 \"Not running\"\n    #   }\n    to :prepare do\n      queue \"cd #{deploy_to}/current ; RAILS_ENV=production bin/delayed_job stop\"\n    end\n    \n    invoke :'git:clone'\n    invoke :'deploy:link_shared_paths'\n    invoke :'bundle:install'\n    invoke :'rails:db_migrate'\n    invoke :'rails:assets_precompile'\n    invoke :'deploy:cleanup'\n\n    to :launch do\n      queue %{\n          echo \"Export ENV KEY\"\n          #{echo_cmd %[export FACEBOOK_APP_ID=1474172962855921]}\n          #{echo_cmd %[export FACEBOOK_SECRET=cd31163ea096202387987b1f7c7e33fd]}\n          #{echo_cmd %[export S3_BUCKET=ubrand-staging]}\n          #{echo_cmd %[export S3_KEY=AKIAJCTH5I7GXHEIGRZQ]}\n          #{echo_cmd %[export S3_SECRET=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]}\n          #{echo_cmd %[export SENDGRID_PASSWORD=zaq12wsxcde34rfv]}\n          #{echo_cmd %[export SENDGRID_USERNAME=emailmarketing1tgm]}\n          #{echo_cmd %[export SECRET_KEY_BASE=0c940c01a342d11dd77d85e25b509e1514663b6d5dc94c6fbc0fdfe5c88559cef68493129f3fe30ca2caa95aa1a3cc13f8f5ae11adc49b6324c518494879dbba]}\n        }\n      queue %{\n        #{echo_cmd %[cd \"#{deploy_to}/#{current_path}\"]}\n        echo \"Running export i18n:js\"\n        #{echo_cmd %[RAILS_ENV=production bundle exec rake i18n:js:export]}\n      }\n      queue \"mkdir -p #{deploy_to}/#{current_path}/tmp/\"\n      queue \"touch #{deploy_to}/#{current_path}/tmp/restart.txt\"\n      queue \"cd #{deploy_to}/current ; mkdir -p tmp/pids ; RAILS_ENV=production bin/delayed_job start\"\n    end\n  end\nend\ntask :logs do\n  queue 'echo \"Contents of the log file are as follows:\"'\n  queue \"tail -f  /home/ubc/deploy/shared/log/production.log\"\nend\n# For help in making your deploy script, see the Mina documentation:\n#\n#  - http://nadarei.co/mina\n#  - http://nadarei.co/mina/tasks\n#  - http://nadarei.co/mina/settings\n#  - http://nadarei.co/mina/helpers",
+			"settings":
+			{
+				"buffer_size": 4911,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "app/services/data_tools_service.rb",
 			"settings":
 			{
 				"buffer_size": 3684,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tmp/VHVlIEZlYiAgMyAxMzo1NjowNiAyMDE1/C-0026.CSV",
-			"settings":
-			{
-				"buffer_size": 11407,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/viphat/Desktop/HAZEL/C-0001.CSV",
-			"settings":
-			{
-				"buffer_size": 10371,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -627,11 +635,11 @@
 		"/home/viphat/Dropbox/Rails/data-tools",
 		"/home/viphat/Dropbox/Rails/data-tools/app",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets",
-		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/stylesheets",
 		"/home/viphat/Dropbox/Rails/data-tools/app/controllers",
 		"/home/viphat/Dropbox/Rails/data-tools/app/models",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services",
+		"/home/viphat/Dropbox/Rails/data-tools/config",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components",
@@ -639,6 +647,11 @@
 	],
 	"file_history":
 	[
+		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/grunt/configBridge.json",
+		"/home/viphat/Dropbox/Rails/data-tools/config.ru",
+		"/home/viphat/Dropbox/Rails/data-tools/app/services/code_list.rb",
+		"/home/viphat/Desktop/HAZEL/C-0001.CSV",
+		"/home/viphat/Dropbox/Rails/data-tools/tmp/VHVlIEZlYiAgMyAxMzo1NjowNiAyMDE1/C-0026.CSV",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/index_helper.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/views/dashboard/index.html.slim",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/write_excel_service.rb",
@@ -673,7 +686,6 @@
 		"/home/viphat/Dropbox/Rails/data-tools/data-tools.sublime-project",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/api/fnProcessingIndicator.js",
 		"/home/viphat/Dropbox/Rails/data-tools/config/application.rb",
-		"/home/viphat/Dropbox/Rails/data-tools/app/services/code_list.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/Gemfile",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/read_csv_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/helper_service.rb",
@@ -681,7 +693,6 @@
 		"/home/viphat/Dropbox/Rails/data-tools/app/services/data_tools_service.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/app/assets/javascripts/application.js",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/datatables-plugins/i18n/Catalan.lang",
-		"/home/viphat/Dropbox/Rails/data-tools/config.ru",
 		"/home/viphat/Dropbox/Rails/data-tools/app/models/data_tools.rb",
 		"/home/viphat/Dropbox/Rails/data-tools/README.rdoc",
 		"/home/viphat/Dropbox/Rails/data-tools/vendor/assets/bower_components/bootstrap/less/responsive-embed.less",
@@ -763,10 +774,7 @@
 		"/home/viphat/Dropbox/Rails/ubrand-ror/Gemfile",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/bootstrap/grunt/bs-raw-files-generator.js",
 		"/home/viphat/Dropbox/Rails/ubrand-ror/db/migrate/20141218102609_change_some_fields_from_integer_to_float_on_users.rb",
-		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/bootstrap/grunt/bs-commonjs-generator.js",
-		"/home/viphat/Dropbox/Rails/data-tools/Gemfile.lock",
-		"/home/viphat/Dropbox/Rails/data-tools/tmp/U2F0IEphbiAxNyAyMzoyMDo0NSAyMDE1/C-0001.CSV",
-		"/home/viphat/Dropbox/Rails/data-tools/tmp/U2F0IEphbiAxNyAyMzoyMDo0NSAyMDE1/A-0073.CSV"
+		"/home/viphat/Dropbox/Rails/ubrand-ror/vendor/assets/bower_components/bootstrap/grunt/bs-commonjs-generator.js"
 	],
 	"find":
 	{
@@ -976,7 +984,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -992,8 +1000,8 @@
 						"selection":
 						[
 							[
-								2697,
-								2697
+								580,
+								580
 							]
 						],
 						"settings":
@@ -1002,20 +1010,105 @@
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/dashboard/index.html.slim",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4044,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3437,
+								3437
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1146.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "config/deploy.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3576,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1649,
+								1649
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1393.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4911,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4705,
+								4705
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 714.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
-					"buffer": 1,
+					"buffer": 4,
 					"file": "app/services/data_tools_service.rb",
 					"semi_transient": false,
 					"settings":
@@ -1037,66 +1130,10 @@
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1658.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "tmp/VHVlIEZlYiAgMyAxMzo1NjowNiAyMDE1/C-0026.CSV",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11407,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1836.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/viphat/Desktop/HAZEL/C-0001.CSV",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10371,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10284,
-								10284
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1945.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1163,6 +1200,14 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"configdeplo",
+				"config/deploy.rb"
+			],
+			[
+				"indexhtml",
+				"app/views/dashboard/index.html.slim"
+			],
 			[
 				"read",
 				"app/services/read_csv_service.rb"
@@ -1666,14 +1711,6 @@
 			[
 				"tinyce",
 				"config/tinymce.yml"
-			],
-			[
-				"require",
-				"config/requirejs.yml"
-			],
-			[
-				"main_admin",
-				"app/assets/javascripts/main_admin.coffee"
 			]
 		],
 		"width": 0.0
