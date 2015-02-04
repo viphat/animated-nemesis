@@ -16,3 +16,6 @@
 /tmp
 /publics/uploads/*
 /config/deploy.rb
+/data-tools.sublime-workspace
+/data-tools.sublime-project
+
