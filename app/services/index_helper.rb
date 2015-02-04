@@ -19,7 +19,7 @@ class IndexHelper
       i.error = "NOT ESTABLISHED" if item.downcase.include? 'not established'
     end
     data.val.each do |val|
-      i.error = "NOT ESTABLISHED" if val['count'][0].include? 'not established'
+      i.error = "NOT ESTABLISHED" if val['count'][0].downcase.include? 'not established'
     end
     i
   end
