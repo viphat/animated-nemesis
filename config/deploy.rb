@@ -13,7 +13,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 set :domain, '104.237.158.15'
 set :deploy_to, '/var/www/viphat.name/data-tools'
 set :repository, 'git@github.com:viphat/animated-nemesis.git'
-# set :rails_env, 'production'
+set :rails_env, 'production'
 set :branch, 'master'
 set :user, 'viphat'    # Username in the server to SSH to.
 set :forward_agent, true     # SSH forward_agent.
@@ -96,7 +96,7 @@ task :logs do
 end
 
 task :restart do
-  queue 'sudo service restart apache'
+  queue 'sudo /etc/init.d/apache2 restart'
   queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
 end
 
