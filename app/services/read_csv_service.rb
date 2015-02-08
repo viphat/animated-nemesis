@@ -131,6 +131,14 @@ class ReadCsvService < BaseService
       end #unless
     end #foreach CSV
     return false if options['clean_empty_table'] && check_empty_table(data.resp)
+    if options['clean_empty_header']
+      clean_columns = find_zero_header_columns(data)
+      if clean_columns.present?
+        clean_columns.each do |col_to_delete|
+          data = delete_header_column(data,col_to_delete)
+        end
+      end
+    end
     data
   end
 
@@ -142,8 +150,42 @@ class ReadCsvService < BaseService
     resp_arr[i] == 0
   end
 
-  def delete_header_column(data,col_to_delete)
+  def find_zero_header_columns(data)
+    zero = []
+    if data.resp.present?
+      data.resp.each_with_index do |val,index|
+        if val.to_i == 0
+          zero << index
+        end
+      end
+    end
 
+    if data.wtd_resp.present?
+      data.wtd_resp.each_with_index do |val,index|
+        if val.to_i == 0
+          zero << index
+        end
+      end
+    end
+
+    zero.uniq!
+  end
+
+  def delete_header_column(data,col_to_delete)
+    data.resp.delete_at(col_to_delete) if data.resp.present?
+    data.wtd_resp.delete_at(col_to_delete) if data.wtd_resp.present?
+    data.header.delete_at(col_to_delete) if data.header.present?
+    data.means.delete_at(col_to_delete) if data.means.present?
+    data.mode.delete_at(col_to_delete) if data.mode.present?
+    data.medians.delete_at(col_to_delete) if data.medians.present?
+    data.std_deviation.delete_at(col_to_delete) if data.std_deviation.present?
+    data.totals_percent.delete_at(col_to_delete) if data.totals_percent.present?
+    data.totals_count.delete_at(col_to_delete) if data.totals_count.present?
+    data.val.each do |value|
+      value['count'].delete_at(col_to_delete) if value['count'].present?
+      value['percent'].delete_at(col_to_delete) if value['percent'].present?
+    end
+    data
   end
 
   def check_empty_table(resp_arr)
