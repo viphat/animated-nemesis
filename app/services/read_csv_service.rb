@@ -131,11 +131,11 @@ class ReadCsvService < BaseService
       end #unless
     end #foreach CSV
     return false if options['clean_empty_table'] && check_empty_table(data.resp)
-    if options['clean_empty_header']
+    if options['clean_empty_header'] == true
       clean_columns = find_zero_header_columns(data)
       if clean_columns.present?
-        clean_columns.each do |col_to_delete|
-          data = delete_header_column(data,col_to_delete)
+        clean_columns.each_with_index do |col_to_delete,index|
+          data = delete_header_column(data,col_to_delete-index)
         end
       end
     end
@@ -159,7 +159,6 @@ class ReadCsvService < BaseService
         end
       end
     end
-
     if data.wtd_resp.present?
       data.wtd_resp.each_with_index do |val,index|
         if val.to_i == 0
@@ -167,8 +166,8 @@ class ReadCsvService < BaseService
         end
       end
     end
-
-    zero.uniq!
+    zero.delete_at(0)
+    zero.uniq
   end
 
   def delete_header_column(data,col_to_delete)
