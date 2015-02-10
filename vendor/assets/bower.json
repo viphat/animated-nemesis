@@ -6,6 +6,7 @@
     "intro.js": "latest",
     "sweetalert": "latest",
     "angular-ui-sortable": "latest",
-    "lodash": "latest"
+    "lodash": "latest",
+    "angular-local-storage": "latest"
   }
 }

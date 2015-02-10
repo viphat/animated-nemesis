@@ -3,6 +3,11 @@ app.config ['$httpProvider', ($httpProvider) ->
   $httpProvider.defaults.headers.common.Accept = 'application/json'
 ]
 
+app.config ['localStorageServiceProvider', (localStorageServiceProvider) ->
+  localStorageServiceProvider
+    .setPrefix('DataTools')
+]
+
 app.controller "MainController", [ '$scope', ($scope) ->
   $scope.about = () ->
     sweetAlert
@@ -12,4 +17,5 @@ app.controller "MainController", [ '$scope', ($scope) ->
       showCancelButton: false
       html: true
     return
+
 ]

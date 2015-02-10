@@ -13,6 +13,9 @@ app.controller "DashboardController", [ '$scope', ($scope) ->
     {name: 'Mode', value: 'mode', is_dismissable: true}
     {name: 'Medians', value: 'medians', is_dismissable: true}
   ]
+  $scope.backup = angular.copy($scope.items)
+  $scope.reset = () ->
+    $scope.items = angular.copy($scope.backup)
 
   $scope.dismiss = (item) ->
     if item.value == 'wtd_resp'
@@ -45,7 +48,6 @@ app.controller "DashboardController", [ '$scope', ($scope) ->
           html: true
           timer: 3000
         return
-
     _.remove($scope.items, (n) ->
       n == item
     )
@@ -53,15 +55,11 @@ app.controller "DashboardController", [ '$scope', ($scope) ->
     _.map($scope.items, (n)->
       sorted_order.push(n.value)
     )
+
     $scope.sorted_order = sorted_order.join(',')
 
   $scope.sortableOptions =
     update: (e,ui) ->
-      # sorted_order = []
-      # _.map($scope.items, (n)->
-      #   sorted_order.push(n.value)
-      # )
-      # console.log sorted_order.join(',')
       return
     stop: (e,ui) ->
       sorted_order = []

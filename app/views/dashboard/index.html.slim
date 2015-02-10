@@ -10,6 +10,12 @@
       = value.html_safe
       / a.alert-link href='#'
   form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}"
+    .visible-xs.row.text-center style='margin-bottom: 20px;'
+      button.btn.btn-warning type='submit'
+        i.fa.fa-bolt
+      | &nbsp;
+      button.btn.btn-default type='reset' ng-click='reset()'
+        i.fa.fa-times
     | <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
     .panel.panel-yellow#main-panel
       .panel-heading
@@ -68,26 +74,39 @@
                 | Additional Options
           .panel-collapse.collapse.in#options aria-expanded='true'
             .panel-body
-              .form-group
-                label.checkbox-inline
-                  input type='checkbox' name='build_index' checked='checked'
-                    | Build Index
-                label.checkbox-inline
-                  input type='checkbox' name='all_in_one'
-                    | All Data in One Sheet
-              .form-group
-                label.checkbox-inline
-                  input type='checkbox' name='clean_empty_code'
-                    | Clean Empty Code
-                label.checkbox-inline
-                  input type='checkbox' name='clean_empty_header'
-                    | Clean Empty Header
-                label.checkbox-inline
-                  input type='checkbox' name='clean_empty_table'
-                    | Clean Empty Table
-        .panel-footer.text-center
+              .form-group.row
+                .col-xs-4
+                  label.checkbox-inline
+                    input type='checkbox' name='build_index' checked='checked'
+                      | Build Index
+                .col-xs-4
+                  label.checkbox-inline
+                    input type='checkbox' name='all_in_one'
+                      | All Data in One Sheet
+                .col-xs-4
+                  | &nbsp;
+              .form-group.row
+                .col-xs-4
+                  label.checkbox-inline
+                    input type='checkbox' name='clean_empty_code'
+                      | Clean Empty Code
+                .col-xs-4
+                  label.checkbox-inline
+                    input type='checkbox' name='clean_empty_header'
+                      | Clean Empty Header
+                .col-xs-4
+                  label.checkbox-inline
+                    input type='checkbox' name='clean_empty_table'
+                      | Clean Empty Table
+        br
+        br
+      .panel-footer.text-center
+        .hidden-xs
           button.btn.btn-warning.btn-circle.btn-lg type='submit'
             i.fa.fa-bolt
+          | &nbsp;
+          button.btn.btn-default.btn-circle.btn-lg type='reset' ng-click='reset()'
+            i.fa.fa-times
 / https://github.com/angular-ui/ui-sortable
 / http://codepen.io/thgreasi/pen/KtsFH
 / Luu Options vao Cookies / Local Storage de dung cho nhung lan chay sau

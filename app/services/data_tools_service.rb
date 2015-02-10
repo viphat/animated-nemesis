@@ -48,7 +48,6 @@ class DataToolsService < BaseService
     blue_link = wb.styles.add_style :fg_color => '0000FF'
     index_helper.process_and_write_indexes_to_excel(index_sheet,@indexes, blue_link) if options['build_index']
 
-
     if options['output_file_name']
       export_excel_file = "#{Rails.root}/public/uploads/#{options['output_file_name']}.xlsx"
     else
