@@ -3,61 +3,67 @@ require 'axlsx'
 # https://gist.github.com/randym/3179305
 
 class DataToolsService < BaseService
-  EXPORT_DATA_TYPE = [:count, :percent, :both ]
+  attr_accessor :log_file
+  # EXPORT_DATA_TYPE = [:count, :percent, :both ]
+
+  def initialize()
+    @log_file = nil
+  end
 
   def run(file,options)
-
     @indexes = []
-
     helper_obj = HelperService.new
-    read_csv_obj = ReadCsvService.new
 
-    # encode = helper_obj.extract_zip_file("#{Rails.root}/public/uploads/BILLIO2.zip")
-    encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
-
-    src_folder = RAILS_TEMP_PATH + encode + "/"
-
-    p = Axlsx::Package.new
-    p.use_shared_strings = true
-
-
-    data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes)
-
-    wb = p.workbook
-
-    all_in_one_sheet = nil
-    write_excel_object = WriteExcelService.new
-
-    index_sheet = wb.add_worksheet(name: 'INDEX' ) if options['build_index']
-
-    index_helper = IndexHelper.new
-    all_in_one_sheet = wb.add_worksheet(name: 'DATA' ) if options['all_in_one']
-
-    data.each_with_index do |x,i|
-      if options['all_in_one']
-        @indexes[i].link = (write_excel_object.export_data_to_excel(wb,x,options,all_in_one_sheet)).to_s
-        @indexes[i].link = "'DATA'!A#{@indexes[i].link}"
-      else
-        wb.add_worksheet(name: x.sheet_name) do |sheet|
-          write_excel_object.export_data_to_excel(wb,x,options,sheet)
-          @indexes[i].link = "'#{x.sheet_name}'!A1"
-        end
-      end
-    end
-    # ap @indexes
-    blue_link = wb.styles.add_style :fg_color => '0000FF'
-    index_helper.process_and_write_indexes_to_excel(index_sheet,@indexes, blue_link) if options['build_index']
+    export_excel_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.xlsx"
+    @log_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.txt"
 
     if options['output_file_name']
       export_excel_file = "#{Rails.root}/public/uploads/#{options['output_file_name']}.xlsx"
-    else
-      export_excel_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.xlsx"
+      @log_file = "#{Rails.root}/public/uploads/#{options['output_file_name']}.txt"
     end
 
-    p.serialize export_excel_file
+    log_file = File.open(@log_file,'w')
+    log_file.write("Logs File for #{File.basename(file)}\n")
+    log_file.write("#{Time.zone.now}")
 
-    helper_obj.delete_folder_after_process(src_folder)
+    begin
+      read_csv_obj = ReadCsvService.new
+      index_helper = IndexHelper.new
+      write_excel_object = WriteExcelService.new
+      encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
+      src_folder = RAILS_TEMP_PATH + encode + "/"
+      p = Axlsx::Package.new
+      p.use_shared_strings = true
+      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
+      wb = p.workbook
+      all_in_one_sheet = nil
 
+      index_sheet = wb.add_worksheet(name: 'INDEX' ) if options['build_index']
+      all_in_one_sheet = wb.add_worksheet(name: 'DATA' ) if options['all_in_one']
+      log_file.write("\nWriting Data After Processing:\n\n\n")
+
+      data.each_with_index do |x,i|
+        log_file.write("\n#{x.sheet_name}")
+        if options['all_in_one']
+          @indexes[i].link = (write_excel_object.export_data_to_excel(wb,x,options,all_in_one_sheet)).to_s
+          @indexes[i].link = "'DATA'!A#{@indexes[i].link}"
+        else
+          wb.add_worksheet(name: x.sheet_name) do |sheet|
+            write_excel_object.export_data_to_excel(wb,x,options,sheet)
+            @indexes[i].link = "'#{x.sheet_name}'!A1"
+          end
+        end
+      end
+      # ap @indexes
+      blue_link = wb.styles.add_style :fg_color => '0000FF'
+      index_helper.process_and_write_indexes_to_excel(index_sheet,@indexes, blue_link) if options['build_index']
+      p.serialize export_excel_file
+    rescue Exception => e
+      raise e
+    ensure
+      helper_obj.delete_folder_after_process(src_folder)
+      log_file.close
+    end
     export_excel_file
   end
 

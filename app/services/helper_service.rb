@@ -9,7 +9,7 @@ class HelperService < BaseService
   end
 
   def generate_name()
-    Base64.encode64(Time.now.ctime)[0..-2]
+    Base64.encode64(Time.zone.now.ctime)[0..-2]
   end
 
   def extract_zip_file(zip_file_path)

@@ -11,13 +11,19 @@ class DashboardController < ApplicationController
       render "index"
       return
     end
-
-    uploaded_file = DataFile.save(data_file)
     data_tools = DataToolsService.new
-    options = Hash.new
-    options = data_tools.build_options(params)
-    result_file = data_tools.run(uploaded_file,options)
-    send_file result_file
+    begin
+      uploaded_file = DataFile.save(data_file)
+      options = Hash.new
+      options = data_tools.build_options(params)
+      result_file = data_tools.run(uploaded_file,options)
+      unless result_file == false
+        send_file result_file
+      end
+    rescue Exception => e
+      send_file data_tools.log_file
+      # raise e
+    end
 
   end
 
