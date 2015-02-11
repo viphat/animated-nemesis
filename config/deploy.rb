@@ -85,6 +85,7 @@ task :deploy => :environment do
 
     to :launch do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
+      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/csv"
       queue "mkdir -p #{deploy_to}/#{current_path}/public/uploads"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
