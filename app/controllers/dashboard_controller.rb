@@ -16,7 +16,7 @@ class DashboardController < ApplicationController
       uploaded_file = DataFile.save(data_file)
       options = Hash.new
       options = data_tools.build_options(params)
-      result_file = data_tools.run(uploaded_file,options)
+      result_file = data_tools.run(uploaded_file,options,params)
       unless result_file == false
         send_file result_file
       end

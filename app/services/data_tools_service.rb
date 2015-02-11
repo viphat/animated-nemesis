@@ -9,7 +9,7 @@ class DataToolsService < BaseService
     @log_file = nil
   end
 
-  def run(file,options)
+  def run(file,options,params)
     @indexes = []
 
     helper_obj = HelperService.new
