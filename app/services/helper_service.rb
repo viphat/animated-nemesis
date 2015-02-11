@@ -17,7 +17,7 @@ class HelperService < BaseService
     # Zip.on_exists_proc = true
     # zip_file = RAILS_TEMP_PATH + zip_file_name
     encode = generate_name()
-    des_folder = RAILS_TEMP_PATH + encode + "/"
+    des_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
     # Zip.on_exists_proc = true
     Dir.mkdir(des_folder) unless Dir.exists?(des_folder)
     Zip::File.open(zip_file_path) do |file|

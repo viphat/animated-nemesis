@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 gem 'airbrake'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sidekiq'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -35,6 +35,7 @@ gem 'axlsx', '2.0.1'
 # gem 'axlsx_rails', '0.3.0'
 gem 'axlsx_rails'
 gem 'slim'
+gem 'spreadsheet'
 
 gem 'bower-rails' # bower dependencies manager for rails
 

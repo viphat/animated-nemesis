@@ -4,7 +4,6 @@ require 'axlsx'
 
 class DataToolsService < BaseService
   attr_accessor :log_file
-  # EXPORT_DATA_TYPE = [:count, :percent, :both ]
 
   def initialize()
     @log_file = nil
@@ -12,8 +11,11 @@ class DataToolsService < BaseService
 
   def run(file,options)
     @indexes = []
+
     helper_obj = HelperService.new
 
+
+    # Setup Log File and Excel File
     export_excel_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.xlsx"
     @log_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.txt"
 
@@ -26,22 +28,26 @@ class DataToolsService < BaseService
     log_file.write("Logs File for #{File.basename(file)}\n")
     log_file.write("#{Time.zone.now}")
 
-    begin
-      read_csv_obj = ReadCsvService.new
-      index_helper = IndexHelper.new
-      write_excel_object = WriteExcelService.new
-      encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
-      src_folder = RAILS_TEMP_PATH + encode + "/"
-      p = Axlsx::Package.new
-      p.use_shared_strings = true
-      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
-      wb = p.workbook
-      all_in_one_sheet = nil
+    # Setup Var
+    read_csv_obj = ReadCsvService.new
+    index_helper = IndexHelper.new
+    write_excel_object = WriteExcelService.new
+    encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}") # Extract File ZIP
+    src_folder = RAILS_TEMP_PATH + encode + "/"
+    p = Axlsx::Package.new
+    p.use_shared_strings = true
+    wb = p.workbook
+    all_in_one_sheet = nil
+    index_sheet = wb.add_worksheet(name: 'INDEX' ) if options['build_index']
+    all_in_one_sheet = wb.add_worksheet(name: 'DATA' ) if options['all_in_one']
 
-      index_sheet = wb.add_worksheet(name: 'INDEX' ) if options['build_index']
-      all_in_one_sheet = wb.add_worksheet(name: 'DATA' ) if options['all_in_one']
+    begin
+      # Read CSV Folder
+      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
+
       log_file.write("\nWriting Data After Processing:\n\n\n")
 
+      # Write to Excel File
       data.each_with_index do |x,i|
         log_file.write("\n#{x.sheet_name}")
         if options['all_in_one']
@@ -54,14 +60,19 @@ class DataToolsService < BaseService
           end
         end
       end
-      # ap @indexes
+      # Build Index if needed
       blue_link = wb.styles.add_style :fg_color => '0000FF'
       index_helper.process_and_write_indexes_to_excel(index_sheet,@indexes, blue_link) if options['build_index']
+
+      # Finalize and Save to Excel File
       p.serialize export_excel_file
+
     rescue Exception => e
       raise e
     ensure
+      # Delete CSV Files Folder
       helper_obj.delete_folder_after_process(src_folder)
+      # Close Log File
       log_file.close
     end
     export_excel_file
