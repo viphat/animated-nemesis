@@ -71,10 +71,10 @@ class DataToolsService < BaseService
       log_file.write("\n#{e}")
       Airbrake.notify_or_ignore(
         e,
-        :cgi_data => ENV.to_hash
+        :parameters    => params,
+        :cgi_data      => ENV.to_hash
       )
       raise e
-
     ensure
       # Delete CSV Files Folder
       helper_obj.delete_folder_after_process(src_folder)
