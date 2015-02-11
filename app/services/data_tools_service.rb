@@ -33,7 +33,7 @@ class DataToolsService < BaseService
     index_helper = IndexHelper.new
     write_excel_object = WriteExcelService.new
     encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}") # Extract File ZIP
-    src_folder = RAILS_TEMP_PATH + encode + "/"
+    src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
     p = Axlsx::Package.new
     p.use_shared_strings = true
     wb = p.workbook
@@ -43,6 +43,7 @@ class DataToolsService < BaseService
 
     begin
       # Read CSV Folder
+      ap 'Test'
       data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
 
       log_file.write("\nWriting Data After Processing:\n\n\n")
