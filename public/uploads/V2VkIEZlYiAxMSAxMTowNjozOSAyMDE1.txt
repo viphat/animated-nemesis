@@ -1,0 +1,9 @@
+Logs File for 1.zip
+2015-02-11 11:06:39 +0700
+Reading Data from Source:
+
+
+
+C-0001.CSV
+C-0002.CSV
+Unclosed quoted field on line 14.
