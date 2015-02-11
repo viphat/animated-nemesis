@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem 'airbrake'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
-gem 'sidekiq'
+gem 'whenever'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
