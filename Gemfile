@@ -24,7 +24,6 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 gem 'awesome_print', '~> 1.2.0'
-gem 'carrierwave'
 gem "js-routes"
 gem "rails-settings-cached", '0.4.1'
 gem 'non-stupid-digest-assets', '~> 1.0.4'
