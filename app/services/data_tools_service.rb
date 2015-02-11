@@ -43,7 +43,6 @@ class DataToolsService < BaseService
 
     begin
       # Read CSV Folder
-      ap 'Test'
       data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
 
       log_file.write("\nWriting Data After Processing:\n\n\n")
@@ -69,6 +68,7 @@ class DataToolsService < BaseService
       p.serialize export_excel_file
 
     rescue Exception => e
+      log_file.write("\n#{e}")
       raise e
     ensure
       # Delete CSV Files Folder

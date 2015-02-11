@@ -28,7 +28,6 @@ class ReadCsvService < BaseService
     # max_cols = 0
     csv_text = File.read(csv_file).encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     csv = CSV.parse(csv_text, headers: false)
-    # ap csv
     data = RawData.new
     header_flag = false
     header_label_flag = 0

@@ -14,8 +14,6 @@ class HelperService < BaseService
 
   def extract_zip_file(zip_file_path)
     # Overwritte if Exists
-    # Zip.on_exists_proc = true
-    # zip_file = RAILS_TEMP_PATH + zip_file_name
     encode = generate_name()
     des_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
     # Zip.on_exists_proc = true
