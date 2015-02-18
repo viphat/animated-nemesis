@@ -1,5 +1,7 @@
-app.controller "DashboardController", [ '$scope', ($scope) ->
+app.controller "DashboardController", [ '$scope', 'localStorageService',($scope,localStorageService) ->
   $scope.sorted_order = 'question,filters,base,wtd_resp,resp,header_and_data,totals,std_deviation,means,mode,medians'
+  $scope.num_of_digits = 0
+  $scope.export_data_type = 'percent'
   $scope.items = [
     {name: 'Question', value: 'question', is_dismissable: false}
     {name: 'Filters', value: 'filters', is_dismissable: false}
@@ -14,6 +16,70 @@ app.controller "DashboardController", [ '$scope', ($scope) ->
     {name: 'Medians', value: 'medians', is_dismissable: true}
   ]
   $scope.backup = angular.copy($scope.items)
+
+  $scope.submitForm = () ->
+    dataForm = document.getElementById('dataToolsForm')
+    localStorageService.set('sorted_order', $scope.sorted_order)
+    localStorageService.set('build_index', $scope.build_index)
+    localStorageService.set('all_in_one', $scope.all_in_one)
+    localStorageService.set('clean_empty_code', $scope.clean_empty_code)
+    localStorageService.set('clean_empty_header', $scope.clean_empty_header)
+    localStorageService.set('clean_empty_table', $scope.clean_empty_table)
+    localStorageService.set('export_data_type', $scope.export_data_type)
+    localStorageService.set('output_file_name', $scope.output_file_name)
+    localStorageService.set('num_of_digits', $scope.num_of_digits)
+    dataForm.submit()
+
+  $scope.load = () ->
+    if localStorageService.get('build_index')?
+      $scope.build_index = true
+    else
+      $scope.build_index = false
+    if localStorageService.get('all_in_one')?
+      $scope.all_in_one = true
+    if localStorageService.get('clean_empty_code')?
+      $scope.clean_empty_code = true
+    if localStorageService.get('clean_empty_header')?
+      $scope.clean_empty_header = true
+    if localStorageService.get('clean_empty_table')?
+      $scope.clean_empty_table = true
+    if localStorageService.get('output_file_name')?
+      $scope.output_file_name = localStorageService.get('output_file_name')
+    if localStorageService.get('num_of_digits')?
+      $scope.num_of_digits = localStorageService.get('num_of_digits')
+    if localStorageService.get('export_data_type')?
+      $scope.export_data_type = localStorageService.get('export_data_type')
+    if localStorageService.get('sorted_order')?
+      $scope.sorted_order = localStorageService.get('sorted_order')
+      load_items_from_string()
+
+  load_items_from_string = () ->
+    items = $scope.sorted_order.split(",")
+    $scope.items = []
+    for item in items
+      if item == 'question'
+        $scope.items.push {name: 'Question', value: 'question', is_dismissable: false}
+      if item == 'filters'
+        $scope.items.push {name: 'Filters', value: 'filters', is_dismissable: false}
+      if item == 'base'
+        $scope.items.push {name: 'Base', value: 'base', is_dismissable: true}
+      if item == 'wtd_resp'
+        $scope.items.push {name: 'WTD RESP', value: 'wtd_resp', is_dismissable: true}
+      if item == 'resp'
+        $scope.items.push {name: 'RESP', value: 'resp', is_dismissable: true}
+      if item == 'header_and_data'
+        $scope.items.push {name: 'Header & Data', value: 'header_and_data', is_dismissable: false}
+      if item == 'totals'
+        $scope.items.push {name: 'Totals', value: 'totals', is_dismissable: true}
+      if item == 'std_deviation'
+        $scope.items.push {name: 'Std.Deviation', value: 'std_deviation', is_dismissable: true}
+      if item == 'means'
+        $scope.items.push {name: 'Means', value: 'means', is_dismissable: false}
+      if item == 'mode'
+        $scope.items.push {name: 'Mode', value: 'mode', is_dismissable: true}
+      if item == 'medians'
+        $scope.items.push {name: 'Medians', value: 'medians', is_dismissable: true}
+
   $scope.reset = () ->
     $scope.items = angular.copy($scope.backup)
 

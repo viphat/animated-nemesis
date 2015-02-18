@@ -18,7 +18,7 @@
 # end
 
 every 1.day, :at => '3:00 am' do
-  rake "delete_files_and_folders"
+  command "cd /var/www/viphat.name/data-tools/current && RAILS_ENV=production bundle exec rake delete_files_and_folders --silent"
 end
 
 # Learn more: http://github.com/javan/whenever

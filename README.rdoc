@@ -1,28 +1,17 @@
 == README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Usage Stats - Redis
+Cookies - Lưu Settings mới nhất của Người dùng
+Mình muốn có chức năng Stats như thế nào nhỉ?
+Thống kê được theo thời gian - 24h qua, 7 ngày qua, 1 tháng qua, All Time...
+Có bao nhiêu lượt sử dụng
+Sử dụng cho dự án nào (Lấy Tên File .ZIP làm tên dự án)
+Có lỗi hay không
+Sử dụng chức năng nào (Run Percentage, Count hay Both)
+Có sử dụng Codelist Tools hay không
+- Viết một trang Views để Show Những Thống kê này lên - Có sử dụng JavaScript Library để vẽ Chart
+https://matt.sh/thinking-in-redis-part-one
+http://redis.io/commands/scan
+http://redis.io/commands/time
+http://redis.io/topics/twitter-clone
+http://redis.io/topics/data-types-intro
+http://jimneath.org/2011/03/24/using-redis-with-ruby-on-rails.html

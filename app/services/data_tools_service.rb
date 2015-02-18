@@ -74,6 +74,7 @@ class DataToolsService < BaseService
         :parameters    => params,
         :cgi_data      => ENV.to_hash
       )
+      ap e
       raise e
     ensure
       # Delete CSV Files Folder
@@ -127,7 +128,6 @@ class DataToolsService < BaseService
     end
 
     build_orders(params,options)
-
     options
   end
 

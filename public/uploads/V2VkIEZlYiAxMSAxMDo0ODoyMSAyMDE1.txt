@@ -1,9 +1,0 @@
-Logs File for 2.zip
-2015-02-11 10:48:21 +0700
-Reading Data from Source:
-
-
-
-Writing Data After Processing:
-
-

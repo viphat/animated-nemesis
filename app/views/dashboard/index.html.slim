@@ -2,16 +2,16 @@
   .col-lg-12
     h1.page-header
       | DATA TOOLS
-.row ng-controller='DashboardController'
+.row ng-controller='DashboardController' ng-init='load()'
   - flash.each do |key,value|
     .alert.alert-warning.alert-dismissable
       button.close type='button' data-dismiss='alert' aria-hidden='true'
         i.fa.fa-times
       = value.html_safe
       / a.alert-link href='#'
-  form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}"
+  form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}" id='dataToolsForm'
     .visible-xs.row.text-center style='margin-bottom: 20px;'
-      button.btn.btn-warning type='submit'
+      button.btn.btn-warning ng-click='submitForm()'
         i.fa.fa-bolt
       | &nbsp;
       button.btn.btn-default type='reset' ng-click='reset()'
@@ -30,7 +30,7 @@
           .form-group.has-warning
             label.control-label
               | Export Data
-            select.form-control name='export_data_type'
+            select.form-control name='export_data_type' ng-model='export_data_type'
               option selected='selected' value='percent' Percentage Only
               option value='count' Count Only
               option value='both' Both Count & Percentage
@@ -39,13 +39,13 @@
               i.fa.fa-file-excel-o
               strong
                 | &nbsp; Output File Name
-            input.form-control type='text' placeholder='File Name' name='output_file_name'
+            input.form-control type='text' placeholder='File Name' name='output_file_name' ng-model='output_file_name'
           .form-group.has-warning.input-group
             span.input-group-addon
               i.fa.fa-bed
               strong
                 | &nbsp;&nbsp; Number of Digits
-            input.form-control type='number' name='num_of_digits' min='0' max='3' required='required' value=0
+            input.form-control type='number' name='num_of_digits' min='0' max='3' required='required' value=0 ng-model='num_of_digits' placeholder='0'
         .panel.panel-info
           .panel-heading
             h4.panel-title
@@ -64,7 +64,7 @@
                         | {{ item.name }}
                         button.close ng-click='dismiss(item)' ng-if='item.is_dismissable' onclick='event.preventDefault();'
                           i.fa.fa-times
-                    input type='hidden' value='{{sorted_order}}' name='orders'
+                    input type='hidden' name='orders' value='{{sorted_order}}'
         .panel.panel-info
           .panel-heading
             h4.panel-title
@@ -77,32 +77,32 @@
               .form-group.row
                 .col-xs-4
                   label.checkbox-inline
-                    input type='checkbox' name='build_index' checked='checked'
+                    input type='checkbox' name='build_index' ng-model='build_index'
                       | Build Index
                 .col-xs-4
                   label.checkbox-inline
-                    input type='checkbox' name='all_in_one'
+                    input type='checkbox' name='all_in_one' ng-model='all_in_one'
                       | All Data in One Sheet
                 .col-xs-4
                   | &nbsp;
               .form-group.row
                 .col-xs-4
                   label.checkbox-inline
-                    input type='checkbox' name='clean_empty_code'
+                    input type='checkbox' name='clean_empty_code' ng-model='clean_empty_code'
                       | Clean Empty Code
                 .col-xs-4
                   label.checkbox-inline
-                    input type='checkbox' name='clean_empty_header'
+                    input type='checkbox' name='clean_empty_header' ng-model='clean_empty_header'
                       | Clean Empty Header
                 .col-xs-4
                   label.checkbox-inline
-                    input type='checkbox' name='clean_empty_table'
+                    input type='checkbox' name='clean_empty_table' ng-model='clean_empty_table'
                       | Clean Empty Table
         br
         br
       .panel-footer.text-center
         .hidden-xs
-          button.btn.btn-warning.btn-circle.btn-lg type='submit'
+          button.btn.btn-warning.btn-circle.btn-lg ng-click='submitForm()'
             i.fa.fa-bolt
           | &nbsp;
           button.btn.btn-default.btn-circle.btn-lg type='reset' ng-click='reset()'
