@@ -4,31 +4,30 @@ class DashboardController < ApplicationController
   end
 
   def codelist
+  end
 
+  def download_data_json
+    data_tools = DataToolsService.new
+    begin
+      options = Hash.new
+      options = data_tools.build_options(params)
+      data_file = get_data_file(params)
+      result_file = data_tools.read_question_and_build_json(data_file,options,params)
+      send_file result_file
+    rescue Exception => e
+      send_file data_tools.log_file
+    end
   end
 
   def download_csv
-
     data_tools = DataToolsService.new
     begin
-      if params['data_file'].present?
-        data_file = params[:data_file]
-        if File.extname(data_file.original_filename) != ".zip"
-          flash[:notice] = "Định dạng Tập tin không được chấp nhận. <br/> Bạn chỉ được upload <strong>tập tin zip</strong>. "
-          render "index"
-          return
-        end
-        uploaded_file = DataFile.save(data_file)
-      else
-        uploaded_file = "#{Rails.root}/public/uploads/#{params['local_storage_data']}"
-      end
       options = Hash.new
       options = data_tools.build_options(params)
-      # binding.pry
-      result_file = data_tools.read_question_and_write_to_file(uploaded_file,options,params)
+      data_file = get_data_file(params)
+      result_file = data_tools.read_question_and_write_to_file(data_file,options,params)
       send_file result_file
     rescue Exception => e
-      # binding.pry
       send_file data_tools.log_file
     end
   end
@@ -63,25 +62,17 @@ class DashboardController < ApplicationController
   end
 
   def create
-    data_file = params[:data_file]
-    if File.extname(data_file.original_filename) != ".zip"
-      flash[:notice] = "Định dạng Tập tin không được chấp nhận. <br/> Bạn chỉ được upload <strong>tập tin zip</strong>. "
-      render "index"
-      return
-    end
     data_tools = DataToolsService.new
     begin
-      uploaded_file = DataFile.save(data_file)
       options = Hash.new
       options = data_tools.build_options(params)
-      result_file = data_tools.export_data(uploaded_file,options,params)
+      data_file = get_data_file(params)
+      result_file = data_tools.read_and_export_data(data_file,options,params)
       unless result_file == false
-        # cookies["DataTools.codelist_csv_file"] = File.basename(result_file,".*") + ".csv"
         send_file result_file
       end
     rescue Exception => e
       send_file data_tools.log_file
-      # raise e
     end
   end
 
@@ -91,5 +82,19 @@ class DashboardController < ApplicationController
                   :build_index,:all_in_one,:clean_empty_code,:clean_empty_table,
                   :clean_empty_header,:orders
                  )
+  end
+
+  def get_data_file(params)
+    if params['data_file'].present?
+      if File.extname(params[:data_file].original_filename) != ".zip"
+        flash[:notice] = "Định dạng Tập tin không được chấp nhận. <br/> Bạn chỉ được upload <strong>tập tin zip</strong>. "
+        render "index"
+        return
+      end
+      data_file = DataFile.save(params[:data_file])
+    else
+      data_file = "#{Rails.root}/public/uploads/#{params['local_storage_data']}"
+    end
+    data_file
   end
 end

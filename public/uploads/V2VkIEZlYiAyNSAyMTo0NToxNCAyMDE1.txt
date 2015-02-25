@@ -1,2 +1,0 @@
-Logs File for MOVING.zip
-2015-02-25 21:45:14 +0700File public/uploads/MOVING.zip doesn't exits on Server

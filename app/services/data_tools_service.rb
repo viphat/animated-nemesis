@@ -9,7 +9,7 @@ class DataToolsService < BaseService
     @log_file = nil
   end
 
-  def read_question_and_build_json
+  def read_question_and_build_json(file,options,params)
 
   end
 
@@ -17,7 +17,6 @@ class DataToolsService < BaseService
     helper_obj = HelperService.new
     # Setup Log File and Excel File
     full_file_path = exported_file_path(options,helper_obj)
-    ap "#{full_file_path}"
     @log_file = "#{full_file_path}.txt"
     @indexes = []
     log_file = File.open(@log_file,'w')
@@ -34,7 +33,6 @@ class DataToolsService < BaseService
     begin
       src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
       data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
-
       log_file.write("\nWrite Cookies\n\n\n")
       write_questions_to_file(data,full_file_path)
     rescue Exception => e
@@ -53,7 +51,7 @@ class DataToolsService < BaseService
     "#{full_file_path}.csv"
   end
 
-  def export_data(file,options,params)
+  def read_and_export_data(file,options,params)
     @indexes = []
     helper_obj = HelperService.new
     # Setup Log File and Excel File
@@ -64,6 +62,13 @@ class DataToolsService < BaseService
     log_file = File.open(@log_file,'w')
     log_file.write("Logs File for #{File.basename(file)}\n")
     log_file.write("#{Time.zone.now}")
+
+    unless codelist_tools_service.check_file_exists("#{File.basename(file)}")
+      log_file.write("\nFile #{file} doesn't exits on Server")
+      log_file.close
+      raise "File #{file} doesn't exits on Server"
+    end
+
     # Setup Var
     read_csv_obj = ReadCsvService.new
     index_helper = IndexHelper.new

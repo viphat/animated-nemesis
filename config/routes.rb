@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get '/codelist', to: 'dashboard#codelist'
   get '/check_file_exists', to: 'dashboard#check_file_exists', as: 'check_file_exists'
   post '/download_csv', to: 'dashboard#download_csv', as: 'download_csv'
+  post '/download_data_json', to: 'dashboard#download_data_json', as: 'download_data_json'
 end
