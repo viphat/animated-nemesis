@@ -8,13 +8,33 @@ class DashboardController < ApplicationController
   end
 
   def download_csv
-    send_file "#{Rails.root}/public/uploads/#{params[:file]}"
+
+    data_tools = DataToolsService.new
+    begin
+      if params['data_file'].present?
+        data_file = params[:data_file]
+        if File.extname(data_file.original_filename) != ".zip"
+          flash[:notice] = "Định dạng Tập tin không được chấp nhận. <br/> Bạn chỉ được upload <strong>tập tin zip</strong>. "
+          render "index"
+          return
+        end
+        uploaded_file = DataFile.save(data_file)
+      else
+        uploaded_file = "#{Rails.root}/public/uploads/#{params['local_storage_data']}"
+      end
+      options = Hash.new
+      options = data_tools.build_options(params)
+      # binding.pry
+      result_file = data_tools.read_question_and_write_to_file(uploaded_file,options,params)
+      send_file result_file
+    rescue Exception => e
+      # binding.pry
+      send_file data_tools.log_file
+    end
   end
 
   def codelist_process
     codelist_tools = CodeListToolsService.new
-
-    codelist = codelist_tools.build_codelist_array(params['codelist']) if params['codelist'].present?
 
     if params['codelist_file'].present?
       codelist_file = DataFile.save_excel(params['codelist_file'])
@@ -27,7 +47,9 @@ class DashboardController < ApplicationController
     else
       data_file = "public/uploads/#{params['local_storage_data']}"
     end
-
+    codelist = codelist_tools.build_codelist_array(params['codelist'])
+    codelist = codelist_tools.read_codelist_file("#{Rails.root}/#{codelist_file}",params['sheet'].to_i,codelist)
+    # Read Codelist File
     render nothing: true
   end
 
@@ -52,9 +74,9 @@ class DashboardController < ApplicationController
       uploaded_file = DataFile.save(data_file)
       options = Hash.new
       options = data_tools.build_options(params)
-      result_file = data_tools.run(uploaded_file,options,params)
+      result_file = data_tools.export_data(uploaded_file,options,params)
       unless result_file == false
-        cookies["DataTools.codelist_csv_file"] = File.basename(result_file,".*") + "_cookies.csv"
+        # cookies["DataTools.codelist_csv_file"] = File.basename(result_file,".*") + ".csv"
         send_file result_file
       end
     rescue Exception => e

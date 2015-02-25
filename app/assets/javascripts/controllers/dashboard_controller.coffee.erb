@@ -16,21 +16,24 @@ app.controller "DashboardController", [ '$scope', 'localStorageService','$http',
     {name: 'Medians', value: 'medians', is_dismissable: true}
   ]
   $scope.backup = angular.copy($scope.items)
+  $scope.local_storage_data = ''
 
   $scope.download_csv = () ->
-    csv_file = localStorageService.cookie.get('codelist_csv_file')
-    if csv_file?
-      $http.get('/check_file_exists?file=' + csv_file)
-        .success (response) ->
-          $('#btnDownloadCsv').attr({
-            'href': '/download_csv?file=' + csv_file
-            'target': '_blank'
-          })
-          $('#btnDownloadCsv')[0].click()
+    $('#dataToolsForm').get(0).setAttribute('action','/download_csv')
+    submitForm()
 
-  $scope.submitForm = () ->
+  $scope.submitData = () ->
+    $('#dataToolsForm').get(0).setAttribute('action','/data_tools/post')
+    submitForm()
+
+  submitForm = () ->
+    data_file = $('#data_file')
+    if data_file.val() != ""
+      localStorageService.set('data_file', data_file.val().split('\\').pop())
+
     dataForm = document.getElementById('dataToolsForm')
-    if dataForm.$valid
+
+    if $scope.dataForm.$valid
       localStorageService.set('sorted_order', $scope.sorted_order)
       localStorageService.set('build_index', $scope.build_index)
       localStorageService.set('all_in_one', $scope.all_in_one)
@@ -47,6 +50,7 @@ app.controller "DashboardController", [ '$scope', 'localStorageService','$http',
       $scope.build_index = true
     else
       $scope.build_index = false
+    $scope.local_storage_data = localStorageService.get('data_file')
     if localStorageService.get('all_in_one')?
       $scope.all_in_one = true
     if localStorageService.get('clean_empty_code')?

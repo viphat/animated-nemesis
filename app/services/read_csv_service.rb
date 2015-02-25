@@ -3,20 +3,18 @@ require 'string'
 
 class ReadCsvService < BaseService
 
-  def read_all_csv_files_in_folder(src_folder,options,indexes,log_file)
+  def read_all_csv_files_in_folder(src_folder,options,indexes,log_file=nil)
     # Get All CSV file in Folder (and sub folder)
     # folder = Dir.glob(dir_path + "*.CSV")
     folder = Dir.glob(File.join(src_folder,"**","*.CSV"))
     # Sort Folder
     data = []
     index_helper = IndexHelper.new
-
-    log_file.write("\nReading Data from Source:\n\n\n")
-
+    log_file.write("\nReading Data from Source:\n\n\n") unless log_file.nil?
     folder.sort_by! { |f| File.basename(f) }
     folder.each do |csv_file|
       ap csv_file
-      log_file.write("\n#{File.basename(csv_file)}")
+      log_file.write("\n#{File.basename(csv_file)}") unless log_file.nil?
       d = read_csv(csv_file,options)
       data << d if d
       indexes << index_helper.build_index_object(d) if d

@@ -9,9 +9,9 @@
         i.fa.fa-times
       = value.html_safe
       / a.alert-link href='#'
-  form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}" id='dataToolsForm'
+  form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_data_tools_path}" id='dataToolsForm' name='dataForm'
     .visible-xs.row.text-center style='margin-bottom: 20px;'
-      button.btn.btn-warning ng-click='submitForm()'
+      button.btn.btn-warning ng-click='submitData()'
         i.fa.fa-bolt
       | &nbsp;
       button.btn.btn-default type='reset' ng-click='reset()'
@@ -27,7 +27,8 @@
             label.control-label
               i.fa.fa-archive
               | &nbsp;Data File (.zip): &nbsp;
-            input type='file' name='data_file' required='required' accept=".zip"
+            input type='file' name='data_file' accept=".zip" id='data_file'
+            input type='hidden' name='local_storage_data' ng-value="local_storage_data"
           .form-group.has-warning
             label.control-label
               i.fa.fa-leaf
@@ -42,6 +43,7 @@
               strong
                 | &nbsp;Output File Name
             input.form-control type='text' placeholder='File Name' name='output_file_name' ng-model='output_file_name'
+
           .form-group.has-warning.input-group
             span.input-group-addon
               i.fa.fa-bed
@@ -101,20 +103,18 @@
                     input type='checkbox' name='clean_empty_table' ng-model='clean_empty_table'
                       | Clean Empty Table
         a.btn.btn-default href='javascript:void(0);' ng-click='download_csv()'
+          i.fa.fa-download
+          | &nbsp; Export Data JSON for Codelist
+        | &nbsp;
+        a.btn.btn-default href='javascript:void(0);' ng-click='download_csv()'
           i.fa.fa-cloud-download
-          | &nbsp;Download CSV for Codelist
-        | &nbsp;(May be Blocked by Web Browser's Popup Blocker)
-        a.hidden id='btnDownloadCsv' href='#'
-          | Download
+          | &nbsp;Export CSV for Codelist
         br
         br
       .panel-footer.text-center
         .hidden-xs
-          button.btn.btn-warning.btn-circle.btn-lg ng-click='submitForm()'
+          button.btn.btn-warning.btn-circle.btn-lg ng-click='submitData()'
             i.fa.fa-bolt
           | &nbsp;
           button.btn.btn-default.btn-circle.btn-lg type='reset' ng-click='reset()'
             i.fa.fa-refresh.fa-spin style='color:#e74c3c;'
-/ https://github.com/angular-ui/ui-sortable
-/ http://codepen.io/thgreasi/pen/KtsFH
-/ Luu Options vao Cookies / Local Storage de dung cho nhung lan chay sau

@@ -168,6 +168,11 @@ class WriteExcelService < BaseService
   def merge_arr(count_arr,percent_arr)
     both_arr = [count_arr[0]]
     count_arr[1..-1].each.with_index(1) do |v,i|
+      if i == 1 && !(count_arr[i].is_a? Numeric)
+        # Truong hop Co dan Label Code
+        both_arr << count_arr[i]
+        next
+      end
       both_arr << count_arr[i] unless count_arr.nil?
       both_arr << percent_arr[i] unless percent_arr.nil?
       if percent_arr.nil?

@@ -11,8 +11,8 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http',(
   newObject =
     question: 'New Row'
     filter: ''
-    qbegin: '0'
-    qend: '0'
+    qbegin: ''
+    qend: ''
 
   $scope.removeRow =() ->
     index = this.row.rowIndex
@@ -26,6 +26,11 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http',(
     $scope.local_storage_codelist = localStorageService.get('codelist_file')
     setupGrid()
     $scope.codelist = build_json_object()
+    $('#import_csv_file_input').on("change", (event) ->
+      angular.element(this).scope().hasFile()
+      return
+    )
+    return
 
   setupGrid = () ->
     removeTemplate = "

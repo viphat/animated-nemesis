@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 gem 'airbrake'
@@ -31,7 +31,9 @@ gem "js-routes"
 gem "rails-settings-cached", '0.4.1'
 gem 'non-stupid-digest-assets', '~> 1.0.4'
 gem "autoprefixer-rails"
-gem "roo"
+
+gem 'roo', git: 'http://github.com/roo-rb/roo.git'
+gem 'roo-xls', git: 'http://github.com/roo-rb/roo-xls.git'
 gem 'rubyzip',  "1.0.0"
 gem 'axlsx', '2.0.1'
 # gem 'axlsx_rails', '0.3.0'
