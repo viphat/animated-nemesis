@@ -13,6 +13,7 @@
  *= require bootstrap/dist/css/bootstrap
  *= require startbootstrap-sb-admin-2/dist/css/sb-admin-2
  *= require sweetalert/lib/sweet-alert
+ *= require ng-grid/ng-grid.min
  *= require_tree .
  *= require_self
  *=
@@ -45,3 +46,55 @@ h1.page-header {
   color: inherit;
 }
 
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    width: 99%;
+    height: 400px;
+}
+
+span.custom-btn, span.csv-link {
+  line-height:54px;
+  margin-right: 5px;
+}
+span.custom-btn a, span.csv-link a {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+}
+span.removeTemplate {
+  margin-left: 5px;
+  width: 34px;
+  margin-top: 3px;
+  display: inline-block;
+}
+.cell {
+
+}
+span.custom-btn a:hover, span.csv-link a:hover {
+  color: #fff;
+  background-color: #ec971f;
+  border-color: #d58512;
+}

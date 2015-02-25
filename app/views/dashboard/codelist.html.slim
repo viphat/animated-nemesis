@@ -1,0 +1,54 @@
+.row
+  .col-lg-12
+    h1.page-header
+      | CODELIST TOOLS
+.row ng-controller='CodelistController' ng-init='load()'
+  - flash.each do |key,value|
+    .alert.alert-warning.alert-dismissable
+      button.close type='button' data-dismiss='alert' aria-hidden='true'
+        i.fa.fa-times
+      = value.html_safe
+      / a.alert-link href='#'
+  form accept-charset="UTF-8" enctype="multipart/form-data" method="post" action="#{run_codelist_tools_path}" id='codelistForm'
+    .panel.panel-default
+      .panel-heading
+        i.fa.fa-globe.fa-fw
+        | &nbsp;Codelist Tools's Input
+      .panel-body
+        .well.well-lg
+          .form-group.has-warning
+            label.control-label
+              i.fa.fa-file-excel-o
+              | &nbsp;Codelist File (.xls,.xlsx): &nbsp;
+            / required='required'
+            input type='file' name='codelist_file' accept=".xls,.xlsx" id='codelist_file'
+            input type='hidden' name='local_storage_codelist' ng-value="local_storage_codelist"
+          .form-group.has-warning.input-group
+            span.input-group-addon
+              i.fa.fa-trophy
+              strong
+                | &nbsp;&nbsp;Sheet
+            input.form-control type='number' name='sheet' min='1' max='10' required='required' value=1 ng-model='sheet' placeholder='1'
+          .form-group.has-warning
+            label.control-label
+              i.fa.fa-file-excel-o
+              | &nbsp;Data File (.xls,.xlsx): &nbsp;
+            / required='required'
+            input type='file' name='data_file' accept=".xls,.xlsx" id='data_file'
+            input type='hidden' name='local_storage_data' ng-value="local_storage_data"
+          .form-group.has-warning.input-group
+            span.input-group-addon
+              i.fa.fa-graduation-cap
+              strong
+                | &nbsp;Output File Name
+            input.form-control type='text' placeholder='File Name' name='output_file_name' ng-model='output_file_name'
+            input type="file" style="display:none" id="import_csv_file_input" onchange='angular.element(this).scope().hasFile()'
+        .row
+          .gridStyle ng-grid="gridOptions"
+        input type='hidden' name='codelist' ng-value='codelist'
+        .row.text-center
+          button.btn.btn-warning.btn-circle.btn-lg ng-click='submitForm($event)'
+            i.fa.fa-bolt
+          | &nbsp;
+          button.btn.btn-default.btn-circle.btn-lg type='reset' ng-click='reset()'
+            i.fa.fa-refresh.fa-spin style='color:#e74c3c;'

@@ -9,25 +9,37 @@ class DataToolsService < BaseService
     @log_file = nil
   end
 
+  def write_questions_to_file(data,output_file_name)
+    questions = []
+    data.each do |d|
+      questions.push d.question
+    end
+    questions = questions.uniq
+    directory = "public/uploads"
+    path = File.join(directory, File.basename(output_file_name,".*") + "_cookies.csv")
+    File.open(path, "wb") { |f|
+      f.puts("\"#\",\"Question\",\"Filter\",\"Begin\",\"End\"")
+      questions.each do |q|
+        f.puts("\"\",\"#{q}\",\"\",\"\",\"\"")
+      end
+    }
+    path
+  end
+
   def run(file,options,params)
     @indexes = []
-
     helper_obj = HelperService.new
-
-
     # Setup Log File and Excel File
     export_excel_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.xlsx"
+    # binding.pry
     @log_file = "#{Rails.root}/public/uploads/#{helper_obj.generate_name()}.txt"
-
     if options['output_file_name']
       export_excel_file = "#{Rails.root}/public/uploads/#{options['output_file_name']}.xlsx"
       @log_file = "#{Rails.root}/public/uploads/#{options['output_file_name']}.txt"
     end
-
     log_file = File.open(@log_file,'w')
     log_file.write("Logs File for #{File.basename(file)}\n")
     log_file.write("#{Time.zone.now}")
-
     # Setup Var
     read_csv_obj = ReadCsvService.new
     index_helper = IndexHelper.new
@@ -40,13 +52,12 @@ class DataToolsService < BaseService
     all_in_one_sheet = nil
     index_sheet = wb.add_worksheet(name: 'INDEX' ) if options['build_index']
     all_in_one_sheet = wb.add_worksheet(name: 'DATA' ) if options['all_in_one']
-
     begin
       # Read CSV Folder
       data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
-
+      log_file.write("\nWrite Cookies\n\n\n")
+      write_questions_to_file(data,export_excel_file)
       log_file.write("\nWriting Data After Processing:\n\n\n")
-
       # Write to Excel File
       data.each_with_index do |x,i|
         log_file.write("\n#{x.sheet_name}")

@@ -1,4 +1,4 @@
-app.controller "DashboardController", [ '$scope', 'localStorageService',($scope,localStorageService) ->
+app.controller "DashboardController", [ '$scope', 'localStorageService','$http',($scope,localStorageService,$http) ->
   $scope.sorted_order = 'question,filters,base,wtd_resp,resp,header_and_data,totals,std_deviation,means,mode,medians'
   $scope.num_of_digits = 0
   $scope.export_data_type = 'percent'
@@ -17,18 +17,30 @@ app.controller "DashboardController", [ '$scope', 'localStorageService',($scope,
   ]
   $scope.backup = angular.copy($scope.items)
 
+  $scope.download_csv = () ->
+    csv_file = localStorageService.cookie.get('codelist_csv_file')
+    if csv_file?
+      $http.get('/check_file_exists?file=' + csv_file)
+        .success (response) ->
+          $('#btnDownloadCsv').attr({
+            'href': '/download_csv?file=' + csv_file
+            'target': '_blank'
+          })
+          $('#btnDownloadCsv')[0].click()
+
   $scope.submitForm = () ->
     dataForm = document.getElementById('dataToolsForm')
-    localStorageService.set('sorted_order', $scope.sorted_order)
-    localStorageService.set('build_index', $scope.build_index)
-    localStorageService.set('all_in_one', $scope.all_in_one)
-    localStorageService.set('clean_empty_code', $scope.clean_empty_code)
-    localStorageService.set('clean_empty_header', $scope.clean_empty_header)
-    localStorageService.set('clean_empty_table', $scope.clean_empty_table)
-    localStorageService.set('export_data_type', $scope.export_data_type)
-    localStorageService.set('output_file_name', $scope.output_file_name)
-    localStorageService.set('num_of_digits', $scope.num_of_digits)
-    dataForm.submit()
+    if dataForm.$valid
+      localStorageService.set('sorted_order', $scope.sorted_order)
+      localStorageService.set('build_index', $scope.build_index)
+      localStorageService.set('all_in_one', $scope.all_in_one)
+      localStorageService.set('clean_empty_code', $scope.clean_empty_code)
+      localStorageService.set('clean_empty_header', $scope.clean_empty_header)
+      localStorageService.set('clean_empty_table', $scope.clean_empty_table)
+      localStorageService.set('export_data_type', $scope.export_data_type)
+      localStorageService.set('output_file_name', $scope.output_file_name)
+      localStorageService.set('num_of_digits', $scope.num_of_digits)
+      dataForm.submit()
 
   $scope.load = () ->
     if localStorageService.get('build_index')?

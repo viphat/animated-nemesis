@@ -23,6 +23,8 @@
 //= require metisMenu/dist/metisMenu.min
 //= require startbootstrap-sb-admin-2/dist/js/sb-admin-2.js
 //= require angular-ui-sortable/sortable
+//= require ng-grid/build/ng-grid
+//= require ng-grid/plugins/ng-grid-csv-export
 //= require angular-local-storage/dist/angular-local-storage.min
 //= require main
 //= require_tree .

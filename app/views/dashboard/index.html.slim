@@ -19,17 +19,19 @@
     | <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
     .panel.panel-yellow#main-panel
       .panel-heading
-        | &nbsp;
+        i.fa.fa-globe.fa-fw
+        | &nbsp;Data Tools's Input
       .panel-body
         .well.well-lg
           .form-group.has-warning
             label.control-label
               i.fa.fa-archive
-              | &nbsp; Data File (.zip): &nbsp;
+              | &nbsp;Data File (.zip): &nbsp;
             input type='file' name='data_file' required='required' accept=".zip"
           .form-group.has-warning
             label.control-label
-              | Export Data
+              i.fa.fa-leaf
+              | &nbsp;Export Data
             select.form-control name='export_data_type' ng-model='export_data_type'
               option selected='selected' value='percent' Percentage Only
               option value='count' Count Only
@@ -38,13 +40,13 @@
             span.input-group-addon
               i.fa.fa-file-excel-o
               strong
-                | &nbsp; Output File Name
+                | &nbsp;Output File Name
             input.form-control type='text' placeholder='File Name' name='output_file_name' ng-model='output_file_name'
           .form-group.has-warning.input-group
             span.input-group-addon
               i.fa.fa-bed
               strong
-                | &nbsp;&nbsp; Number of Digits
+                | &nbsp;&nbsp;Number of Digits
             input.form-control type='number' name='num_of_digits' min='0' max='3' required='required' value=0 ng-model='num_of_digits' placeholder='0'
         .panel.panel-info
           .panel-heading
@@ -98,6 +100,12 @@
                   label.checkbox-inline
                     input type='checkbox' name='clean_empty_table' ng-model='clean_empty_table'
                       | Clean Empty Table
+        a.btn.btn-default href='javascript:void(0);' ng-click='download_csv()'
+          i.fa.fa-cloud-download
+          | &nbsp;Download CSV for Codelist
+        | &nbsp;(May be Blocked by Web Browser's Popup Blocker)
+        a.hidden id='btnDownloadCsv' href='#'
+          | Download
         br
         br
       .panel-footer.text-center

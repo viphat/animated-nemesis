@@ -1,0 +1,173 @@
+app.controller "CodelistController", [ '$scope', 'localStorageService','$http',($scope,localStorageService,$http) ->
+
+  $scope.myData = []
+
+  $scope.sheet = 1
+  $scope.local_storage_data = ''
+  $scope.local_storage_codelist = ''
+  $scope.output_file_name = ''
+  $scope.codelist_json = null
+
+  newObject =
+    question: 'New Row'
+    filter: ''
+    qbegin: '0'
+    qend: '0'
+
+  $scope.removeRow =() ->
+    index = this.row.rowIndex
+    $scope.gridOptions.selectItem(index, false)
+    $scope.myData.splice(index, 1)
+
+  $scope.load = () ->
+    $scope.myData.push angular.copy(newObject)
+    $scope.sheet = 1
+    $scope.local_storage_data = localStorageService.get('data_file')
+    $scope.local_storage_codelist = localStorageService.get('codelist_file')
+    setupGrid()
+    $scope.codelist = build_json_object()
+
+  setupGrid = () ->
+    removeTemplate = "
+      <span class='removeTemplate'>
+      <a href='javascript:void(0);' ng-click='removeRow($index)' class='btn btn-default'>
+        <i class='fa fa-times'/>
+      </button></span>
+    "
+    $scope.gridOptions = {
+      data: 'myData'
+      showFooter: true
+      enableCellSelection: true
+      enableRowSelection: false
+      enableCellEdit: true
+      rowHeight: 40
+      columnDefs: [
+        {field: 'remove', displayName: '#', enableCellEdit: false, sortable: false, cellTemplate: removeTemplate, width: '50px'},
+        {field: 'question', displayName: 'Question', enableCellEdit: true},
+        {field:'filter', displayName:'Filter', enableCellEdit: true, sortable: false}
+        {field:'qbegin', displayName:'Begin', enableCellEdit: true}
+        {field:'qend', displayName:'End', enableCellEdit: true}
+      ]
+      footerTemplate: '
+        <div ng-show="showFooter" class="ngFooterPanel">
+          <div class="ngTotalSelectContainer" >
+            <div class="ngFooterTotalItems" >
+            <span class="ngLabel">{{i18n.ngTotalItemsLabel}} {{maxRows()}}</span><span ng-show="filterText.length > 0" class="ngLabel">({{i18n.ngShowingItemsLabel}} {{totalFilteredItemsLength()}})</span>
+            </div>
+          </div>
+          <span class="custom-btn pull-right">
+            <a href="javascript:void(0);" ng-click="import_from_local_storage()" >Import from Last Action (Cookies)</a>
+          </span>
+          <span class="custom-btn pull-right">
+            <a href="javascript:void(0);" ng-click="import_from_csv()">Import from CSV</a>
+          </span>
+        </div>
+      '
+      beforeSelectionChange: (a1) ->
+        if a1.rowIndex == $scope.myData.length - 1
+          if $scope.myData[$scope.myData.length-1].question !=newObject.question
+            $scope.myData.push angular.copy(newObject)
+        true
+      plugins: [new ngGridCsvExportPlugin({
+        linkLabel: 'Export CSV'
+        linkCss: 'csv-link'
+        fileName: new Date()
+      })]
+    }
+
+  $scope.import_from_local_storage = () ->
+    $scope.myData = localStorageService.get('myData')
+
+  $scope.import_from_csv = () ->
+    if (window.File && window.FileReader && window.FileList && window.Blob)
+      $('#import_csv_file_input').click()
+    return
+
+  $scope.hasFile = () ->
+    file_input = document.getElementById('import_csv_file_input')
+    f = file_input.files[0]
+    reader = new FileReader()
+    reader.onload = (e) ->
+      text = reader.result
+      read_codelist_from_text(text)
+    reader.readAsText(f,"UTF-8")
+
+  read_codelist_from_text = (text) ->
+    lines = text.split(/[\r\n]+/g)
+    lines.shift() # Remove First Lines
+    lines.pop() # Remove Last Lines
+    $scope.myData = []
+    for line in lines
+      items = line.split(",")
+      $scope.myData.push {
+        question: items[1].substring(1,items[1].length-1)
+        filter: items[2].substring(1,items[2].length-1)
+        qbegin: items[3].substring(1,items[3].length-1)
+        qend: items[4].substring(1,items[4].length-1)
+      }
+    $scope.$apply()
+
+  build_json_object = () ->
+    codelist = []
+    items = $scope.myData
+    for item in items
+      codelist.push(JSON.stringify(item))
+    return codelist
+
+  $scope.submitForm = ($event) ->
+    codelistForm = document.getElementById('codelistForm')
+    data_file = $('#data_file')
+    codelist_file = $('#codelist_file')
+    if data_file.val() == ""
+      local_data_file = localStorageService.get('data_file')
+      if local_data_file != ""
+        $http.get('/check_file_exists?file=' + local_data_file)
+          .success (response) ->
+            if response.status == false
+              sweetAlert
+                title: 'Lỗi'
+                text: 'File Data không tồn tại trên Server'
+                type: 'warning'
+                showCancelButton: false
+                closeOnConfirm: false
+                html: true
+                timer: 3000
+              $event.preventDefault()
+              return
+
+    if codelist_file.val() == ""
+      local_codelist_file = localStorageService.get('codelist_file')
+      if local_codelist_file != ""
+        $http.get('/check_file_exists?file=' + local_codelist_file)
+          .success (response) ->
+            if response.status == false
+              sweetAlert
+                title: 'Lỗi'
+                text: 'File Codelist không tồn tại trên Server'
+                type: 'warning'
+                showCancelButton: false
+                closeOnConfirm: false
+                html: true
+                timer: 3000
+              $event.preventDefault()
+              return
+            else
+              $scope.local_storage_codelist = local_codelist_file
+
+    if data_file.val() != ""
+      localStorageService.set('data_file', data_file.val().split('\\').pop())
+
+    if codelist_file.val() != ""
+      localStorageService.set('codelist_file', codelist_file.val().split('\\').pop())
+
+    localStorageService.set('sheet', $scope.sheet)
+
+    localStorageService.set('codelist_output_file_name', $scope.output_file_name)
+
+    localStorageService.set('myData', $scope.myData)
+    $scope.codelist = build_json_object()
+    codelistForm.submit()
+
+    # $event.preventDefault()
+    # return false
+]
