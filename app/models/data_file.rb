@@ -2,7 +2,7 @@ class DataFile < ActiveRecord::Base
 
   def self.save_excel(excel_file)
     name = excel_file.original_filename
-    directory = "public/uploads"
+    directory = "#{Rails.root}/public/uploads"
     path = File.join(directory, name)
     # write the file
     File.open(path, "wb") { |f| f.write(excel_file.read) }
@@ -16,7 +16,7 @@ class DataFile < ActiveRecord::Base
     # if File.extname(new_name) != ".zip"
     #   name = File.basename(new_name) + ".zip"
     # end
-    directory = "public/uploads"
+    directory = "#{Rails.root}/public/uploads"
     # create the file path
     path = File.join(directory, name)
     # write the file

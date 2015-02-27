@@ -35,29 +35,40 @@ class WriteExcelService < BaseService
     predefined_styles['border_with_center'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center })
     predefined_styles['bold'] = styles.add_style(:b => true)
     predefined_styles['bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :left })
+    predefined_styles['bold_with_center'] = styles.add_style(:b => true, :alignment => { :horizontal => :center })
     predefined_styles['bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center })
     predefined_styles['red_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"FF0000",:alignment => { :horizontal => :center })
 
-    predefined_styles['red_bold_boder_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :center })
+    predefined_styles['red_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :center })
 
-    predefined_styles['blue_bold_boder_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"0000FF",:alignment => { :horizontal => :center })
+    predefined_styles['red_bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000"
+    )
+    predefined_styles['red_bold_border_with_left'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :left }
+    )
+
+
+
+    predefined_styles['blue_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"0000FF",:alignment => { :horizontal => :center })
+
+    predefined_styles['red'] = styles.add_style(:fg_color=>"FF0000")
 
     predefined_styles['red_bold'] = styles.add_style(:b => true, :fg_color=>"FF0000")
-    predefined_styles['red'] = styles.add_style(:fg_color=>"FF0000")
+
     predefined_styles['blue_bold'] = styles.add_style(:b => true, :fg_color=>"0000FF")
-    # predefined_styles['alignment_left'] = styles.add_style(:alignment => { :horizontal => :left })
+
+
+    predefined_styles['blue_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"0000FF",:alignment => { :horizontal => :center })
     predefined_styles
   end
 
   def add_question(sheet,data,options,predefined_styles)
     p __method__
-    sheet.add_row([data.question], widths: [:ignore] * data.header.count,
-                    style: predefined_styles['bold']) if !data.question.nil?
+    sheet.add_row([data.question], style: predefined_styles['blue_bold'],:widths => [:ignore] * data.header.count) if !data.question.nil?
   end
 
   def add_filters(sheet,data,options,predefined_styles)
     p __method__
-    sheet.add_row([data.filters], style: predefined_styles['blue_bold']) unless data.filters.nil?
+    sheet.add_row([data.filters], style: predefined_styles['bold'],:widths => [:ignore] * data.header.count) unless data.filters.nil?
   end
 
   def add_base(sheet,data,options,predefined_styles)
@@ -67,41 +78,80 @@ class WriteExcelService < BaseService
 
   def add_wtd_resp(sheet,data,options,predefined_styles)
     p __method__
-    add_row(sheet,data.wtd_resp,options,predefined_styles['blue_bold'],predefined_styles['blue_bold_boder_with_center'])
+    unless data.codelist
+      add_row(sheet,data.wtd_resp,options,predefined_styles['blue_bold'],predefined_styles['blue_bold_border_with_center'],data.codelist)
+    else
+      add_row(sheet,data.wtd_resp,options,predefined_styles['blue_bold_with_center'],predefined_styles['blue_bold_border_with_center'],data.codelist)
+    end
   end
 
   def add_resp(sheet,data,options,predefined_styles)
     p __method__
-    add_row(sheet,data.resp,options,predefined_styles['red_bold'],predefined_styles['red_bold_boder_with_center'])
+    unless data.codelist
+      add_row(sheet,data.resp,options,predefined_styles['red_bold'],predefined_styles['red_bold_border_with_center'],data.codelist)
+    else
+      add_row(sheet,data.resp,options,predefined_styles['red_bold_with_center'],predefined_styles['red_bold_border_with_center'],data.codelist)
+    end
   end
 
   def add_header_and_data(sheet,data,options,predefined_styles)
     p __method__
     # Styling Header
     # Styling Data Row
-
     style_for_header = [predefined_styles['red_bold']]
     style_for_data = [predefined_styles['bold_border']]
+    style_for_group_data = []
+    if data.codelist
+      style_for_header = [predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center']]
+      style_for_data = [predefined_styles['bold_border'],predefined_styles['bold_border']]
+      style_for_group_data = [predefined_styles['red_bold_border_with_left'],predefined_styles['red_bold_border']]
+    end
+
     old = []
 
     if options['export_data_type'] == :both
-      ((data.header.count - 1)*2).times { style_for_header << predefined_styles['red_bold_boder_with_center'] }
-      ((data.header.count - 1)*2).times { style_for_data << predefined_styles['border_with_center'] }
+      if data.codelist
+        ((data.header.count - 2)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
+        ((data.header.count - 2)*2).times { style_for_data << predefined_styles['border_with_center'] }
+        ((data.header.count - 2)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
+      else
+        ((data.header.count - 1)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
+        ((data.header.count - 1)*2).times { style_for_data << predefined_styles['border_with_center'] }
+      end
       old = data.header.dup
-      data.header = fill_blanks(data.header)
+      data.header = fill_blanks(data.header,data.codelist)
     else
-      (data.header.count - 1).times { style_for_header << predefined_styles['red_bold_with_center'] }
-      (data.header.count - 1).times { style_for_data << predefined_styles['border'] }
+      if data.codelist
+        (data.header.count - 2).times { style_for_header << predefined_styles['red_bold_with_center'] }
+        (data.header.count - 2).times { style_for_data << predefined_styles['border'] }
+        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
+      else
+        (data.header.count - 1).times { style_for_header << predefined_styles['red_bold_with_center'] }
+        (data.header.count - 1).times { style_for_data << predefined_styles['border'] }
+      end
     end
 
-    start_row = sheet.add_row(data.header, style: style_for_header,:widths => [:ignore] * data.header.count)
+    width = [:ignore] * data.header.count
+    if data.codelist
+      width = [:ignore, 40]
+      width << [:ignore] * (data.header.count - 2)
+      width = width.flatten
+    end
+    start_row = sheet.add_row(data.header, style: style_for_header,:widths => width)
 
     if options['export_data_type'] == :both
-      merge_cells(sheet,start_row,old,predefined_styles['red_bold_boder_with_center'])
+      merge_cells(sheet,start_row,old,predefined_styles['red_bold_border_with_center'],data.codelist)
       new_row = []
       new_row[0] = ''
       i = 1
-      (old.count - 1).times {
+      j = 1
+
+      if data.codelist
+        i = 2
+        j = 2
+      end
+
+      (old.count - j).times {
         new_row[i] = 'count'
         new_row[i+1] = 'percent'
         i += 2
@@ -113,8 +163,12 @@ class WriteExcelService < BaseService
       value_arr = []
       value_arr = value['count'] if options['export_data_type'] == :count
       value_arr = value['percent'] if options['export_data_type'] == :percent
-      value_arr = merge_arr(value['count'],value['percent']) if options['export_data_type'] == :both
-      sheet.add_row(value_arr, style: style_for_data)
+      value_arr = merge_arr(value['count'],value['percent'],data.codelist) if options['export_data_type'] == :both
+      if value['bold'].present? && value['bold']
+        sheet.add_row(value_arr, style: style_for_group_data,:widths => [:ignore] * data.header.count)
+      else
+        sheet.add_row(value_arr, style: style_for_data,:widths => [:ignore] * data.header.count)
+      end
     end
 
     last_cell = sheet.rows.last.cells.last
@@ -122,57 +176,91 @@ class WriteExcelService < BaseService
     if options['export_data_type'] != :both
       sheet.auto_filter = "#{Axlsx::cell_r(0,start_row.index)}:#{Axlsx::cell_r(last_cell.index,last_cell.row.index)}"
     end
+
   end
 
   def add_totals(sheet,data,options,predefined_styles)
     p __method__
     styling = [predefined_styles['bold']]
 
+    if data.codelist
+      styling = [predefined_styles['bold_with_center'],predefined_styles['bold_with_center']]
+    end
+
     total_arr = data.totals_count if options['export_data_type'] == :count
     total_arr = data.totals_percent if options['export_data_type'] == :percent
-    total_arr = merge_arr(data.totals_count,data.totals_percent) if options['export_data_type'] == :both
-    # binding.pry
+    if options['export_data_type'] == :both
+      total_arr = merge_arr(data.totals_count,data.totals_percent,data.codelist)
+
+    end
     s = predefined_styles['bold']
 
     if options['export_data_type'] == :both
       s = predefined_styles['bold_border_with_center']
     end
 
-    (total_arr.count-1).times {
+    i = 1
+    if data.codelist
+      i = 2
+    end
+
+    (total_arr.count-i).times {
       styling << s
     }
 
-    sheet.add_row(total_arr,style: styling)
+    row = sheet.add_row(total_arr,style: styling)
+    if options['export_data_type'] == :both
+      if data.codelist
+        range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(1, row.index)
+        sheet.merge_cells range
+      end
+    end
   end
 
   def add_std_deviation(sheet,data,options,predefined_styles)
     p __method__
-    add_row(sheet,data.std_deviation,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'])
+    unless data.codelist
+      add_row(sheet,data.std_deviation,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'],data.codelist)
+    else
+      add_row(sheet,data.std_deviation,options,predefined_styles['bold_with_center'],predefined_styles['bold_border_with_center'],data.codelist)
+    end
   end
 
   def add_means(sheet,data,options,predefined_styles)
     p __method__
-    add_row(sheet,data.means,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'])
+    unless data.codelist
+      add_row(sheet,data.means,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'],data.codelist)
+    else
+      add_row(sheet,data.means,options,predefined_styles['bold_with_center'],predefined_styles['bold_border_with_center'],data.codelist)
+    end
   end
 
   def add_mode(sheet,data,options,predefined_styles)
     p __method__
-    add_row(sheet,data.mode,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'])
+    unless data.codelist
+      add_row(sheet,data.mode,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'],data.codelist)
+    else
+      add_row(sheet,data.mode,options,predefined_styles['bold_with_center'],predefined_styles['bold_border_with_center'],data.codelist)
+    end
   end
 
   def add_medians(sheet,data,options,predefined_styles)
     p __method__
-    add_row(sheet,data.medians,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'])
+    unless data.codelist
+      add_row(sheet,data.medians,options,predefined_styles['bold'],predefined_styles['bold_border_with_center'],data.codelist)
+    else
+      add_row(sheet,data.medians,options,predefined_styles['bold_with_center'],predefined_styles['bold_border_with_center'],data.codelist)
+    end
   end
 
-  def merge_arr(count_arr,percent_arr)
+  def merge_arr(count_arr,percent_arr,codelist=false)
     both_arr = [count_arr[0]]
-    count_arr[1..-1].each.with_index(1) do |v,i|
-      if i == 1 && !(count_arr[i].is_a? Numeric)
-        # Truong hop Co dan Label Code
-        both_arr << count_arr[i]
-        next
-      end
+    index = 1
+    if codelist
+      both_arr << count_arr[1]
+      index = 2
+    end
+    count_arr[index..-1].each.with_index(index) do |v,i|
       both_arr << count_arr[i] unless count_arr.nil?
       both_arr << percent_arr[i] unless percent_arr.nil?
       if percent_arr.nil?
@@ -182,10 +270,14 @@ class WriteExcelService < BaseService
     both_arr
   end
 
-  def merge_cells(sheet,row,data_arr,style)
+  def merge_cells(sheet,row,data_arr,style,codelist=false)
     p __method__
-    index = 1
-    data_arr[1..-1].each do
+    if codelist
+      range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(1, row.index)
+      sheet.merge_cells range
+    end
+    codelist ? index = 2 : index = 1
+    data_arr[index..-1].each do
       range = Axlsx::cell_r(index,row.index) + ":" + Axlsx::cell_r(index+1, row.index)
       sheet.merge_cells range
       # p range
@@ -196,26 +288,26 @@ class WriteExcelService < BaseService
     end
   end
 
-  def fill_blanks(data_arr)
+  def fill_blanks(data_arr,codelist=false)
     p __method__
-    index = 1
-    data_arr[1..-1].each do
+    codelist ? index = 2 : index = 1
+    data_arr[index..-1].each do
       data_arr = data_arr.insert(index+1,'')
       index = index + 2
     end
     data_arr
   end
 
-  def add_row(sheet,data,options,predefined_styles_1,predefined_styles_2)
+  def add_row(sheet,data,options,predefined_styles_1,predefined_styles_2,codelist=false)
     p __method__
     unless data.nil?
       old_data = data.dup
       if options['export_data_type'] == :both
-        data = fill_blanks(data)
+        data = fill_blanks(data,codelist)
       end
       row = sheet.add_row(data, style: predefined_styles_1)
       if options['export_data_type'] == :both
-        merge_cells(sheet,row,old_data,predefined_styles_2)
+        merge_cells(sheet,row,old_data,predefined_styles_2,codelist)
       end
     end
   end

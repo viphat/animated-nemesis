@@ -14,10 +14,11 @@ class RawData
                 :header_label,
                 :header,
                 :val,
-                :sheet_name
+                :sheet_name,
+                :codelist
 
   def initialize
-    @wtd_resp = @resp = @question = @base = @table_name = @filters = @means = @medians = @mode = @std_deviation = @totals_count = @totals_percent = @header_label = @header = @sheet_name = nil
+    @wtd_resp = @resp = @question = @base = @table_name = @filters = @means = @medians = @mode = @std_deviation = @totals_count = @totals_percent = @header_label = @header = @sheet_name = @codelist = nil
     @val = []
   end
 
@@ -33,6 +34,7 @@ class RawData
     @header_label, @header = hash['header_label'], hash['header']
     @sheet_name = hash['sheet_name']
     @val = hash['val']
+    @codelist = nil
   end
 
 end

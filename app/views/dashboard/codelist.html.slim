@@ -42,7 +42,7 @@
               strong
                 | &nbsp;Output File Name
             input.form-control type='text' placeholder='File Name' name='output_file_name' ng-model='output_file_name'
-            input type="file" style="display:none" id="import_csv_file_input"
+            input type="file" style="display:none" id="import_csv_file_input" accept=".csv"
         .row
           .gridStyle ng-grid="gridOptions"
         input type='hidden' name='codelist' ng-value='codelist'

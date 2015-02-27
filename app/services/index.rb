@@ -13,4 +13,10 @@ class Index
     @index, @question, @sheet_name, @link, @filter, @error = i,q,s,l,f,e
   end
 
+  def build!(hash)
+    @index, @question, @sheet_name, @link, @filter, @error = hash["index"], hash["question"], hash["sheet_name"], hash["link"], hash["filter"], hash["error"]
+    self
+  end
+
+
 end

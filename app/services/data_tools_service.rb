@@ -15,12 +15,13 @@ class DataToolsService < BaseService
     read_csv_obj = ReadCsvService.new
     full_file_path = exported_file_path(options,helper_obj)
     log_file = build_log_file(file,full_file_path)
+
     begin
-      encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
+      encode = helper_obj.extract_zip_file(file)
       src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
       data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
       log_file.write("\n\n\nWrite JSON Data\n")
-      full_file_path = write_data_to_json_file(data,options,full_file_path)
+      full_file_path = write_data_to_json_file(data,options,@indexes,full_file_path)
     rescue Exception => e
       log_file.write("\n\n\n#{e}")
       Airbrake.notify_or_ignore(
@@ -44,7 +45,7 @@ class DataToolsService < BaseService
     full_file_path = exported_file_path(options,helper_obj)
     log_file = build_log_file(file,full_file_path)
     begin
-      encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
+      encode = helper_obj.extract_zip_file(file)
       src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
       data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
       log_file.write("\n\n\nWrite Cookies\n")
@@ -65,8 +66,11 @@ class DataToolsService < BaseService
     full_file_path
   end
 
-  def read_and_export_data(file,options,params,is_codelist=false,data=nil)
+  def read_and_export_data(file,options,params,is_codelist=false,data=nil,indexes=nil)
     @indexes = []
+
+    @indexes = indexes if is_codelist
+
     helper_obj = HelperService.new
     full_file_path = exported_file_path(options,helper_obj)
     export_excel_file = "#{full_file_path}.xlsx"
@@ -75,12 +79,14 @@ class DataToolsService < BaseService
     read_csv_obj = ReadCsvService.new
     index_helper = IndexHelper.new
     write_excel_object = WriteExcelService.new
+
     begin
       # Read CSV Folder
-      encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}") # Extract File ZIP
-      src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
-      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
-
+      unless is_codelist
+        encode = helper_obj.extract_zip_file(file) # Extract File ZIP
+        src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
+        data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
+      end
       # Write to Excel File
       log_file.write("\n\nWriting Data After Processing:\n")
       p = Axlsx::Package.new
@@ -117,7 +123,9 @@ class DataToolsService < BaseService
       ap e
       raise e
     ensure
-      helper_obj.delete_folder_after_process(src_folder)
+      unless is_codelist
+        helper_obj.delete_folder_after_process(src_folder)
+      end
       log_file.close
     end
     export_excel_file
@@ -127,7 +135,7 @@ class DataToolsService < BaseService
 
   def build_options(params)
     options = {
-      'build_index' => true,
+      'build_index' => false,
       'all_in_one' => false,
       'clean_empty_code' => false,
       'clean_empty_table' => false,
@@ -199,13 +207,14 @@ class DataToolsService < BaseService
     end
   end
 
-  def write_data_to_json_file(data,options,output_file_name)
+  def write_data_to_json_file(data,options,indexes,output_file_name)
 
     path = "#{output_file_name}.json"
     File.open(path,"wb") { |f|
       f.puts({
         data: data,
-        options: options
+        options: options,
+        indexes: indexes
       }.to_json)
     }
     path

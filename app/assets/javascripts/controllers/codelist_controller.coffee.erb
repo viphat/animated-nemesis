@@ -1,4 +1,4 @@
-app.controller "CodelistController", [ '$scope', 'localStorageService','$http',($scope,localStorageService,$http) ->
+app.controller "CodelistController", [ '$scope', 'localStorageService','$http','$q',($scope,localStorageService,$http,$q) ->
 
   $scope.myData = []
 
@@ -22,7 +22,12 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http',(
   $scope.load = () ->
     $scope.myData.push angular.copy(newObject)
     $scope.sheet = 1
-    $scope.local_storage_data = localStorageService.get('data_file')
+    if localStorageService.get('sheet')?
+      $scope.sheet = localStorageService.get('sheet')
+    if localStorageService.get('codelist_output_file_name')
+      $scope.output_file_name = localStorageService.get('codelist_output_file_name')
+
+    $scope.local_storage_data = localStorageService.get('json_file')
     $scope.local_storage_codelist = localStorageService.get('codelist_file')
     setupGrid()
     $scope.codelist = build_json_object()
@@ -76,7 +81,7 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http',(
       plugins: [new ngGridCsvExportPlugin({
         linkLabel: 'Export CSV'
         linkCss: 'csv-link'
-        fileName: new Date()
+        fileName: new Date() + ".csv"
       })]
     }
 
@@ -123,44 +128,22 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http',(
     codelistForm = document.getElementById('codelistForm')
     data_file = $('#data_file')
     codelist_file = $('#codelist_file')
+    $event.preventDefault()
+    deferred = $q.defer()
+    promises = []
+
     if data_file.val() == ""
-      local_data_file = localStorageService.get('data_file')
+      local_data_file = localStorageService.get('json_file')
       if local_data_file != ""
-        $http.get('/check_file_exists?file=' + local_data_file)
-          .success (response) ->
-            if response.status == false
-              sweetAlert
-                title: 'Lỗi'
-                text: 'File Data không tồn tại trên Server'
-                type: 'warning'
-                showCancelButton: false
-                closeOnConfirm: false
-                html: true
-                timer: 3000
-              $event.preventDefault()
-              return
+        promises.push $http.get('/check_file_exists?file=' + local_data_file)
 
     if codelist_file.val() == ""
       local_codelist_file = localStorageService.get('codelist_file')
-      if local_codelist_file != ""
-        $http.get('/check_file_exists?file=' + local_codelist_file)
-          .success (response) ->
-            if response.status == false
-              sweetAlert
-                title: 'Lỗi'
-                text: 'File Codelist không tồn tại trên Server'
-                type: 'warning'
-                showCancelButton: false
-                closeOnConfirm: false
-                html: true
-                timer: 3000
-              $event.preventDefault()
-              return
-            else
-              $scope.local_storage_codelist = local_codelist_file
+      if local_codelist_file? && local_codelist_file != ""
+        promises.push $http.get('/check_file_exists?file=' + local_codelist_file)
 
     if data_file.val() != ""
-      localStorageService.set('data_file', data_file.val().split('\\').pop())
+      localStorageService.set('json_file', data_file.val().split('\\').pop())
 
     if codelist_file.val() != ""
       localStorageService.set('codelist_file', codelist_file.val().split('\\').pop())
@@ -171,7 +154,32 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http',(
 
     localStorageService.set('myData', $scope.myData)
     $scope.codelist = build_json_object()
-    codelistForm.submit()
+
+    $q.all(promises).then ((result) ->
+      res = []
+      files = []
+      for r in result
+        res.push r.data
+      for r in res
+        if r.status == false
+          files.push r.filename
+      if files.length > 0
+        sweetAlert
+          title: 'Lỗi'
+          text: 'File ' + files.join(",") + ' không tồn tại trên Server'
+          type: 'warning'
+          showCancelButton: false
+          closeOnConfirm: false
+          html: true
+          timer: 3000
+        deferred.reject("Rejected")
+        return
+      codelistForm.submit()
+      deferred.resolve("Successful")
+    )
+
+    #
+    deferred.promise
 
     # $event.preventDefault()
     # return false
