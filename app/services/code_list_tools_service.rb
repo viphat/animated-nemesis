@@ -8,7 +8,9 @@ class CodeListToolsService < BaseService
   def paste_codelist(params,json_file,codelist_file)
     ap __method__
     begin
+      ap params['codelist']
       codelist = build_codelist_array(params['codelist'])
+      # binding.pry
       codelist = read_codelist_file(codelist_file,params['sheet'].to_i,codelist)
       json_data = build_from_json_file(json_file)
       options = json_data['options']
@@ -45,6 +47,7 @@ class CodeListToolsService < BaseService
 
   def parse_data(data,codelist)
     ap __method__
+    # binding.pry
     codelist.each do |item|
       if item.code.length == 0
         next
@@ -153,17 +156,20 @@ class CodeListToolsService < BaseService
     # Spreadsheet.client_encoding = 'UTF-8'
     excel = Roo::Spreadsheet.open(codelist_file)
     sheet = excel.sheet(sheet-1)
-
+    ap codelist
     codelist.each_with_index do |item,index|
+      ap item
       if item.qbegin == 0 || item.question == 'New Row'
         next
       end
       index = 1
       (item.qbegin..item.qend).each do |row_index|
         row = sheet.row(row_index)
+
         if row[0].is_a? Numeric
           code = Code.new(row[0].to_i, row[1].to_s, index)
-          code.bold = true if sheet.font(row_index,2).bold?
+          ap row_index
+          code.bold = true if sheet.font(row_index,2).present? && sheet.font(row_index,2).bold?
           item.code.push code
           index = index + 1
         end
@@ -176,7 +182,6 @@ class CodeListToolsService < BaseService
     ap __method__
     codelist = []
     codelist_tmp = []
-
     if codelist_params.include?("},")
       codelist_params.split("},").each do |str|
         codelist_tmp.push str + "}"
@@ -189,6 +194,7 @@ class CodeListToolsService < BaseService
         codelist.push ActiveSupport::JSON.decode(codelist_row)
       end
     else
+      ap codelist_params
       codelist.push ActiveSupport::JSON.decode(codelist_params)
     end
     converted_codelist = []

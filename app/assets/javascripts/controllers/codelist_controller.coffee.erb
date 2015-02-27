@@ -14,10 +14,19 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     qbegin: ''
     qend: ''
 
+  $scope.$on 'ngGridEventEndCellEdit', (evt) ->
+    console.log evt.targetScope.row.entity
+    $scope.codelist = build_json_object()
+    # the underlying data bound to the row
+    # Detect changes and send entity to server
+    return
+
+
   $scope.removeRow =() ->
     index = this.row.rowIndex
     $scope.gridOptions.selectItem(index, false)
     $scope.myData.splice(index, 1)
+    $scope.codelist = build_json_object()
 
   $scope.load = () ->
     $scope.myData.push angular.copy(newObject)
@@ -29,8 +38,13 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
 
     $scope.local_storage_data = localStorageService.get('json_file')
     $scope.local_storage_codelist = localStorageService.get('codelist_file')
+
     setupGrid()
+
     $scope.codelist = build_json_object()
+
+
+
     $('#import_csv_file_input').on("change", (event) ->
       angular.element(this).scope().hasFile()
       return
@@ -74,9 +88,12 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
         </div>
       '
       beforeSelectionChange: (a1) ->
+        console.log $scope.myData
         if a1.rowIndex == $scope.myData.length - 1
           if $scope.myData[$scope.myData.length-1].question !=newObject.question
             $scope.myData.push angular.copy(newObject)
+            $scope.codelist = build_json_object()
+
         true
       plugins: [new ngGridCsvExportPlugin({
         linkLabel: 'Export CSV'
@@ -87,6 +104,7 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
 
   $scope.import_from_local_storage = () ->
     $scope.myData = localStorageService.get('myData')
+    $scope.codelist = build_json_object()
 
   $scope.import_from_csv = () ->
     if (window.File && window.FileReader && window.FileList && window.Blob)
@@ -116,6 +134,7 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
         qend: items[4].substring(1,items[4].length-1)
       }
     $scope.$apply()
+    $scope.codelist = build_json_object()
 
   build_json_object = () ->
     codelist = []
@@ -153,7 +172,7 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     localStorageService.set('codelist_output_file_name', $scope.output_file_name)
 
     localStorageService.set('myData', $scope.myData)
-    $scope.codelist = build_json_object()
+
 
     $q.all(promises).then ((result) ->
       res = []
@@ -174,6 +193,8 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
           timer: 3000
         deferred.reject("Rejected")
         return
+      $scope.codelist = build_json_object()
+      console.log $scope.codelist
       codelistForm.submit()
       deferred.resolve("Successful")
     )

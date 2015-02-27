@@ -39,7 +39,10 @@ class WriteExcelService < BaseService
     predefined_styles['bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center })
     predefined_styles['red_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"FF0000",:alignment => { :horizontal => :center })
 
-    predefined_styles['red_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :center })
+    predefined_styles['red_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :center }
+    )
+    predefined_styles['red_bold_border_with_right'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :right }
+    )
 
     predefined_styles['red_bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000"
     )
@@ -115,7 +118,7 @@ class WriteExcelService < BaseService
         ((data.header.count - 2)*2).times { style_for_data << predefined_styles['border_with_center'] }
         ((data.header.count - 2)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
       else
-        ((data.header.count - 1)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
+        ((data.header.count - 1)*2).times { style_for_header << predefined_styles['red_bold_border_with_right'] }
         ((data.header.count - 1)*2).times { style_for_data << predefined_styles['border_with_center'] }
       end
       old = data.header.dup
@@ -124,7 +127,7 @@ class WriteExcelService < BaseService
       if data.codelist
         (data.header.count - 2).times { style_for_header << predefined_styles['red_bold_with_center'] }
         (data.header.count - 2).times { style_for_data << predefined_styles['border'] }
-        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
+        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
       else
         (data.header.count - 1).times { style_for_header << predefined_styles['red_bold_with_center'] }
         (data.header.count - 1).times { style_for_data << predefined_styles['border'] }

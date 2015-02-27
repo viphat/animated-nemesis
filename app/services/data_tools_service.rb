@@ -10,6 +10,7 @@ class DataToolsService < BaseService
   end
 
   def read_question_and_build_json(file,options,params)
+    ap __method__
     @indexes = []
     helper_obj = HelperService.new
     read_csv_obj = ReadCsvService.new
@@ -39,6 +40,7 @@ class DataToolsService < BaseService
   end
 
   def read_question_and_write_to_file(file,options,params)
+    ap __method__
     @indexes = []
     helper_obj = HelperService.new
     read_csv_obj = ReadCsvService.new
@@ -67,6 +69,7 @@ class DataToolsService < BaseService
   end
 
   def read_and_export_data(file,options,params,is_codelist=false,data=nil,indexes=nil)
+    ap __method__
     @indexes = []
 
     @indexes = indexes if is_codelist
