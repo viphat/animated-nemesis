@@ -10,7 +10,31 @@ class DataToolsService < BaseService
   end
 
   def read_question_and_build_json(file,options,params)
-
+    @indexes = []
+    helper_obj = HelperService.new
+    read_csv_obj = ReadCsvService.new
+    full_file_path = exported_file_path(options,helper_obj)
+    log_file = build_log_file(file,full_file_path)
+    begin
+      encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}")
+      src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
+      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
+      log_file.write("\n\n\nWrite JSON Data\n")
+      full_file_path = write_data_to_json_file(data,options,full_file_path)
+    rescue Exception => e
+      log_file.write("\n\n\n#{e}")
+      Airbrake.notify_or_ignore(
+        e,
+        :parameters    => params,
+        :cgi_data      => ENV.to_hash
+      )
+      ap e
+      raise e
+    ensure
+      helper_obj.delete_folder_after_process(src_folder)
+      log_file.close
+    end
+    full_file_path
   end
 
   def read_question_and_write_to_file(file,options,params)
@@ -41,7 +65,7 @@ class DataToolsService < BaseService
     full_file_path
   end
 
-  def read_and_export_data(file,options,params)
+  def read_and_export_data(file,options,params,is_codelist=false,data=nil)
     @indexes = []
     helper_obj = HelperService.new
     full_file_path = exported_file_path(options,helper_obj)
@@ -55,15 +79,17 @@ class DataToolsService < BaseService
       # Read CSV Folder
       encode = helper_obj.extract_zip_file("#{Rails.root}/#{file}") # Extract File ZIP
       src_folder = RAILS_TEMP_PATH + "csv/"  + encode + "/"
+      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
+
+      # Write to Excel File
+      log_file.write("\n\nWriting Data After Processing:\n")
       p = Axlsx::Package.new
       p.use_shared_strings = true
       wb = p.workbook
       all_in_one_sheet = nil
       index_sheet = wb.add_worksheet(name: 'INDEX' ) if options['build_index']
       all_in_one_sheet = wb.add_worksheet(name: 'DATA' ) if options['all_in_one']
-      data = read_csv_obj.read_all_csv_files_in_folder(src_folder,options,@indexes,log_file)
-      log_file.write("\n\nWriting Data After Processing:\n")
-      # Write to Excel File
+
       data.each_with_index do |x,i|
         log_file.write("\n#{x.sheet_name}")
         if options['all_in_one']
@@ -150,8 +176,8 @@ class DataToolsService < BaseService
     log_file = File.open(@log_file,'w')
     log_file.write("Logs File for #{File.basename(file)}\n")
     log_file.write("#{Time.zone.now}")
-    codelist_tools_service = CodeListToolsService.new
-    unless codelist_tools_service.check_file_exists("#{File.basename(file)}")
+    helper_obj = HelperService.new
+    unless helper_obj.check_file_exists("#{File.basename(file)}")
       log_file.write("\n\n\nFile #{file} doesn't exits on Server")
       log_file.close
       raise "File #{file} doesn't exits on Server"
@@ -174,9 +200,13 @@ class DataToolsService < BaseService
   end
 
   def write_data_to_json_file(data,options,output_file_name)
+
     path = "#{output_file_name}.json"
     File.open(path,"wb") { |f|
-      f.puts(data.to_json)
+      f.puts({
+        data: data,
+        options: options
+      }.to_json)
     }
     path
   end

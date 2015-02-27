@@ -53,8 +53,8 @@ class DashboardController < ApplicationController
   end
 
   def check_file_exists
-    codelist_tools = CodeListToolsService.new
-    if codelist_tools.check_file_exists(params[:file])
+    helper_obj = HelperService.new
+    if helper_obj.check_file_exists(params[:file])
       render json: {status: true}
     else
       render json: {status: false}

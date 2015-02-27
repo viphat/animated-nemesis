@@ -1,7 +1,7 @@
 class CodeList
-  attr_accessor :question, :filter, :qbegin, :qend, :code
-  def initialize(q='',filter='',qbegin=nil,qend=nil)
-    @question, @filter, @qbegin, @qend = q,filter,qbegin,qend
+  attr_accessor :question, :filters, :qbegin, :qend, :code
+  def initialize(q='',filters='',qbegin=nil,qend=nil)
+    @question, @filters, @qbegin, @qend = q,filters,qbegin,qend
     @code = []
   end
 end

@@ -3,6 +3,12 @@ require 'base64'
 
 class HelperService < BaseService
 
+  def check_file_exists(filename)
+    ap "check_file_exists - #{filename}"
+    filepath = "#{Rails.root}/public/uploads/#{filename}"
+    return File.exist?(filepath)
+  end
+
   def delete_folder_after_process(folder)
     # Tuong tu lenh rm -rf cua Unix
     FileUtils.rm_rf(folder)

@@ -22,6 +22,11 @@ app.controller "DashboardController", [ '$scope', 'localStorageService','$http',
     $('#dataToolsForm').get(0).setAttribute('action','/download_csv')
     submitForm()
 
+  $scope.download_data_json = () ->
+    $('#dataToolsForm').get(0).setAttribute('action','/download_data_json')
+    submitForm()
+
+
   $scope.submitData = () ->
     $('#dataToolsForm').get(0).setAttribute('action','/data_tools/post')
     submitForm()
