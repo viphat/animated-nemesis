@@ -14,7 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/publics/uploads/*
+/public/uploads/*.*
 /config/deploy.rb
 
 /data-tools.sublime-workspace

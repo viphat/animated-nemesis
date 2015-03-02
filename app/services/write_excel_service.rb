@@ -162,7 +162,11 @@ class WriteExcelService < BaseService
       sheet.add_row(new_row, style: style_for_header,:widths => [:ignore] * data.header.count)
     end
 
+    ap 'Write Value'
     data.val.each do |value|
+      if value == nil
+        next
+      end
       value_arr = []
       value_arr = value['count'] if options['export_data_type'] == :count
       value_arr = value['percent'] if options['export_data_type'] == :percent

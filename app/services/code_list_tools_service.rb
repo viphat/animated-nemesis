@@ -77,6 +77,7 @@ class CodeListToolsService < BaseService
     codelist.code.each do |c|
       codes << c.code
     end
+    p data.sheet_name
     data.val.each do |item|
       if integer?(item['count'][0])
         index = codes.index(item['count'][0].to_i)
@@ -93,13 +94,16 @@ class CodeListToolsService < BaseService
       item['count'].insert(1,"")
       item['percent'].insert(1,"")
     end
+    data_codes = []
+    data.val.each do |x|
+      data_codes << x['percent'][0].to_i
+    end
     c_index = 0
     codelist.code.each do |c|
-      data_codes = []
-      data.val.each { |x| data_codes << x['percent'][0].to_i }
       index = data_codes.index(c.code)
       unless index.nil?
         data.val.insert(c_index,data.val.delete_at(index))
+        data_codes.insert(c_index,data_codes.delete_at(index))
         c_index += 1
       end
     end
@@ -156,19 +160,26 @@ class CodeListToolsService < BaseService
     # Spreadsheet.client_encoding = 'UTF-8'
     excel = Roo::Spreadsheet.open(codelist_file)
     sheet = excel.sheet(sheet-1)
-    ap codelist
     codelist.each_with_index do |item,index|
-      ap item
       if item.qbegin == 0 || item.question == 'New Row'
         next
       end
+      ap "#{item.qbegin}----#{item.qend}"
+      codelist.each do |prev|
+        if item.qbegin == prev.qbegin && item.qend == prev.qend
+          item.code = prev.code
+          break
+        end
+      end
+      if item.code.count > 0
+        next
+      end
       index = 1
+
       (item.qbegin..item.qend).each do |row_index|
         row = sheet.row(row_index)
-
         if row[0].is_a? Numeric
           code = Code.new(row[0].to_i, row[1].to_s, index)
-          ap row_index
           code.bold = true if sheet.font(row_index,2).present? && sheet.font(row_index,2).bold?
           item.code.push code
           index = index + 1
@@ -194,7 +205,6 @@ class CodeListToolsService < BaseService
         codelist.push ActiveSupport::JSON.decode(codelist_row)
       end
     else
-      ap codelist_params
       codelist.push ActiveSupport::JSON.decode(codelist_params)
     end
     converted_codelist = []
