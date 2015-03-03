@@ -15,6 +15,7 @@ class CodeListToolsService < BaseService
       json_data = build_from_json_file(json_file)
       options = json_data['options']
       options['export_data_type'] = options['export_data_type'].to_sym
+      options['export_first'] = options['export_first'].to_sym
       indexes = build_index_from_json(json_data['indexes'])
       data = build_raw_data_from_json(json_data['data'])
 

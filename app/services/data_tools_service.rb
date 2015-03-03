@@ -146,6 +146,7 @@ class DataToolsService < BaseService
       'output_file_name' => false,
       'num_of_digits' => 0, # Number of Digits after decimal
       'export_data_type' => :both,
+      'export_first' => :count,
       'orders' => {
         'question' => 0,
         'filters' => 0,
@@ -170,7 +171,10 @@ class DataToolsService < BaseService
 
     options['export_data_type'] = :percent if params['export_data_type'] == 'percent'
     options['export_data_type'] = :count if params['export_data_type'] == 'count'
-    options['export_data_type'] = :both if params['export_data_type'] == 'both'
+    options['export_data_type'] = :both if params['export_data_type'] == 'both_count' || params['export_data_type'] == 'both_percent'
+
+    options['export_first'] = :count if params['export_data_type'] == 'both_count'
+    options['export_first'] = :percent if params['export_data_type'] == 'both_percent'
 
     if params['output_file_name'].present? &&  params['output_file_name'] != ''
       options['output_file_name'] = File.basename(params['output_file_name'])

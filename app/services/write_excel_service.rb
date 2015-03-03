@@ -103,23 +103,28 @@ class WriteExcelService < BaseService
     # Styling Data Row
     style_for_header = [predefined_styles['red_bold']]
     style_for_data = [predefined_styles['bold_border']]
-    style_for_group_data = []
+    style_for_header_row_2 = [predefined_styles['red_bold']]
+
     if data.codelist
       style_for_header = [predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center']]
       style_for_data = [predefined_styles['bold_border'],predefined_styles['bold_border']]
       style_for_group_data = [predefined_styles['red_bold_border_with_left'],predefined_styles['red_bold_border']]
+      style_for_header_row_2 = [predefined_styles['red_bold'],predefined_styles['red_bold']]
     end
 
     old = []
 
     if options['export_data_type'] == :both
+
       if data.codelist
         ((data.header.count - 2)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
         ((data.header.count - 2)*2).times { style_for_data << predefined_styles['border_with_center'] }
         ((data.header.count - 2)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
+        ((data.header.count - 2)*2).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
       else
         ((data.header.count - 1)*2).times { style_for_header << predefined_styles['red_bold_border_with_right'] }
         ((data.header.count - 1)*2).times { style_for_data << predefined_styles['border_with_center'] }
+        ((data.header.count - 1)*2).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center']}
       end
       old = data.header.dup
       data.header = fill_blanks(data.header,data.codelist)
@@ -127,10 +132,13 @@ class WriteExcelService < BaseService
       if data.codelist
         (data.header.count - 2).times { style_for_header << predefined_styles['red_bold_with_center'] }
         (data.header.count - 2).times { style_for_data << predefined_styles['border'] }
-        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
+        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['
+          red_bold_border_with_right'] }
+        ((data.header.count - 2)).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
       else
         (data.header.count - 1).times { style_for_header << predefined_styles['red_bold_with_center'] }
         (data.header.count - 1).times { style_for_data << predefined_styles['border'] }
+        (data.header.count - 1).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
       end
     end
 
@@ -146,6 +154,7 @@ class WriteExcelService < BaseService
       merge_cells(sheet,start_row,old,predefined_styles['red_bold_border_with_center'],data.codelist)
       new_row = []
       new_row[0] = ''
+
       i = 1
       j = 1
 
@@ -154,12 +163,21 @@ class WriteExcelService < BaseService
         j = 2
       end
 
-      (old.count - j).times {
-        new_row[i] = 'count'
-        new_row[i+1] = 'percent'
-        i += 2
-      }
-      sheet.add_row(new_row, style: style_for_header,:widths => [:ignore] * data.header.count)
+      if options['export_first'] == :percent
+        (old.count - j).times {
+          new_row[i] = 'percent'
+          new_row[i+1] = 'count'
+          i += 2
+        }
+      else
+        (old.count - j).times {
+          new_row[i] = 'count'
+          new_row[i+1] = 'percent'
+          i += 2
+        }
+      end
+
+      sheet.add_row(new_row, style: style_for_header_row_2,:widths => [:ignore] * data.header.count)
     end
 
     ap 'Write Value'
@@ -170,7 +188,13 @@ class WriteExcelService < BaseService
       value_arr = []
       value_arr = value['count'] if options['export_data_type'] == :count
       value_arr = value['percent'] if options['export_data_type'] == :percent
-      value_arr = merge_arr(value['count'],value['percent'],data.codelist) if options['export_data_type'] == :both
+      if options['export_data_type'] == :both
+        if options['export_first'] == :percent
+          value_arr = merge_arr(value['count'],value['percent'],true,data.codelist)
+        else
+          value_arr = merge_arr(value['count'],value['percent'],false,data.codelist)
+        end
+      end
       if value['bold'].present? && value['bold']
         sheet.add_row(value_arr, style: style_for_group_data,:widths => [:ignore] * data.header.count)
       else
@@ -197,8 +221,11 @@ class WriteExcelService < BaseService
     total_arr = data.totals_count if options['export_data_type'] == :count
     total_arr = data.totals_percent if options['export_data_type'] == :percent
     if options['export_data_type'] == :both
-      total_arr = merge_arr(data.totals_count,data.totals_percent,data.codelist)
-
+      if options['export_first'] == :percent
+        total_arr = merge_arr(data.totals_count,data.totals_percent,true,data.codelist)
+      else
+        total_arr = merge_arr(data.totals_count,data.totals_percent,false,data.codelist)
+      end
     end
     s = predefined_styles['bold']
 
@@ -260,7 +287,7 @@ class WriteExcelService < BaseService
     end
   end
 
-  def merge_arr(count_arr,percent_arr,codelist=false)
+  def merge_arr(count_arr,percent_arr,percent_first=false,codelist=false)
     both_arr = [count_arr[0]]
     index = 1
     if codelist
@@ -268,8 +295,15 @@ class WriteExcelService < BaseService
       index = 2
     end
     count_arr[index..-1].each.with_index(index) do |v,i|
-      both_arr << count_arr[i] unless count_arr.nil?
-      both_arr << percent_arr[i] unless percent_arr.nil?
+      if percent_first == true
+        both_arr << percent_arr[i] unless percent_arr.nil?
+        both_arr << count_arr[i] unless count_arr.nil?
+
+      else
+        both_arr << count_arr[i] unless count_arr.nil?
+        both_arr << percent_arr[i] unless percent_arr.nil?
+
+      end
       if percent_arr.nil?
         both_arr << 0
       end
