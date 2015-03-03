@@ -85,6 +85,9 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
           <span class="custom-btn pull-right">
             <a href="javascript:void(0);" ng-click="import_from_csv()">Import from CSV</a>
           </span>
+          <span class="custom-btn pull-right">
+            <a href="javascript:void(0);" id="export_data_csv_button">Export Data CSV</a>
+          </span>
         </div>
       '
       beforeSelectionChange: (a1) ->
@@ -93,14 +96,27 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
           if $scope.myData[$scope.myData.length-1].question !=newObject.question
             $scope.myData.push angular.copy(newObject)
             $scope.codelist = build_json_object()
-
         true
-      plugins: [new ngGridCsvExportPlugin({
-        linkLabel: 'Export CSV'
-        linkCss: 'csv-link'
-        fileName: new Date() + ".csv"
-      })]
+
+      # plugins: [new ngGridCsvExportPlugin({
+      #   linkLabel: 'Export CSV'
+      #   linkCss: 'csv-link'
+      #   fileName: new Date() + ".csv"
+      # })]
     }
+
+  export_data_csv = () ->
+    csvData = '"#","Question","Filter","Begin","End"\n'
+    for item in $scope.myData
+      csvData += '"","' + item.question.replace(/"/g,'""') + '","' + item.filter.replace(/"/g,'""') + '","' + item.qbegin + '","' +  item.qend + '"\n'
+    return csvData
+
+  $scope.$watch ((scope) ->
+    scope.myData),(newValue, oldValue) ->
+      csvData = export_data_csv()
+      $('#export_data_csv_button').attr('href',"data:text/csv;charset=UTF-8," + encodeURIComponent(csvData))
+      $('#export_data_csv_button').attr('download', new Date() + ".csv")
+      return
 
   $scope.import_from_local_storage = () ->
     $scope.myData = localStorageService.get('myData')
