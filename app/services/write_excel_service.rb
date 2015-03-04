@@ -31,36 +31,33 @@ class WriteExcelService < BaseService
     p __method__
     styles = wb.styles
     predefined_styles = Hash.new
-    predefined_styles['border'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER)
-    predefined_styles['border_with_center'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center })
-    predefined_styles['bold'] = styles.add_style(:b => true)
-    predefined_styles['bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :left })
-    predefined_styles['bold_with_center'] = styles.add_style(:b => true, :alignment => { :horizontal => :center })
-    predefined_styles['bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center })
-    predefined_styles['red_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"FF0000",:alignment => { :horizontal => :center })
+    predefined_styles['border'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER, :sz => 10, :font_name => 'Tahoma')
+    predefined_styles['border_with_center'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma')
+    predefined_styles['bold'] = styles.add_style(:b => true, :sz => 10, :font_name => 'Tahoma')
+    predefined_styles['bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :left }, :sz => 10, :font_name => 'Tahoma')
+    predefined_styles['bold_with_center'] = styles.add_style(:b => true, :alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma')
+    predefined_styles['bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center } , :sz => 10, :font_name => 'Tahoma')
+    predefined_styles['red_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"FF0000",:alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma')
 
-    predefined_styles['red_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :center }
+    predefined_styles['red_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma'
     )
-    predefined_styles['red_bold_border_with_right'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :right }
-    )
-
-    predefined_styles['red_bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000"
-    )
-    predefined_styles['red_bold_border_with_left'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :left }
+    predefined_styles['red_bold_border_with_right'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :right }, :sz => 10, :font_name => 'Tahoma'
     )
 
+    predefined_styles['red_bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma'
+    )
+    predefined_styles['red_bold_border_with_left'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:alignment => { :horizontal => :left }, :sz => 10, :font_name => 'Tahoma'
+    )
 
+    predefined_styles['blue_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"0000FF",:alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma')
 
-    predefined_styles['blue_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"0000FF",:alignment => { :horizontal => :center })
+    predefined_styles['red'] = styles.add_style(:fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma')
 
-    predefined_styles['red'] = styles.add_style(:fg_color=>"FF0000")
+    predefined_styles['red_bold'] = styles.add_style(:b => true, :fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma')
 
-    predefined_styles['red_bold'] = styles.add_style(:b => true, :fg_color=>"FF0000")
+    predefined_styles['blue_bold'] = styles.add_style(:b => true, :fg_color=>"0000FF", :sz => 10, :font_name => 'Tahoma')
 
-    predefined_styles['blue_bold'] = styles.add_style(:b => true, :fg_color=>"0000FF")
-
-
-    predefined_styles['blue_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"0000FF",:alignment => { :horizontal => :center })
+    predefined_styles['blue_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"0000FF",:alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma')
     predefined_styles
   end
 
