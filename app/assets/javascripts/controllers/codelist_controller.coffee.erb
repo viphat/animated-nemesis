@@ -15,7 +15,6 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     qend: ''
 
   $scope.$on 'ngGridEventEndCellEdit', (evt) ->
-    console.log evt.targetScope.row.entity
     $scope.codelist = build_json_object()
     # the underlying data bound to the row
     # Detect changes and send entity to server
@@ -86,37 +85,34 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
             <a href="javascript:void(0);" ng-click="import_from_csv()">Import from CSV</a>
           </span>
           <span class="custom-btn pull-right">
-            <a href="javascript:void(0);" id="export_data_csv_button">Export Data CSV</a>
+            <a href="javascript:void(0);" id="export_data_csv_button">Export Codelist CSV</a>
           </span>
         </div>
       '
       beforeSelectionChange: (a1) ->
-        console.log $scope.myData
+        # console.log $scope.myData
         if a1.rowIndex == $scope.myData.length - 1
           if $scope.myData[$scope.myData.length-1].question !=newObject.question
             $scope.myData.push angular.copy(newObject)
             $scope.codelist = build_json_object()
         true
-
-      # plugins: [new ngGridCsvExportPlugin({
-      #   linkLabel: 'Export CSV'
-      #   linkCss: 'csv-link'
-      #   fileName: new Date() + ".csv"
-      # })]
     }
 
   export_data_csv = () ->
     csvData = '"#","Question","Filter","Begin","End"\n'
+    # console.log $scope.myData
     for item in $scope.myData
       csvData += '"","' + item.question.replace(/"/g,'""') + '","' + item.filter.replace(/"/g,'""') + '","' + item.qbegin + '","' +  item.qend + '"\n'
     return csvData
 
-  $scope.$watch ((scope) ->
-    scope.myData),(newValue, oldValue) ->
-      csvData = export_data_csv()
-      $('#export_data_csv_button').attr('href',"data:text/csv;charset=UTF-8," + encodeURIComponent(csvData))
-      $('#export_data_csv_button').attr('download', new Date() + ".csv")
-      return
+  $scope.$watch('myData', (->
+    csvData = export_data_csv()
+    $('#export_data_csv_button').attr('href',"data:text/csv;charset=UTF-8," + encodeURIComponent(csvData))
+    $('#export_data_csv_button').attr('download', new Date() + ".csv")
+    return),
+    true
+  )
+
 
   $scope.import_from_local_storage = () ->
     $scope.myData = localStorageService.get('myData')
@@ -210,7 +206,6 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
         deferred.reject("Rejected")
         return
       $scope.codelist = build_json_object()
-      console.log $scope.codelist
       codelistForm.submit()
       deferred.resolve("Successful")
     )
