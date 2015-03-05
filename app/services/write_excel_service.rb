@@ -7,7 +7,6 @@ class WriteExcelService < BaseService
     ap data.sheet_name
     predefined_styles = set_predefined_styles(wb)
     sorted_order = options['orders'].sort_by{ |k,v| v }
-
     # Started to Write Data
     start_row = add_blank_row(sheet)
     sorted_order.each do |key,value|
@@ -138,8 +137,7 @@ class WriteExcelService < BaseService
       if data.codelist
         (data.header.count - 2).times { style_for_header << predefined_styles['red_bold_with_center'] }
         (data.header.count - 2).times { style_for_data << predefined_styles['border'] }
-        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['
-          red_bold_border_with_right'] }
+        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
         ((data.header.count - 2)).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
       else
         (data.header.count - 1).times { style_for_header << predefined_styles['red_bold_with_center'] }
