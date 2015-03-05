@@ -139,12 +139,22 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     $scope.myData = []
     for line in lines
       items = line.split(",")
-      $scope.myData.push {
-        question: items[1].substring(1,items[1].length-1)
-        filter: items[2].substring(1,items[2].length-1)
-        qbegin: items[3].substring(1,items[3].length-1)
-        qend: items[4].substring(1,items[4].length-1)
-      }
+
+      if (items[1].charAt(0) == "\"")
+        $scope.myData.push {
+          question: items[1].substring(0,items[1].length)
+          filter: items[2].substring(0,items[2].length)
+          qbegin: items[3].substring(0,items[3].length)
+          qend: items[4].substring(0,items[4].length)
+        }
+      else
+        $scope.myData.push {
+          question: items[1].substring(1,items[1].length-1)
+          filter: items[2].substring(1,items[2].length-1)
+          qbegin: items[3].substring(1,items[3].length-1)
+          qend: items[4].substring(1,items[4].length-1)
+        }
+
     $scope.$apply()
     $scope.codelist = build_json_object()
 
