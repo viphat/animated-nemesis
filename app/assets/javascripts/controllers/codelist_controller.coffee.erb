@@ -139,8 +139,7 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     $scope.myData = []
     for line in lines
       items = line.split(",")
-
-      if (items[1].charAt(0) == "\"")
+      if (items[1].charAt(0) != "\"")
         $scope.myData.push {
           question: items[1].substring(0,items[1].length)
           filter: items[2].substring(0,items[2].length)
