@@ -23,8 +23,11 @@ class ReadCsvService < BaseService
   end
 
   def read_csv(csv_file,options)
+    ap "#{__method__} #{csv_file}"
     # max_cols = 0
+    binding.pry
     csv_text = File.read(csv_file).encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+
     csv = CSV.parse(csv_text, headers: false)
     data = RawData.new
     header_flag = false
@@ -44,7 +47,7 @@ class ReadCsvService < BaseService
       # max_cols = row.length if row.length > max_cols
       unless row.all? { |x| x.blank? }
         first_cell = helper_obj.trim_and_downcase_a_string(row[0])
-        # ap first_cell
+        ap first_cell
         case
           when first_cell.include?('wtd. resp.') then
             data.wtd_resp = row
@@ -74,7 +77,7 @@ class ReadCsvService < BaseService
             end
           else
             if header_flag == false
-              # binding.pry
+
               if header_label.present? && header_label_flag + 1 != line
                 # Header
                 header_flag = true

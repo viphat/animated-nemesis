@@ -7,14 +7,15 @@ class Index
                 :sheet_name,
                 :link,
                 :filter,
-                :error
+                :error,
+                :means
 
-  def initialize(i=nil,q=nil,s=nil,l=nil,f=nil,e=nil)
-    @index, @question, @sheet_name, @link, @filter, @error = i,q,s,l,f,e
+  def initialize(i=nil,q=nil,s=nil,l=nil,f=nil,e=nil,m=nil)
+    @index, @question, @sheet_name, @link, @filter, @error, @means = i,q,s,l,f,e,m
   end
 
   def build!(hash)
-    @index, @question, @sheet_name, @link, @filter, @error = hash["index"], hash["question"], hash["sheet_name"], hash["link"], hash["filter"], hash["error"]
+    @index, @question, @sheet_name, @link, @filter, @error = hash["index"], hash["question"], hash["sheet_name"], hash["link"], hash["filter"], hash["error"], hash["means"]
     self
   end
 
