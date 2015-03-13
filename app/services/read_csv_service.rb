@@ -25,7 +25,7 @@ class ReadCsvService < BaseService
   def read_csv(csv_file,options)
     ap "#{__method__} #{csv_file}"
     # max_cols = 0
-    binding.pry
+    # binding.pry
     csv_text = File.read(csv_file).encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
 
     csv = CSV.parse(csv_text, headers: false)

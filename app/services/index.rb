@@ -19,5 +19,4 @@ class Index
     self
   end
 
-
 end
