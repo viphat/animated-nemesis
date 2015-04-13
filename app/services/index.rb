@@ -15,7 +15,7 @@ class Index
   end
 
   def build!(hash)
-    @index, @question, @sheet_name, @link, @filter, @error = hash["index"], hash["question"], hash["sheet_name"], hash["link"], hash["filter"], hash["error"], hash["means"]
+    @index, @question, @sheet_name, @link, @filter, @error, @means = hash["index"], hash["question"], hash["sheet_name"], hash["link"], hash["filter"], hash["error"], hash["means"]
     self
   end
 

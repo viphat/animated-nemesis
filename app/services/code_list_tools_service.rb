@@ -10,7 +10,6 @@ class CodeListToolsService < BaseService
     begin
       ap params['codelist']
       codelist = build_codelist_array(params['codelist'])
-      # binding.pry
       codelist = read_codelist_file(codelist_file,params['sheet'].to_i,codelist)
       json_data = build_from_json_file(json_file)
       options = json_data['options']
@@ -31,7 +30,6 @@ class CodeListToolsService < BaseService
       ap e
       raise e
     end
-
 
     # Xuat Data
     begin
