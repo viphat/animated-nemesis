@@ -76,6 +76,7 @@ class DataToolsService < BaseService
 
     helper_obj = HelperService.new
     full_file_path = exported_file_path(options,helper_obj)
+
     export_excel_file = "#{full_file_path}.xlsx"
     log_file = build_log_file(file,full_file_path)
 
@@ -201,8 +202,10 @@ class DataToolsService < BaseService
   end
 
   def exported_file_path(options,helper)
-    ("#{Rails.root}/public/uploads/" +
-    (options['output_file_name']? options['output_file_name'] : helper.generate_name()))
+    (
+      "#{Rails.root}/public/uploads/" +
+      (options['output_file_name']? "#{options['output_file_name']}_#{options['export_data_type']}" : "#{helper.generate_name()}_#{options['export_data_type']}" )
+    )
   end
 
   def build_orders(params,options)

@@ -7,6 +7,7 @@ class WriteExcelService < BaseService
     ap data.sheet_name
     predefined_styles = set_predefined_styles(wb)
     sorted_order = options['orders'].sort_by{ |k,v| v }
+
     # Started to Write Data
     start_row = add_blank_row(sheet)
     sorted_order.each do |key,value|
