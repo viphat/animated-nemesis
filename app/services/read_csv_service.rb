@@ -25,7 +25,6 @@ class ReadCsvService < BaseService
   def read_csv(csv_file,options)
     ap "#{__method__} #{csv_file}"
     # max_cols = 0
-    # binding.pry
     csv_text = File.read(csv_file).encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
 
     csv = CSV.parse(csv_text, headers: false)
@@ -55,7 +54,7 @@ class ReadCsvService < BaseService
             data.resp = row
           when first_cell.include?('base') then
             data.base = first_cell.upcase
-          when first_cell.include?('table') then
+          when first_cell.starts_with?('table') then
             data.table_name = first_cell.capitalize
           when data.question.nil? && !first_cell.blank? && data.table_name != nil && data.table_name.include?(first_cell)
             data.question = first_cell.capitalize
@@ -77,7 +76,6 @@ class ReadCsvService < BaseService
             end
           else
             if header_flag == false
-
               if header_label.present? && header_label_flag + 1 != line
                 # Header
                 header_flag = true
@@ -92,7 +90,6 @@ class ReadCsvService < BaseService
               end
             else
               # Data
-
               unless first_cell.blank?
                 # Count
                 if data.totals_count.nil?
