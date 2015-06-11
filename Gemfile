@@ -32,8 +32,10 @@ gem "rails-settings-cached", '0.4.1'
 gem 'non-stupid-digest-assets', '~> 1.0.4'
 gem "autoprefixer-rails"
 
-gem 'roo', git: 'http://github.com/roo-rb/roo.git'
-gem 'roo-xls', git: 'http://github.com/roo-rb/roo-xls.git'
+# gem 'roo', git: 'http://github.com/roo-rb/roo.git'
+# gem 'roo-xls', git: 'http://github.com/roo-rb/roo-xls.git'
+gem 'roo', git: 'https://github.com/roo-rb/roo.git', ref: '707ed1524dd4506e553c6528a674add910598395'
+gem 'roo-xls', git: 'https://github.com/roo-rb/roo-xls.git', ref: 'a316a88d042ca6e28a83c46a0db1906a9feebb62'
 gem 'rubyzip',  "1.0.0"
 gem 'axlsx', '2.0.1'
 # gem 'axlsx_rails', '0.3.0'

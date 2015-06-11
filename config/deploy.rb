@@ -16,7 +16,7 @@ set :deploy_to, '/home/viphat/web/data'
 set :repository, 'git@github.com:viphat/animated-nemesis.git'
 set :rails_env, 'production'
 set :branch, 'master'
-set :user, 'viphat'    # Username in the server to SSH to.
+set :user, 'root'    # Username in the server to SSH to.
 set :forward_agent, true     # SSH forward_agent.
 set :port, '22'     # SSH port number.
 
@@ -47,7 +47,7 @@ task :environment do
           #{echo_cmd %[source  ~/.bashrc]}
         }
   queue 'source ~/.bash_profile'
-  invoke :'rvm:use[ruby-2.2.0@default]'
+  # invoke :'rvm:use[ruby-2.2.1@default]'
 
 end
 
@@ -103,11 +103,4 @@ task :restart do
   queue 'sudo /etc/init.d/apache2 restart'
   queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
 end
-
-# For help in making your deploy script, see the Mina documentation:
-#
-#  - http://nadarei.co/mina
-#  - http://nadarei.co/mina/tasks
-#  - http://nadarei.co/mina/settings
-#  - http://nadarei.co/mina/helpers
 

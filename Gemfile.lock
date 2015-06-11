@@ -1,6 +1,7 @@
 GIT
-  remote: http://github.com/roo-rb/roo-xls.git
+  remote: https://github.com/roo-rb/roo-xls.git
   revision: a316a88d042ca6e28a83c46a0db1906a9feebb62
+  ref: a316a88d042ca6e28a83c46a0db1906a9feebb62
   specs:
     roo-xls (0.0.1)
       nokogiri
@@ -8,8 +9,9 @@ GIT
       spreadsheet (> 0.9.0)
 
 GIT
-  remote: http://github.com/roo-rb/roo.git
+  remote: https://github.com/roo-rb/roo.git
   revision: 707ed1524dd4506e553c6528a674add910598395
+  ref: 707ed1524dd4506e553c6528a674add910598395
   specs:
     roo (2.0.0)
       nokogiri
