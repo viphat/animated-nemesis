@@ -11,8 +11,8 @@ require 'mina/whenever'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, '104.237.158.15'
-set :deploy_to, '/var/www/viphat.name/data-tools'
+set :domain, 'viphat.work'
+set :deploy_to, '/home/viphat/web/data'
 set :repository, 'git@github.com:viphat/animated-nemesis.git'
 set :rails_env, 'production'
 set :branch, 'master'
