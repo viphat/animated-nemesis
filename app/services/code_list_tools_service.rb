@@ -10,11 +10,21 @@ class CodeListToolsService < BaseService
     begin
       ap params['codelist']
       codelist = build_codelist_array(params['codelist'])
-      codelist = read_codelist_file(codelist_file,params['sheet'].to_i,codelist)
       json_data = build_from_json_file(json_file)
       options = json_data['options']
+
+      if params[:dual_languages].present? && params[:dual_languages].to_sym == :on
+        options['dual_languages'] = true
+      else
+        options['dual_languages'] = false
+      end
+
+      codelist = read_codelist_file(codelist_file,params['sheet'].to_i,codelist,options["dual_languages"])
+
+
       options['export_data_type'] = options['export_data_type'].to_sym
       options['export_first'] = options['export_first'].to_sym
+
       indexes = build_index_from_json(json_data['indexes'])
       data = build_raw_data_from_json(json_data['data'])
 
@@ -24,8 +34,7 @@ class CodeListToolsService < BaseService
         end
       end
 
-      data = parse_data(data,codelist)
-
+      data = parse_data(data,codelist,options)
     rescue Exception => e
       ap e
       raise e
@@ -44,9 +53,8 @@ class CodeListToolsService < BaseService
 
   private
 
-  def parse_data(data,codelist)
+  def parse_data(data,codelist,options=nil)
     ap __method__
-    # binding.pry
     codelist.each do |item|
       if item.code.length == 0
         next
@@ -58,8 +66,10 @@ class CodeListToolsService < BaseService
         if item.filters != "" && !(datum.filters.include?(item.filters))
           next
         end
-        datum = insert_label(datum,item)
+        datum = insert_label(datum,item,options)
         datum = insert_into(datum)
+        datum = insert_into(datum) if options["dual_languages"] == true
+
         datum.codelist = true
       end
     end
@@ -70,7 +80,7 @@ class CodeListToolsService < BaseService
     /\A[+-]?\d+\z/ === str
   end
 
-  def insert_label(data,codelist)
+  def insert_label(data,codelist,options=nil)
     ap __method__
     codes = []
     codelist.code.each do |c|
@@ -84,6 +94,11 @@ class CodeListToolsService < BaseService
           label = codelist.code[index].label
           item['count'].insert(1,label)
           item['percent'].insert(1,label)
+          if codelist.code[index].sub_label.present?
+            sub_label = codelist.code[index].sub_label
+            item['count'].insert(2,sub_label)
+            item['percent'].insert(2,sub_label)
+          end
           if codelist.code[index].bold == true
             item['bold'] = true
           end
@@ -92,6 +107,10 @@ class CodeListToolsService < BaseService
       end
       item['count'].insert(1,"")
       item['percent'].insert(1,"")
+      if options["dual_languages"] == true
+        item['count'].insert(1,"")
+        item['percent'].insert(1,"")
+      end
     end
     data_codes = []
     data.val.each do |x|
@@ -154,7 +173,7 @@ class CodeListToolsService < BaseService
     data
   end
 
-  def read_codelist_file(codelist_file,sheet,codelist)
+  def read_codelist_file(codelist_file,sheet,codelist,is_dual_languages)
     ap __method__
     # Spreadsheet.client_encoding = 'UTF-8'
     excel = Roo::Spreadsheet.open(codelist_file)
@@ -178,7 +197,11 @@ class CodeListToolsService < BaseService
       (item.qbegin..item.qend).each do |row_index|
         row = sheet.row(row_index)
         if row[0].is_a? Numeric
-          code = Code.new(row[0].to_i, row[1].to_s, index)
+          if is_dual_languages
+            code = Code.new(row[0].to_i, row[1].to_s, index,row[2].to_s)
+          else
+            code = Code.new(row[0].to_i, row[1].to_s, index)
+          end
           code.bold = true if sheet.font(row_index,2).present? && sheet.font(row_index,2).bold?
           item.code.push code
           index = index + 1

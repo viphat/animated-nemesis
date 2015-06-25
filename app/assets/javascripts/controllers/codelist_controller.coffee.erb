@@ -20,6 +20,8 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     # Detect changes and send entity to server
     return
 
+  $scope.reset = () ->
+    $scope.myData = []
 
   $scope.removeRow =() ->
     index = this.row.rowIndex
@@ -30,8 +32,13 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
   $scope.load = () ->
     $scope.myData.push angular.copy(newObject)
     $scope.sheet = 1
+
     if localStorageService.get('sheet')?
       $scope.sheet = localStorageService.get('sheet')
+
+    if localStorageService.get('dual_languages')?
+      $scope.dual_languages = localStorageService.get('dual_languages')
+
     if localStorageService.get('codelist_output_file_name')
       $scope.output_file_name = localStorageService.get('codelist_output_file_name')
 
@@ -41,8 +48,6 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     setupGrid()
 
     $scope.codelist = build_json_object()
-
-
 
     $('#import_csv_file_input').on("change", (event) ->
       angular.element(this).scope().hasFile()
@@ -165,6 +170,7 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
     return codelist
 
   $scope.submitForm = ($event) ->
+
     codelistForm = document.getElementById('codelistForm')
     data_file = $('#data_file')
     codelist_file = $('#codelist_file')
@@ -189,11 +195,9 @@ app.controller "CodelistController", [ '$scope', 'localStorageService','$http','
       localStorageService.set('codelist_file', codelist_file.val().split('\\').pop())
 
     localStorageService.set('sheet', $scope.sheet)
-
+    localStorageService.set('dual_languages', $scope.dual_languages)
     localStorageService.set('codelist_output_file_name', $scope.output_file_name)
-
     localStorageService.set('myData', $scope.myData)
-
 
     $q.all(promises).then ((result) ->
       res = []

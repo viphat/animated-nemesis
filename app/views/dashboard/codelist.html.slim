@@ -43,6 +43,11 @@
                 | &nbsp;Output File Name
             input.form-control type='text' placeholder='File Name' name='output_file_name' ng-model='output_file_name'
             input type="file" style="display:none" id="import_csv_file_input" accept=".csv"
+          .form-group
+              label.checkbox-inline
+                  input type='checkbox' name='dual_languages' ng-model='dual_languages'
+                    | Dual Languages
+
         .row
           .gridStyle ng-grid="gridOptions"
         input type='hidden' name='codelist' ng-value='codelist'

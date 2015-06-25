@@ -7,7 +7,6 @@ class WriteExcelService < BaseService
     ap data.sheet_name
     predefined_styles = set_predefined_styles(wb)
     sorted_order = options['orders'].sort_by{ |k,v| v }
-
     # Started to Write Data
     start_row = add_blank_row(sheet)
     sorted_order.each do |key,value|
@@ -31,41 +30,26 @@ class WriteExcelService < BaseService
     p __method__
     styles = wb.styles
     predefined_styles = Hash.new
-
     predefined_styles['normal'] = styles.add_style(:sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['border'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER, :sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['border_with_center'] = styles.add_style(:border => Axlsx::STYLE_THIN_BORDER,:alignment => { :horizontal => :center }, :sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['bold'] = styles.add_style(:b => true, :sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER, :sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :left })
-
     predefined_styles['bold_with_center'] = styles.add_style(:b => true, :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal => :center })
-
     predefined_styles['bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER , :sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :center })
-
     predefined_styles['red_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :center })
-
     predefined_styles['red_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :center }
     )
     predefined_styles['red_bold_border_with_right'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000",:sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :right }
     )
-
     predefined_styles['red_bold_border'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER, :fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma'
     )
     predefined_styles['red_bold_border_with_left'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :left }
     )
-
     predefined_styles['blue_bold_border_with_center'] = styles.add_style(:b => true, :border => Axlsx::STYLE_THIN_BORDER,:fg_color=>"0000FF", :sz => 10, :font_name => 'Tahoma',:alignment => { :horizontal => :center })
-
     predefined_styles['red'] = styles.add_style(:fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['red_bold'] = styles.add_style(:b => true, :fg_color=>"FF0000", :sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['blue_bold'] = styles.add_style(:b => true, :fg_color=>"0000FF", :sz => 10, :font_name => 'Tahoma')
-
     predefined_styles['blue_bold_with_center'] = styles.add_style(:b => true, :fg_color=>"0000FF", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal => :center })
     predefined_styles
   end
@@ -112,21 +96,34 @@ class WriteExcelService < BaseService
     style_for_header_row_2 = [predefined_styles['red_bold']]
 
     if data.codelist
-      style_for_header = [predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center']]
-      style_for_data = [predefined_styles['bold_border'],predefined_styles['bold_border']]
-      style_for_group_data = [predefined_styles['red_bold_border_with_left'],predefined_styles['red_bold_border']]
-      style_for_header_row_2 = [predefined_styles['red_bold'],predefined_styles['red_bold']]
+      if options["dual_languages"] == true
+        style_for_header = [predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center']]
+        style_for_data = [predefined_styles['bold_border'],predefined_styles['bold_border'],predefined_styles['bold_border']]
+        style_for_group_data = [predefined_styles['red_bold_border_with_left'],predefined_styles['red_bold_border'],predefined_styles['red_bold_border']]
+        style_for_header_row_2 = [predefined_styles['red_bold'],predefined_styles['red_bold'],predefined_styles['red_bold']]
+      else
+        style_for_header = [predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center']]
+        style_for_data = [predefined_styles['bold_border'],predefined_styles['bold_border']]
+        style_for_group_data = [predefined_styles['red_bold_border_with_left'],predefined_styles['red_bold_border']]
+        style_for_header_row_2 = [predefined_styles['red_bold'],predefined_styles['red_bold']]
+      end
     end
 
     old = []
 
     if options['export_data_type'] == :both
-
       if data.codelist
-        ((data.header.count - 2)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
-        ((data.header.count - 2)*2).times { style_for_data << predefined_styles['border_with_center'] }
-        ((data.header.count - 2)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
-        ((data.header.count - 2)*2).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
+        if options["dual_languages"] == true
+          ((data.header.count - 3)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
+          ((data.header.count - 3)*2).times { style_for_data << predefined_styles['border_with_center'] }
+          ((data.header.count - 3)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
+          ((data.header.count - 3)*2).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
+        else
+          ((data.header.count - 2)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
+          ((data.header.count - 2)*2).times { style_for_data << predefined_styles['border_with_center'] }
+          ((data.header.count - 2)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
+          ((data.header.count - 2)*2).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
+        end
       else
         ((data.header.count - 1)*2).times { style_for_header << predefined_styles['red_bold_border_with_right'] }
         ((data.header.count - 1)*2).times { style_for_data << predefined_styles['border_with_center'] }
@@ -136,10 +133,17 @@ class WriteExcelService < BaseService
       data.header = fill_blanks(data.header,data.codelist)
     else
       if data.codelist
-        (data.header.count - 2).times { style_for_header << predefined_styles['red_bold_with_center'] }
-        (data.header.count - 2).times { style_for_data << predefined_styles['border'] }
-        ((data.header.count - 2)).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
-        ((data.header.count - 2)).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
+        if options["dual_languages"] == true
+          (data.header.count - 3).times { style_for_header << predefined_styles['red_bold_with_center'] }
+          (data.header.count - 3).times { style_for_data << predefined_styles['border'] }
+          (data.header.count - 3).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
+          (data.header.count - 3).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
+        else
+          (data.header.count - 2).times { style_for_header << predefined_styles['red_bold_with_center'] }
+          (data.header.count - 2).times { style_for_data << predefined_styles['border'] }
+          (data.header.count - 2).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
+          (data.header.count - 2).times { style_for_header_row_2 << predefined_styles['red_bold_border_with_center'] }
+        end
       else
         (data.header.count - 1).times { style_for_header << predefined_styles['red_bold_with_center'] }
         (data.header.count - 1).times { style_for_data << predefined_styles['border'] }
@@ -149,8 +153,13 @@ class WriteExcelService < BaseService
 
     width = [:ignore] * data.header.count
     if data.codelist
-      width = [:ignore, 40]
-      width << [:ignore] * (data.header.count - 2)
+      if options["dual_languages"] == true
+        width = [:ignore, 40, 40]
+        width << [:ignore] * (data.header.count - 3)
+      else
+        width = [:ignore, 40]
+        width << [:ignore] * (data.header.count - 2)
+      end
       width = width.flatten
     end
     start_row = sheet.add_row(data.header, style: style_for_header,:widths => width)
@@ -159,13 +168,17 @@ class WriteExcelService < BaseService
       merge_cells(sheet,start_row,old,predefined_styles['red_bold_border_with_center'],data.codelist)
       new_row = []
       new_row[0] = ''
-
       i = 1
       j = 1
 
       if data.codelist
-        i = 2
-        j = 2
+        if options["dual_languages"] == true
+          i = 3
+          j = 3
+        else
+          i = 2
+          j = 2
+        end
       end
 
       if options['export_first'] == :percent
@@ -220,7 +233,11 @@ class WriteExcelService < BaseService
     styling = [predefined_styles['bold']]
 
     if data.codelist
-      styling = [predefined_styles['bold_with_center'],predefined_styles['bold_with_center']]
+      if options["dual_languages"] == true
+        styling = [predefined_styles['bold_with_center'],predefined_styles['bold_with_center'],predefined_styles['bold_with_center']]
+      else
+        styling = [predefined_styles['bold_with_center'],predefined_styles['bold_with_center']]
+      end
     end
 
     total_arr = data.totals_count if options['export_data_type'] == :count
@@ -240,7 +257,11 @@ class WriteExcelService < BaseService
 
     i = 1
     if data.codelist
-      i = 2
+      if options["dual_languages"] == true
+        i = 3
+      else
+        i = 2
+      end
     end
 
     (total_arr.count-i).times {
@@ -250,7 +271,12 @@ class WriteExcelService < BaseService
     row = sheet.add_row(total_arr,style: styling)
     if options['export_data_type'] == :both
       if data.codelist
-        range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(1, row.index)
+        if options["dual_languages"] == true
+          range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(2, row.index)
+        else
+          range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(1, row.index)
+        end
+
         sheet.merge_cells range
       end
     end
@@ -316,13 +342,14 @@ class WriteExcelService < BaseService
     both_arr
   end
 
-  def merge_cells(sheet,row,data_arr,style,codelist=false)
+  def merge_cells(sheet,row,data_arr,style,codelist=false,options=nil)
     p __method__
     if codelist
       range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(1, row.index)
       sheet.merge_cells range
     end
     codelist ? index = 2 : index = 1
+    index = 3 if options["dual_languages"] == true
     data_arr[index..-1].each do
       range = Axlsx::cell_r(index,row.index) + ":" + Axlsx::cell_r(index+1, row.index)
       sheet.merge_cells range
@@ -334,9 +361,10 @@ class WriteExcelService < BaseService
     end
   end
 
-  def fill_blanks(data_arr,codelist=false)
+  def fill_blanks(data_arr,codelist=false,options=nil)
     p __method__
     codelist ? index = 2 : index = 1
+    index = 3 if options["dual_languages"] == true
     data_arr[index..-1].each do
       data_arr = data_arr.insert(index+1,'')
       index = index + 2
