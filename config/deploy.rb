@@ -12,11 +12,11 @@ require 'mina/whenever'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :domain, 'viphat.work'
-set :deploy_to, '/home/viphat/web/data'
+set :deploy_to, '/home/viphat/data'
 set :repository, 'git@github.com:viphat/animated-nemesis.git'
 set :rails_env, 'production'
 set :branch, 'master'
-set :user, 'root'    # Username in the server to SSH to.
+set :user, 'viphat'    # Username in the server to SSH to.
 set :forward_agent, true     # SSH forward_agent.
 set :port, '22'     # SSH port number.
 

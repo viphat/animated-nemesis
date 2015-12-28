@@ -96,7 +96,7 @@ class WriteExcelService < BaseService
     style_for_header_row_2 = [predefined_styles['red_bold']]
 
     if data.codelist
-      if options["dual_languages"] == true
+      if options.present? && options["dual_languages"] == true
         style_for_header = [predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center'],predefined_styles['red_bold_with_center']]
         style_for_data = [predefined_styles['bold_border'],predefined_styles['bold_border'],predefined_styles['bold_border']]
         style_for_group_data = [predefined_styles['red_bold_border_with_left'],predefined_styles['red_bold_border'],predefined_styles['red_bold_border']]
@@ -113,7 +113,7 @@ class WriteExcelService < BaseService
 
     if options['export_data_type'] == :both
       if data.codelist
-        if options["dual_languages"] == true
+        if options.present? && options["dual_languages"] == true
           ((data.header.count - 3)*2).times { style_for_header << predefined_styles['red_bold_border_with_center'] }
           ((data.header.count - 3)*2).times { style_for_data << predefined_styles['border_with_center'] }
           ((data.header.count - 3)*2).times { style_for_group_data << predefined_styles['red_bold_border_with_center'] }
@@ -133,7 +133,7 @@ class WriteExcelService < BaseService
       data.header = fill_blanks(data.header,data.codelist)
     else
       if data.codelist
-        if options["dual_languages"] == true
+        if options.present? && options["dual_languages"] == true
           (data.header.count - 3).times { style_for_header << predefined_styles['red_bold_with_center'] }
           (data.header.count - 3).times { style_for_data << predefined_styles['border'] }
           (data.header.count - 3).times { style_for_group_data << predefined_styles['red_bold_border_with_right'] }
@@ -153,7 +153,7 @@ class WriteExcelService < BaseService
 
     width = [:ignore] * data.header.count
     if data.codelist
-      if options["dual_languages"] == true
+      if options.present? && options["dual_languages"] == true
         width = [:ignore, 40, 40]
         width << [:ignore] * (data.header.count - 3)
       else
@@ -172,7 +172,7 @@ class WriteExcelService < BaseService
       j = 1
 
       if data.codelist
-        if options["dual_languages"] == true
+        if options.present? && options["dual_languages"] == true
           i = 3
           j = 3
         else
@@ -233,7 +233,7 @@ class WriteExcelService < BaseService
     styling = [predefined_styles['bold']]
 
     if data.codelist
-      if options["dual_languages"] == true
+      if options.present? && options["dual_languages"] == true
         styling = [predefined_styles['bold_with_center'],predefined_styles['bold_with_center'],predefined_styles['bold_with_center']]
       else
         styling = [predefined_styles['bold_with_center'],predefined_styles['bold_with_center']]
@@ -257,7 +257,7 @@ class WriteExcelService < BaseService
 
     i = 1
     if data.codelist
-      if options["dual_languages"] == true
+      if options.present? && options["dual_languages"] == true
         i = 3
       else
         i = 2
@@ -271,7 +271,7 @@ class WriteExcelService < BaseService
     row = sheet.add_row(total_arr,style: styling)
     if options['export_data_type'] == :both
       if data.codelist
-        if options["dual_languages"] == true
+        if options.present? && options["dual_languages"] == true
           range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(2, row.index)
         else
           range = Axlsx::cell_r(0,row.index) + ":" + Axlsx::cell_r(1, row.index)
@@ -349,7 +349,7 @@ class WriteExcelService < BaseService
       sheet.merge_cells range
     end
     codelist ? index = 2 : index = 1
-    index = 3 if options["dual_languages"] == true
+    index = 3 if options.present? && options["dual_languages"] == true
     data_arr[index..-1].each do
       range = Axlsx::cell_r(index,row.index) + ":" + Axlsx::cell_r(index+1, row.index)
       sheet.merge_cells range
@@ -364,7 +364,7 @@ class WriteExcelService < BaseService
   def fill_blanks(data_arr,codelist=false,options=nil)
     p __method__
     codelist ? index = 2 : index = 1
-    index = 3 if options["dual_languages"] == true
+    index = 3 if options.present? && options["dual_languages"] == true
     data_arr[index..-1].each do
       data_arr = data_arr.insert(index+1,'')
       index = index + 2
