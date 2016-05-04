@@ -1,17 +1,7 @@
-== README
-Usage Stats - Redis
-Cookies - Lưu Settings mới nhất của Người dùng
-Mình muốn có chức năng Stats như thế nào nhỉ?
-Thống kê được theo thời gian - 24h qua, 7 ngày qua, 1 tháng qua, All Time...
-Có bao nhiêu lượt sử dụng
-Sử dụng cho dự án nào (Lấy Tên File .ZIP làm tên dự án)
-Có lỗi hay không
-Sử dụng chức năng nào (Run Percentage, Count hay Both)
-Có sử dụng Codelist Tools hay không
-- Viết một trang Views để Show Những Thống kê này lên - Có sử dụng JavaScript Library để vẽ Chart
-https://matt.sh/thinking-in-redis-part-one
-http://redis.io/commands/scan
-http://redis.io/commands/time
-http://redis.io/topics/twitter-clone
-http://redis.io/topics/data-types-intro
-http://jimneath.org/2011/03/24/using-redis-with-ruby-on-rails.html
+### README
+
+Tools viết bằng Ruby on Rails, gom và xử lý Data từ nhiều file .csv thành một file Excel .xlsx theo template đã định dạng trước. (Data Processing + Dán Codelist)
+
+**TODO**:
+
+- Fix lỗi xử lý không chính xác đối với Data có Weighted.
