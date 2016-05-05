@@ -1,7 +1,0 @@
-### README
-
-Tools viết bằng Ruby on Rails, gom và xử lý Data từ nhiều file .csv thành một file Excel .xlsx theo template đã định dạng trước. (Data Processing + Dán Codelist)
-
-**TODO**:
-
-- Fix lỗi xử lý không chính xác đối với Data có Weighted.
