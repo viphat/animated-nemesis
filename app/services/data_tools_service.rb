@@ -24,13 +24,8 @@ class DataToolsService < BaseService
       log_file.write("\n\n\nWrite JSON Data\n")
       full_file_path = write_data_to_json_file(data,options,@indexes,full_file_path)
     rescue Exception => e
-      log_file.write("\n\n\n#{e}")
-      Airbrake.notify_or_ignore(
-        e,
-        :parameters    => params,
-        :cgi_data      => ENV.to_hash
-      )
       ap e
+      log_file.write("\n\n\n#{e}")
       raise e
     ensure
       helper_obj.delete_folder_after_process(src_folder)
@@ -54,11 +49,6 @@ class DataToolsService < BaseService
       full_file_path = write_questions_to_file(data,full_file_path)
     rescue Exception => e
       log_file.write("\n\n\n#{e}")
-      Airbrake.notify_or_ignore(
-        e,
-        :parameters    => params,
-        :cgi_data      => ENV.to_hash
-      )
       ap e
       raise e
     ensure
@@ -119,11 +109,6 @@ class DataToolsService < BaseService
       p.serialize export_excel_file
     rescue Exception => e
       log_file.write("\n\n\n#{e}")
-      Airbrake.notify_or_ignore(
-        e,
-        :parameters    => params,
-        :cgi_data      => ENV.to_hash
-      )
       ap e
       raise e
     ensure
@@ -152,6 +137,7 @@ class DataToolsService < BaseService
         'question' => 0,
         'filters' => 0,
         'base' => 0,
+        'weight' => 0,
         'wtd_resp' => 0,
         'resp' => 0,
         'header_and_data' => 0,
@@ -208,7 +194,7 @@ class DataToolsService < BaseService
     )
   end
 
-  def build_orders(params,options)
+  def build_orders(params, options)
     orders = params['orders']
     index = 1
     orders.split(",").each do |o|

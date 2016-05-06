@@ -21,7 +21,6 @@ class CodeListToolsService < BaseService
 
       codelist = read_codelist_file(codelist_file,params['sheet'].to_i,codelist,options["dual_languages"])
 
-
       options['export_data_type'] = options['export_data_type'].to_sym
       options['export_first'] = options['export_first'].to_sym
 

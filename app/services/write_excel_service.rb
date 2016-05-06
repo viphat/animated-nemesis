@@ -15,7 +15,6 @@ class WriteExcelService < BaseService
       end
     end
     3.times { add_blank_row(sheet) }
-    # sheet.col_style 0, predefined_styles['alignment_left']
     start_row.index + 2
   end
 
@@ -64,9 +63,14 @@ class WriteExcelService < BaseService
     sheet.add_row([data.filters], style: predefined_styles['bold'],:widths => [:ignore] * data.header.count) unless data.filters.nil?
   end
 
-  def add_base(sheet,data,options,predefined_styles)
+  def add_base(sheet, data, options, predefined_styles)
     p __method__
     sheet.add_row([data.base],style: predefined_styles['normal']) unless data.base.nil?
+  end
+
+  def add_weight(sheet, data, options, predefined_styles)
+    p __method__
+    sheet.add_row([data.weight],style: predefined_styles['normal']) unless data.weight.nil?
   end
 
   def add_wtd_resp(sheet,data,options,predefined_styles)

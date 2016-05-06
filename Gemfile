@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 # ruby '2.2.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-gem 'airbrake'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'whenever'
 # Use sqlite3 as the database for Active Record
@@ -15,7 +14,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-
 gem 'lograge'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -42,7 +40,6 @@ gem 'axlsx', '2.0.1'
 gem 'axlsx_rails'
 gem 'slim'
 gem 'spreadsheet'
-
 gem 'bower-rails' # bower dependencies manager for rails
 
 group :development do

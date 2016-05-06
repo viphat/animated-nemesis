@@ -39,21 +39,21 @@ class ReadCsvService < BaseService
     # ap csv_file
     # CSV.foreach(csv_file) do |row|
     csv.each_with_index do |row,line|
-      if row.all? { |x| x == "" }
-        next
-      end
+      next if row.all? { |x| x == "" }
       # line = $INPUT_LINE_NUMBER
       # max_cols = row.length if row.length > max_cols
       unless row.all? { |x| x.blank? }
         first_cell = helper_obj.trim_and_downcase_a_string(row[0])
         ap first_cell
         case
+          when first_cell.include?('base') then
+            data.base = first_cell.upcase
+          when first_cell.include?('weights:') then
+            data.weight = first_cell.upcase
           when first_cell.include?('wtd. resp.') then
             data.wtd_resp = row
           when first_cell.include?('resp.') then
             data.resp = row
-          when first_cell.include?('base') then
-            data.base = first_cell.upcase
           when first_cell.starts_with?('table') then
             data.table_name = first_cell.capitalize
           when data.question.nil? && !first_cell.blank? && data.table_name != nil && data.table_name.include?(first_cell)
@@ -81,7 +81,7 @@ class ReadCsvService < BaseService
                 header_flag = true
                 header_label = header_label.split.join(" ")
                 data.header_label = header_label
-                data.header= row
+                data.header = row
                 data.header[0] = header_label
               else
                 # Header Label (Truong hop bi xuong dong khi Header qua ngan nhung Label Header qua dai nua)

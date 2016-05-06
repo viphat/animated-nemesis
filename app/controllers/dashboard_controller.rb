@@ -83,24 +83,19 @@ class DashboardController < ApplicationController
   end
 
   private
-  # def strong_params
-  #   params.permit(:data_file,:output_file_name,:export_data_type, :num_of_digits,
-  #                 :build_index,:all_in_one,:clean_empty_code,:clean_empty_table,
-  #                 :clean_empty_header,:orders
-  #                )
-  # end
 
-  def get_data_file(params)
-    if params['data_file'].present?
-      if File.extname(params[:data_file].original_filename) != ".zip"
-        flash[:notice] = "Định dạng Tập tin không được chấp nhận. <br/> Bạn chỉ được upload <strong>tập tin zip</strong>. "
-        render "index"
-        return
+    def get_data_file(params)
+      if params['data_file'].present?
+        if File.extname(params[:data_file].original_filename) != ".zip"
+          flash[:notice] = "Định dạng Tập tin không được chấp nhận. <br/> Bạn chỉ được upload <strong>tập tin zip</strong>. "
+          render "index"
+          return
+        end
+        data_file = DataFile.save(params[:data_file])
+      else
+        data_file = "#{Rails.root}/public/uploads/#{params['local_storage_data']}"
       end
-      data_file = DataFile.save(params[:data_file])
-    else
-      data_file = "#{Rails.root}/public/uploads/#{params['local_storage_data']}"
+      data_file
     end
-    data_file
-  end
+
 end

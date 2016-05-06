@@ -8,4 +8,4 @@ Tools viết bằng Ruby on Rails, dành cho công ty **Intage Việt Nam**, chu
 
 **TODO**:
 
-- Fix lỗi xử lý không chính xác đối với Data có Weighted.
+- ~Fix lỗi xử lý không chính xác đối với Data có Weighted~. [Done - 06/05/2016]

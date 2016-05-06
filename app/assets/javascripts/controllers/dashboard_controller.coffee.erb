@@ -1,11 +1,12 @@
 app.controller "DashboardController", [ '$scope', 'localStorageService','$http',($scope,localStorageService,$http) ->
-  $scope.sorted_order = 'question,filters,base,wtd_resp,resp,header_and_data,totals,std_deviation,means,mode,medians'
+  $scope.sorted_order = 'question,filters,base,weight,wtd_resp,resp,header_and_data,totals,std_deviation,means,mode,medians'
   $scope.num_of_digits = 0
   $scope.export_data_type = 'percent'
   $scope.items = [
     {name: 'Question', value: 'question', is_dismissable: false}
     {name: 'Filters', value: 'filters', is_dismissable: false}
     {name: 'Base', value: 'base', is_dismissable: true}
+    {name: 'Weights', value: 'weight', is_dismissable: true}
     {name: 'WTD RESP', value: 'wtd_resp', is_dismissable: true}
     {name: 'RESP', value: 'resp', is_dismissable: true}
     {name: 'Header & Data', value: 'header_and_data', is_dismissable: false}
@@ -84,6 +85,8 @@ app.controller "DashboardController", [ '$scope', 'localStorageService','$http',
         $scope.items.push {name: 'Filters', value: 'filters', is_dismissable: false}
       if item == 'base'
         $scope.items.push {name: 'Base', value: 'base', is_dismissable: true}
+      if item == 'weight'
+        $scope.items.push {name: 'Weights', value: 'weight', is_dismissable: true}
       if item == 'wtd_resp'
         $scope.items.push {name: 'WTD RESP', value: 'wtd_resp', is_dismissable: true}
       if item == 'resp'
