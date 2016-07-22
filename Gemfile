@@ -28,7 +28,7 @@ gem 'awesome_print', '~> 1.2.0'
 gem "js-routes"
 gem "rails-settings-cached", '0.4.1'
 gem 'non-stupid-digest-assets', '~> 1.0.4'
-gem "autoprefixer-rails"
+gem 'autoprefixer-rails'
 
 # gem 'roo', git: 'http://github.com/roo-rb/roo.git'
 # gem 'roo-xls', git: 'http://github.com/roo-rb/roo-xls.git'

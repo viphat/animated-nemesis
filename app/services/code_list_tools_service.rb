@@ -177,10 +177,8 @@ class CodeListToolsService < BaseService
     # Spreadsheet.client_encoding = 'UTF-8'
     excel = Roo::Spreadsheet.open(codelist_file)
     sheet = excel.sheet(sheet-1)
-    codelist.each_with_index do |item,index|
-      if item.qbegin == 0 || item.question == 'New Row'
-        next
-      end
+    codelist.each_with_index do |item, index|
+      next if item.qbegin == 0 || item.question == 'New Row'
       ap "#{item.qbegin}----#{item.qend}"
       codelist.each do |prev|
         if item.qbegin == prev.qbegin && item.qend == prev.qend
@@ -188,9 +186,7 @@ class CodeListToolsService < BaseService
           break
         end
       end
-      if item.code.count > 0
-        next
-      end
+      next if item.code.count > 0
       index = 1
 
       (item.qbegin..item.qend).each do |row_index|

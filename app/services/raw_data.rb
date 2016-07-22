@@ -19,7 +19,7 @@ class RawData
                 :codelist
 
   def initialize
-    @wtd_resp = @resp = @question = @base = @table_name = @filters = @means = @medians = @mode = @std_deviation = @totals_count = @totals_percent = @header_label = @header = @sheet_name = @codelist = @weight = nil
+    @wtd_resp, @resp, @question , @base , @table_name , @filters , @means , @medians , @mode , @std_deviation , @totals_count , @totals_percent , @header_label , @header , @sheet_name , @codelist , @weight  = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
     @val = []
   end
 
